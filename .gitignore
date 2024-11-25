@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-/Frontend/node_modules
+/frontend/node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -15,11 +15,11 @@
 /coverage
 
 # next.js
-Frontend/.next/
+frontend/.next/
 /out/
 
 # production
-Frontend/build
+frontend/build
 
 # misc
 .DS_Store
