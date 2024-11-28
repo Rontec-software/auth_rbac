@@ -47,25 +47,26 @@ export default function Login() {
           </div>
           <Input
             name="Nome"
-            icon={<Image src="/icon-write.svg" width={20} height={20} alt="icone-escrever" />}
+            iconBefore={<Image src="/icon-write.svg" width={20} height={20} alt="icone-escrever" />}
             type="text"
             event={(e) => setName(e.target.value)}
           />
           <Input
             name="Email"
-            icon={<Image src="/email.svg" width={20} height={20} alt="email" />}
+            iconBefore={<Image src="/email.svg" width={20} height={20} alt="email" />}
             type="text"
             event={(e) => setEmail(e.target.value)}
           />
           <Input
             name="Senha"
-            icon={<Image src="/padlock.svg" width={20} height={20} alt="senha" />}
+            iconBefore={<Image src="/padlock.svg" width={20} height={20} alt="senha" />}
+            iconAfter={<Image src="/eye.svg" width={20} height={20} alt="senha" />}
             type="password"
             event={(e) => setPassword(e.target.value)}
           />
           <Input
             name="Senha"
-            icon={<Image src="/padlock.svg" width={20} height={20} alt="senha-repetir" />}
+            iconBefore={<Image src="/padlock.svg" width={20} height={20} alt="senha-repetir" />}
             type="password"
             event={(e) => setPasswordRepeat(e.target.value)}
           />

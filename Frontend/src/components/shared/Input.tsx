@@ -1,6 +1,7 @@
 export interface InputProps {
     name: string;
-    icon: React.ReactNode;
+    iconBefore?: React.ReactNode;
+    iconAfter?: React.ReactNode;
     className?: string;
     type: "text" | "password" | "phone";
     event: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -8,15 +9,16 @@ export interface InputProps {
 
 export default function Input(props: InputProps) {
     return (
-        <div className="flex flex-col pt-2">
+        <div className="flex flex-col pt-4">
             <span className="text-white text-[14px] pb-1">{props.name}</span>
-            <div className="flex rounded-md border-2 border-black bg-black text-white h-[43px]">
-                <div className="p-2">{props.icon}</div>
+            <div className="flex rounded-md border-2 border-black bg-[#09090B] text-white h-[35px]">
+                <div className="p-2">{props.iconBefore}</div>
                 <input
                     onChange={props.event}
                     type={props.type}
-                    className={`rounded-md border-2 border-black bg-black text-white w-full ${props.className}`}
+                    className={`rounded-md border-2 border-black bg-[#09090B] text-white w-full ${props.className}`}
                 />
+                <div className="p-2">{props.iconAfter}</div>
             </div>
         </div>
     )
