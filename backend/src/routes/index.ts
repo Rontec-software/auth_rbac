@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 
 const router: Router = Router();
 
-router.get("/api", (req: Request, res: Response) => {
+router.get("/api/health", (req: Request, res: Response) => {
   res.json({ message: "API funcionando!" });
 });
 
