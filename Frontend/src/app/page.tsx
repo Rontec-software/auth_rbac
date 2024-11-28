@@ -4,13 +4,18 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h1>Duas rotas existentes</h1>
-      <h1>
+      <div className='border-spacing-1 '>
         URL Login:
         <Link href={'http://localhost:3000/login'}>
           http://localhost:3000/login
         </Link>
+      </div>
+      <h1>
+        URL User:
+        <Link href={'http://localhost:3000/cadastro'}>
+          http://localhost:3000/cadastro
+        </Link>
       </h1>
-
       <h1>
         URL User:
         <Link href={'http://localhost:3000/user'}>
