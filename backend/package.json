@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx tsx watch src/server.ts",
+    "migrate": "npx prisma migrate dev",
     "build": "tsc",
     "start": "node dist/server.js"
   },
