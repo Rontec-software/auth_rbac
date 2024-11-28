@@ -14,6 +14,10 @@ export default {
         'background-secondary': '#18181b',
         'border-color': '#a1a1aa',
       },
+      screens: {
+        xs: '375px', // Adiciona um breakpoint extra para telas muito pequenas
+        '3xl': '1920px', // Adiciona um breakpoint para telas muito grandes
+      }
     },
   },
   plugins: [],
