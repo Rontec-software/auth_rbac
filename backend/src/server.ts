@@ -1,17 +1,42 @@
-import express, { Application } from "express";
-import { Request, Response } from "express";
-import routes from "./routes";
+import express, {
+  Request,
+  Response,
+  ErrorRequestHandler,
+  NextFunction,
+} from "express";
+import path from "path";
+import dotenv from "dotenv";
+import cors from "cors";
+import { UsersRoutes } from "./routes/usersRoutes";
 
-const app: Application = express();
-const port: number = 3000;
+dotenv.config();
 
-app.use(express.json());
-app.use(routes);
+const server = express();
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Olá, mundo!");
+server.use(cors());
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
+
+const usersRoutes = new UsersRoutes().getRoutes();
+
+server.use("/users", usersRoutes);
+
+server.use((req: Request, res: Response) => {
+  res.status(404);
+  res.json({ error: "Endpoint não encontrado." });
 });
 
-app.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`);
+server.use((err: Error, req: Request, resp: Response, next: NextFunction) => {
+  if (err instanceof Error) {
+    return resp.status(400).json({
+      message: err.message,
+    });
+  }
+
+  return resp.status(500).json({ message: "Internal Server Error" });
+  console.log(err);
+});
+
+server.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
 });
