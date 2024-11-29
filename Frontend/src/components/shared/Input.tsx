@@ -5,6 +5,7 @@ export interface InputProps {
     className?: string;
     type: "text" | "password" | "phone";
     event: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    value: string;
 }
 
 export default function Input(props: InputProps) {
@@ -14,6 +15,7 @@ export default function Input(props: InputProps) {
             <div className="flex rounded-md border-2 border-black bg-[#09090B] text-white h-[35px]">
                 <div className="p-2">{props.iconBefore}</div>
                 <input
+                    value={props.value}
                     onChange={props.event}
                     type={props.type}
                     className={`rounded-md border-2 border-black bg-[#09090B] text-white w-full ${props.className}`}

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Input from "@/components/shared/Input";
 import useApi from "@/data/hooks/useApi";
+import InputPhone from "@/components/shared/InputPhone";
 
 export default function Login() {
 
@@ -15,6 +16,8 @@ export default function Login() {
   const [passwordError, setPasswordError] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
   const [passwordRepeatError, setPasswordRepeatError] = useState('');
+  const [phone, setPhone] = useState('');
+  const [phoneError, setphoneError] = useState('');
   const { httpPost } = useApi();
 
   async function handleRegister() {
@@ -49,12 +52,14 @@ export default function Login() {
             name="Nome"
             iconBefore={<Image src="/icon-write.svg" width={20} height={20} alt="icone-escrever" />}
             type="text"
+            value={name}
             event={(e) => setName(e.target.value)}
           />
           <Input
             name="Email"
             iconBefore={<Image src="/email.svg" width={20} height={20} alt="email" />}
             type="text"
+            value={email}
             event={(e) => setEmail(e.target.value)}
           />
           <Input
@@ -62,20 +67,18 @@ export default function Login() {
             iconBefore={<Image src="/padlock.svg" width={20} height={20} alt="senha" />}
             iconAfter={<Image src="/eye.svg" width={20} height={20} alt="senha" />}
             type="password"
+            value={password}
             event={(e) => setPassword(e.target.value)}
           />
           <Input
             name="Senha"
             iconBefore={<Image src="/padlock.svg" width={20} height={20} alt="senha-repetir" />}
             type="password"
+            value={passwordRepeat}
             event={(e) => setPasswordRepeat(e.target.value)}
           />
           <div className="flex flex-col pt-5">
-            <input
-              onChange={(e) => setPassword(e.target.value)}
-              type="phone"
-              className="rounded-md border-2 border-black bg-black text-white h-[43px]"
-            />
+            <InputPhone phone={phone} setPhone={setPhone} />
           </div>
           <button
             onClick={handleRegister}
