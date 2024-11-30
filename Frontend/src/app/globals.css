@@ -5,7 +5,7 @@
 :root {
   --background: #09090b;
   --foreground: #f5f5f5;
-  --bg-container: #18181B;
+  --bg-container: #18181b;
 }
 
 body {
@@ -15,9 +15,8 @@ body {
 }
 
 @layer components {
-
   .bg-container {
-    background: var(--bg-container)
+    background: var(--bg-container);
   }
   .button {
     @apply flex justify-center items-center;
@@ -37,5 +36,4 @@ body {
   .input-container .icon-container {
     @apply absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none;
   }
-
 }
