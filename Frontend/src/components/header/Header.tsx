@@ -11,8 +11,8 @@ export const Header = () => {
         <div className="flex flex-row items-center space-x-1">
           <div className="h-10 w-10 bg-gray-600 rounded-full"></div>
           <div className="flex flex-col">
-            <text className="font-bold ">{user.name}</text>
-            <text className="opacity-50 text-xs">{user.email}</text>
+            <span className="font-bold ">{user.name}</span>
+            <span className="opacity-50 text-xs">{user.email}</span>
           </div>
         </div>
       </div>
