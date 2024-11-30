@@ -1,11 +1,11 @@
 interface objError {
-    message: string
-    field: string
+  message: string;
+  field: string;
 }
 
-export default interface ResponseApi {
-    success: boolean
-    status: number
-    json: any
-    errors?: objError[]
+export default interface ResponseApi<T> {
+  success: boolean;
+  status: number;
+  json: T;
+  errors?: objError[];
 }
