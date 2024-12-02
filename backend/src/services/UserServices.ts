@@ -11,7 +11,7 @@ class UsersServices {
     this.cripto = new ProvedorCriptografia();
   }
 
-  async create({ name, email, password }: ICreateUser) {
+  async create({ name, email, password, phoneNumber }: ICreateUser) {
     if (!email) {
       throw new Error("E-mail is required");
     }
@@ -27,6 +27,7 @@ class UsersServices {
       name,
       email,
       password: hashPassword,
+      phoneNumber,
     });
 
     delete created.password;

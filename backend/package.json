@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node src/server.ts",
+    "dev": "npx tsx watch src/server.ts",
+    "migrate": "npx prisma migrate dev",
     "build": "tsc",
-    "start": "ts-node-dev --transpile-only  --respawn --ignore-watch node_modules src/server.ts"
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "",
@@ -26,7 +27,7 @@
     "@types/node": "^22.9.3",
     "@types/uuidv4": "^5.0.0",
     "prisma": "^5.22.0",
-    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.19.2",
     "typescript": "^5.0.4"
   }
 }
