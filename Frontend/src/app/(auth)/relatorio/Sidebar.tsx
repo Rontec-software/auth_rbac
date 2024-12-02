@@ -1,11 +1,11 @@
 'use client'
-import { ReactNode } from 'react'
-import { SecondaryMenu } from '../dropdown/interfaces/Types'
-import { User, Shield, ClipboardMinus, FileText, Plus, List, Edit, Trash2, Download, Upload, File } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import DropdownMenu from '@/components/dropdown/DropdownMenu'
+import { User, Shield, ClipboardMinus, FileText, Plus, List, Edit, Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import logo from './logo.png'
+import { ReactNode } from 'react'
+import { SecondaryMenu } from '../dropdown/interfaces/Types'
+import { useRouter } from 'next/navigation'
 
 export const Sidebar = () => {
   const router = useRouter()
@@ -18,21 +18,21 @@ export const Sidebar = () => {
     ],
     perfilAcesso:[
       { label: 'Adicionar', href: '/perfil-de-acesso/adicionar', icon: <Plus className="w-4 h-4" /> },
-      { label: 'Listar', href: '/perfil-de-acesso/listar', icon: <List className="w-4 h-4" /> },
-      { label: 'Editar', href: '/perfil-de-acesso/editar', icon: <Edit className="w-4 h-4" /> },
-      { label: 'Remover', href: '/perfil-de-acesso/remover', icon: <Trash2 className="w-4 h-4" /> },
+      { label: 'Listar', href: '/perfil-de-acesso/listar', icon: <Plus className="w-4 h-4" /> },
+      { label: 'Editar', href: '/perfil-de-acesso/editar', icon: <Plus className="w-4 h-4" /> },
+      { label: 'Remover', href: '/perfil-de-acesso/remover', icon: <Plus className="w-4 h-4" /> },
     ],
     permissoes: [
       { label: 'Adicionar', href: '/permissao/adicionar', icon: <Plus className="w-4 h-4" /> },
-      { label: 'Listar', href: '/permissao/listar', icon: <List className="w-4 h-4" /> },
-      { label: 'Editar', href: '/permissao/editar', icon: <Edit className="w-4 h-4" /> },
-      { label: 'Remover', href: '/permissao/remover', icon: <Trash2 className="w-4 h-4" /> },
+      { label: 'Listar', href: '/permissao/listar', icon: <Plus className="w-4 h-4" /> },
+      { label: 'Editar', href: '/permissao/editar', icon: <Plus className="w-4 h-4" /> },
+      { label: 'Remover', href: '/permissao/remover', icon: <Plus className="w-4 h-4" /> },
     ],
     relatorios:[
-      { label: 'Gerar', href: '/relatorio/gerar', icon: <File className="w-4 h-4" /> },
-      { label: 'Listar', href: '/relatorio/listar', icon: <List className="w-4 h-4" /> },
-      { label: 'Baixar', href: '/relatorio/baixar', icon: <Download className="w-4 h-4" /> },
-      { label: 'Enviar', href: '/relatorio/enviar', icon: <Upload className="w-4 h-4" /> },
+      { label: 'Gerar', href: '/relatorio/gerar', icon: <Plus className="w-4 h-4" /> },
+      { label: 'Listar', href: '/relatorio/listar', icon: <Plus className="w-4 h-4" /> },
+      { label: 'Baixar', href: '/relatorio/baixar', icon: <Plus className="w-4 h-4" /> },
+      { label: 'Enviar', href: '/relatorio/enviar', icon: <Plus className="w-4 h-4" /> },
     ],
   }
 
