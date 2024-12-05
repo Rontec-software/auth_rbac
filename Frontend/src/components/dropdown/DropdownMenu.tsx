@@ -64,10 +64,10 @@ const DropdownMenu: FC<DropdownMenuProps> = ({
   items,
   initialLabel = 'Menu',
   position = 'center',
-  containerClassName,
-  menuClassName,
-  menuItemClassName,
-  buttonClassName,
+  containerClassName = '',
+  menuClassName = '',
+  menuItemClassName = '',
+  buttonClassName = '',
 }) => {
   const [selectedLabel, setSelectedLabel] = useState(initialLabel)
   const [selectedContent, setSelectedContent] = useState<ReactNode>(null)
@@ -108,7 +108,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({
   }
 
   return (
-    <div className={clsx('relative', containerClassName)}>
+    <div className={`relative ${containerClassName}`}>
       <Menu as="div" className="relative inline-block text-left">
         <div className="flex justify-center w-full">
           <MenuButton
