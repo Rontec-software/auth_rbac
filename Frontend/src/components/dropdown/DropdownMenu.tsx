@@ -17,7 +17,7 @@ interface DropdownMenuProps {
   items: DropdownMenuItem[]
   initialLabel?: string
   position?: 'left' | 'right' | 'center'
-  className?: string // Personaliza o Container Principal
+  containerClassName?: string // Personaliza o Container Principal
   menuClassName?: string // Personaliza o Menu
   menuItemClassName?: string // Personaliza o Item do Menu
   buttonClassName?: string // Personaliza o Botão
@@ -64,7 +64,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({
   items,
   initialLabel = 'Menu',
   position = 'center',
-  className,
+  containerClassName,
   menuClassName,
   menuItemClassName,
   buttonClassName,
@@ -108,7 +108,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({
   }
 
   return (
-    <div className={clsx('relative', className)}>
+    <div className={clsx('relative', containerClassName)}>
       <Menu as="div" className="relative inline-block text-left">
         <div className="flex justify-center w-full">
           <MenuButton
