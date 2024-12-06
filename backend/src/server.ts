@@ -4,6 +4,7 @@ import express, {
   ErrorRequestHandler,
   NextFunction,
 } from "express";
+
 import path from "path";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -11,6 +12,7 @@ import { UsersRoutes } from "./routes/usersRoutes";
 
 dotenv.config();
 
+const port: number = process.env.PORT || 3000;
 const server = express();
 
 server.use(cors());
@@ -37,6 +39,6 @@ server.use((err: Error, req: Request, resp: Response, next: NextFunction) => {
   console.log(err);
 });
 
-server.listen(process.env.PORT, () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
+server.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
