@@ -5,7 +5,7 @@ interface InputIconProps extends React.InputHTMLAttributes<HTMLInputElement> {
    * Ícone a ser exibido dentro do campo de entrada.
    * Aceita qualquer elemento React (ex: ícones da biblioteca `react-icons`).
    */
-  icon: React.ReactNode
+  icon?: React.ReactNode
   /**
    * Define a posição do ícone dentro do input.
    * Pode ser `left` (esquerda) ou `right` (direita).
@@ -42,6 +42,7 @@ interface InputIconProps extends React.InputHTMLAttributes<HTMLInputElement> {
  * ```tsx
  * import React from 'react';
  * import { InputWithIcon } from './InputWithIcon';
+ * import { KeyRound, Mail, User } from "lucide-react";
  * 
  * export const ExemploUsoInput = () => {
  *   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,9 +58,7 @@ interface InputIconProps extends React.InputHTMLAttributes<HTMLInputElement> {
  *         placeholder="Digite seu nome"
  *         value=""
  *         onChange={handleChange}
- *         icon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 text-gray-500">
- *           <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v1m0 4h.01m-6.8-5a9 9 0 1117.6 0m-17.6 0a4.5 4.5 0 019 0m-9 0v1a4.5 4.5 0 009 0v-1" />
- *         </svg>}
+ *         icon={<User size={24} />}
  *         iconPosition="left"
  *         className="bg-white"
  *         width="w-full"
@@ -71,9 +70,7 @@ interface InputIconProps extends React.InputHTMLAttributes<HTMLInputElement> {
  *         placeholder="Digite seu email"
  *         value=""
  *         onChange={handleChange}
- *         icon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 text-gray-500">
- *           <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75L12 12.75 2.25 6.75m19.5 0v10.5a2.25 2.25 0 01-2.25 2.25H4.5a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0L12 12.75m9.75-6L12 12.75" />
- *         </svg>}
+ *         icon={<Mail size={24} />}
  *         iconPosition="right"
  *         className="bg-gray-100"
  *         width="w-80"
@@ -85,9 +82,7 @@ interface InputIconProps extends React.InputHTMLAttributes<HTMLInputElement> {
  *         placeholder="Digite sua senha"
  *         value=""
  *         onChange={handleChange}
- *         icon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 text-gray-500">
- *           <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A3.75 3.75 0 0012 1.5a3.75 3.75 0 00-3.75 3.75V9M7.5 9h9m0 0v6.75A2.25 2.25 0 0114.25 18H9.75A2.25 2.25 0 017.5 15.75V9z" />
- *         </svg>}
+ *         icon={<KeyRound size={24} />}
  *         iconPosition="left"
  *         className="bg-gray-200"
  *         width="w-64"
