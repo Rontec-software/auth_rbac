@@ -32,12 +32,12 @@ export default function User() {
     { label: 'Nome', key: 'name', align: 'left' },
     { label: 'Email', key: 'email', align: 'left' },
     {
-      label: 'Ativo',
+      label: 'Status',
       key: 'active',
       align: 'center',
       customRender: (row) => (
         <Chip
-          label={row.active ? 'Sim' : 'Não'}
+          label={row.active ? 'Ativo' : 'Inativo'}
           color={row.active ? 'bg-green-500' : 'bg-gray-500'}
         />
       ),
