@@ -1,4 +1,5 @@
 'use client';
+import { Chip } from '@/components/shared/chip/Chip';
 import { DataTable } from '@/components/shared/data-table/DataTable';
 import { IColumn } from '@/components/shared/data-table/DataTable.interface';
 import { InputSearch } from '@/components/shared/input-search/InputSeach';
@@ -7,7 +8,7 @@ import { FormEvent, useState } from 'react';
 interface IUser {
   name: string;
   email: string;
-  ativo: boolean;
+  active: boolean;
 }
 export default function User() {
   const [search, setSearch] = useState<string>('');
@@ -30,6 +31,17 @@ export default function User() {
   const columns: IColumn<IUser>[] = [
     { label: 'Nome', key: 'name', align: 'left' },
     { label: 'Email', key: 'email', align: 'left' },
+    {
+      label: 'Ativo',
+      key: 'active',
+      align: 'center',
+      customRender: (row) => (
+        <Chip
+          label={row.active ? 'Sim' : 'Não'}
+          color={row.active ? 'bg-green-500' : 'bg-gray-500'}
+        />
+      ),
+    },
   ];
 
   const data = [
@@ -37,13 +49,13 @@ export default function User() {
       name: 'Usuário 1',
       email: 'email1@gmail',
       profile: 'Perfil 1',
-      ativo: true,
+      active: true,
     },
     {
       name: 'Usuário 2',
       email: 'email2@gmail',
       profile: 'Perfil 2',
-      ativo: false,
+      active: false,
     },
   ];
 
@@ -58,6 +70,7 @@ export default function User() {
           handleReset={handleReset}
         />
       </div>
+
       <DataTable columns={columns} data={data} />
     </div>
   );
