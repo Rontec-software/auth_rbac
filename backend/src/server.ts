@@ -1,14 +1,11 @@
-import express, {
-  Request,
-  Response,
-  ErrorRequestHandler,
-  NextFunction,
-} from "express";
-
-import path from "path";
+import "express-async-errors";
+import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { UsersRoutes } from "./routes/usersRoutes";
+import { AuthRoutes } from "./routes/authRoutes";
+import { errorMiddleware } from "./middlewares/error";
+import { NotFoundError } from "./helpers/api-errors";
 
 dotenv.config();
 
@@ -19,25 +16,17 @@ server.use(cors());
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
+const authRoutes = new AuthRoutes().getRoutes();
 const usersRoutes = new UsersRoutes().getRoutes();
 
+server.use("/auth", authRoutes);
 server.use("/users", usersRoutes);
 
 server.use((req: Request, res: Response) => {
-  res.status(404);
-  res.json({ error: "Endpoint não encontrado." });
+  throw new NotFoundError("Endpoint not found");
 });
 
-server.use((err: Error, req: Request, resp: Response, next: NextFunction) => {
-  if (err instanceof Error) {
-    return resp.status(400).json({
-      message: err.message,
-    });
-  }
-
-  return resp.status(500).json({ message: "Internal Server Error" });
-  console.log(err);
-});
+server.use(errorMiddleware);
 
 server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
