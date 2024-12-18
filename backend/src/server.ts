@@ -1,4 +1,9 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, {
+  Request,
+  Response,
+  ErrorRequestHandler,
+  NextFunction,
+} from "express";
 
 import path from "path";
 import dotenv from "dotenv";
@@ -7,7 +12,7 @@ import { UsersRoutes } from "./routes/usersRoutes";
 
 dotenv.config();
 
-const port = process.env.PORT || 3000;
+const port: number = process.env.PORT || 3000;
 const server = express();
 
 server.use(cors());

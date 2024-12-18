@@ -23,29 +23,5 @@ model User {
   twoFactorAuthEnable   Boolean   @default(false)
   createdAt             DateTime  @default(now())
 
-  profiles UserProfile[]
-
   @@map("users")
-}
-
-model Profile {
-  id          String   @id @default(uuid())
-  name        String
-  description String
-  active      Boolean  @default(true)
-  createdAt   DateTime @default(now())
-
-  users UserProfile[]
-
-  @@map("profiles")
-}
-
-model UserProfile {
-  user      User    @relation(fields: [userId], references: [id])
-  userId    String
-  profile   Profile @relation(fields: [profileId], references: [id])
-  profileId String
-
-  @@id([userId, profileId])
-  @@map("users_profiles")
 }

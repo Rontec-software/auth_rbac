@@ -3,7 +3,6 @@ node_modules
 .env
 
 dev.db
-auth.db
 dev.db-journal
-auth.db-journal
+migrations
 
