@@ -39,8 +39,8 @@ datasource db {
 
 model Usuario {
   id        Int @id @default (autoincrement())
-  nome      String @unique
-  senha     String
+  nome      String
+  senha     String @unique
   email     String
   telefone  String
   imgUrl    String
@@ -50,7 +50,7 @@ model Usuario {
   dataExpiracaoToken              DateTime
   autenticacaoDoisFatoresAtiva    Boolean  @default(true)
 
-  @@map("usuario")
+  @@map("usuarios")
 }
 
 model Perfil {

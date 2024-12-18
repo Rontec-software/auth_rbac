@@ -1,6 +1,11 @@
+import dotenv from 'dotenv'
+import './external/api/config'
 import express, { Application } from "express";
 import { Request, Response } from "express";
 import routes from "./routes";
+
+
+dotenv.config ()
 
 const app: Application = express();
 const port: number = 3000;
