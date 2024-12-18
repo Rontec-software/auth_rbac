@@ -1,6 +1,7 @@
-import DropdownMenu from '@/components/dropdown/DropdownMenu'
-import InputIcon from '@/components/input/InputIcon'
 import { IconCalendar, IconCalendarWeek, IconUser, IconUserCog, IconUserOff, IconUserPause, IconUserPlus, IconUserShield } from '@tabler/icons-react'
+import { User2 } from 'lucide-react'
+import DropdownMenu from '@/components/dropdown/DropdownMenu'
+import FloatingInput from '@/components/input/FloatingInput'
 
 const perfilItems = [
   { label: 'Administrador', href: '#', icon: <IconUserShield />, content: null },
@@ -27,25 +28,21 @@ export default function CriarUsuario() {
       <div className="flex h-14 justify-center items-center bg-gray-800 rounded-tl-xl rounded-tr-xl">
         <span className="text-xl font-semibold">Criar Usuário</span>
       </div>
-      <div className="flex flex-col pb-10 gap-5 bg-gray-950 items-center border border-t-0 border-gray-600/70">
-        <div className="flex flex-col w-4/6 pt-14 gap-1">
-          {/* <span className="text-lg font-semibold">Nome</span> */}
-          <InputIcon
-            icon={<IconUser />}
+      <div className="flex flex-1 flex-col pb-10 gap-5 bg-gray-950 items-center border border-t-0 border-gray-600/70">
+        <form className="flex flex-col bg-inherit w-4/6 pt-14 gap-1">
+          <FloatingInput
+            label="Nome" 
+            type={'text'}            
+            icon={<User2 size={22} />}
             iconPosition="left"
-            placeholder="Digite aqui!"
-            label="Nome"
-            enableLabelTransition={true}
-            className="text-white bg-gray-900 h-10"
-
           />
-        </div>
-        <div className="flex gap-14 pb-32">
+        </form>
+        <div className="flex gap-5 pb-32">
           <DropdownMenu
             items={perfilItems}
             initialLabel='Perfil'
             containerClassName=''
-            buttonClassName='w-full px-9'
+            buttonClassName='w-full px-6'
             menuClassName='w-auto'
             menuItemClassName='whitespace-nowrap'
 
@@ -62,7 +59,7 @@ export default function CriarUsuario() {
             items={ativoItems}
             initialLabel='Ativo'
             containerClassName=''
-            buttonClassName='w-full px-9'
+            buttonClassName='w-full px-6'
             menuClassName='w-auto'
             menuItemClassName='whitespace-nowrap'
           />

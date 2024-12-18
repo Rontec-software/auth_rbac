@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from 'tailwindcss'
 
 export default {
   content: [
@@ -17,8 +17,9 @@ export default {
       screens: {
         xs: '375px', // Adiciona um breakpoint extra para telas muito pequenas
         '3xl': '1920px', // Adiciona um breakpoint para telas muito grandes
-      }
+      },
     },
   },
+  safelist: ['inputTextColor'],
   plugins: [],
-} satisfies Config;
+} satisfies Config
