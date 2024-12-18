@@ -18,7 +18,7 @@ export default function RootLayout({
       <Sidebar />
       <div className="flex flex-col flex-1 p-2">
         <Header />
-        <main className="bg-background-secondary flex-1 m-8  overflow-y-auto rounded-md">
+        <main className="flex flex-1 justify-center items-center bg-background-secondary overflow-y-auto">
           {children}
         </main>
       </div>

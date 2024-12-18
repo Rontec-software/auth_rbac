@@ -1,47 +1,103 @@
-import { ClipboardMinus, Shield, ShieldCheck, User } from 'lucide-react';
-import Link from 'next/link';
+'use client'
+import { ReactNode } from 'react'
+import { SecondaryMenu } from '../dropdown/interfaces/Types'
+import { User, Shield, ClipboardMinus, FileText, Plus, List, Edit, Trash2, Download, Upload, File } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import DropdownMenu from '@/components/dropdown/DropdownMenu'
+import Image from 'next/image'
+import logo from './logo.png'
+
 export const Sidebar = () => {
+  const router = useRouter()
+  const secondaryMenus: SecondaryMenu = {
+    usuarios: [
+      { label: 'Adicionar', href: '/usuario/adicionar', icon: <Plus className="w-4 h-4" /> },
+      { label: 'Listar', href: '/usuario/listar', icon: <List className="w-4 h-4" /> },
+      { label: 'Editar', href: '/usuario/editar', icon: <Edit className="w-4 h-4" /> },
+      { label: 'Remover', href: '/usuario/remover', icon: <Trash2 className="w-4 h-4" /> },
+    ],
+    perfilAcesso:[
+      { label: 'Adicionar', href: '/perfil-de-acesso/adicionar', icon: <Plus className="w-4 h-4" /> },
+      { label: 'Listar', href: '/perfil-de-acesso/listar', icon: <List className="w-4 h-4" /> },
+      { label: 'Editar', href: '/perfil-de-acesso/editar', icon: <Edit className="w-4 h-4" /> },
+      { label: 'Remover', href: '/perfil-de-acesso/remover', icon: <Trash2 className="w-4 h-4" /> },
+    ],
+    permissoes: [
+      { label: 'Adicionar', href: '/permissao/adicionar', icon: <Plus className="w-4 h-4" /> },
+      { label: 'Listar', href: '/permissao/listar', icon: <List className="w-4 h-4" /> },
+      { label: 'Editar', href: '/permissao/editar', icon: <Edit className="w-4 h-4" /> },
+      { label: 'Remover', href: '/permissao/remover', icon: <Trash2 className="w-4 h-4" /> },
+    ],
+    relatorios:[
+      { label: 'Gerar', href: '/relatorio/gerar', icon: <File className="w-4 h-4" /> },
+      { label: 'Listar', href: '/relatorio/listar', icon: <List className="w-4 h-4" /> },
+      { label: 'Baixar', href: '/relatorio/baixar', icon: <Download className="w-4 h-4" /> },
+      { label: 'Enviar', href: '/relatorio/enviar', icon: <Upload className="w-4 h-4" /> },
+    ],
+  }
+
+  const renderSecondaryMenu = (
+    menuItems: { label: string, href: string, icon: ReactNode }[]
+  ) => (
+    <div className="flex flex-col space-y-2">
+      {menuItems.map((item, index) => (
+        <button
+          key={index}
+          className="flex items-center px-4 py-2 bg-gray-700 rounded hover:bg-gray-600 cursor-pointer text-white"
+          onClick={() => router.push(item.href)}
+        >
+          {item.icon && <span className="mr-2">{item.icon}</span>}
+          {item.label}
+        </button>
+      ))}
+    </div>
+  )
+
+
   return (
-    <aside className="w-56 flex flex-col items-start">
-      <div className="flex items-center justify-between p-8">
-        <div className="h-20 w-20 bg-gray-600 rounded-full"></div>
+    <aside className="w-56 flex flex-col items-center">
+      <div className="flex items-center justify-center p-6">
+        <Image
+          width={130}
+          height={130}
+          src={logo}
+          alt="logotipo"
+          className="rounded-full object-cover"
+        />
       </div>
-      <nav className="p-4 mt-4">
-        <ul className="space-4">
-          <li>
-            <Link
-              className="flex items-center p-3 hover:bg-gray-700 rounded-md transition-all"
-              href="/usuario"
-            >
-              <User className="w-5 h-5 mr-4" /> Usuários
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="flex items-center p-3 hover:bg-gray-700 rounded-md transition-all"
-              href="/perfil-de-acesso"
-            >
-              <Shield className="w-5 h-5 mr-4" /> Perfil de acesso
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="flex items-center p-3 hover:bg-gray-700 rounded-md transition-all"
-              href="/permissao"
-            >
-              <ShieldCheck className="w-5 h-5 mr-4" /> Permissões
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="flex items-center p-3 hover:bg-gray-700 rounded-md transition-all"
-              href="/relatorio"
-            >
-              <ClipboardMinus className="w-5 h-5 mr-4" /> Relatórios
-            </Link>
-          </li>
-        </ul>
+      <div className="flex h-0 w-full border-t border-gray-500/50"></div>
+      <nav className="py-4 ml-3">
+        <DropdownMenu
+          items={[
+            {
+              label: 'Usuários',
+              href: '/usuario',
+              content: renderSecondaryMenu(secondaryMenus['usuarios']),
+              icon: <User className="w-5 h-5" />,
+            },
+            {
+              label: 'Perfil de Acesso',
+              href: '/perfil-de-acesso',
+              content: renderSecondaryMenu(secondaryMenus['perfilAcesso']),
+              icon: <Shield className="w-5 h-5" />,
+            },
+            {
+              label: 'Permissões',
+              href: '/permissao',
+              content: renderSecondaryMenu(secondaryMenus['permissoes']),
+              icon: <ClipboardMinus className="w-5 h-5" />,
+            },
+            {
+              label: 'Relatórios',
+              href: '/relatorio',
+              content: renderSecondaryMenu(secondaryMenus['relatorios']),
+              icon: <FileText className="w-5 h-5" />,
+            },
+          ]}
+          initialLabel="Selecione"
+          position="center"
+        />
       </nav>
     </aside>
-  );
-};
+  )
+}
