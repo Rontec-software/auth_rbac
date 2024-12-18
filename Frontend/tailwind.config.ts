@@ -12,6 +12,8 @@ export default {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
         'background-secondary': '#18181b',
+        'background-janela-principal': '#0A0A0AA8',
+        'background-janela-secundaria': '#27272a',
         'border-color': '#a1a1aa',
       },
       screens: {
