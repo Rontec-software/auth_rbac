@@ -74,6 +74,7 @@ const generateInputPadding = (
   // console.log(
   //   `Configurando espaçamento. \nÍcone presente: ${icon}, Posição: ${iconPosition}`
   // )
+  
   if (!icon) return 'px-4 pb-2.5 pt-4'
   return iconPosition === 'right'
     ? 'px-4 pb-2.5 pt-4 pr-10'
@@ -87,6 +88,7 @@ const generateLabelPositionClasses = (
   // console.log(
   //   `Calculando posição do label. Ícone presente: ${icon}, Posição: ${iconPosition}`
   // )
+
   if (icon && iconPosition === 'left') {
     return 'peer-placeholder-shown:translate-x-8 peer-placeholder-shown:left-1 peer-focus:translate-x-0 peer-focus:left-3'
   }

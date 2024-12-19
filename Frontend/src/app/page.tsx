@@ -1,9 +1,9 @@
-'use client'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+'use client';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <div className="flex flex-col gap-4 items-center justify-center min-h-screen">
@@ -28,5 +28,5 @@ export default function Home() {
         Rota Recuperar Senha
       </button>
     </div>
-  )
+  );
 }

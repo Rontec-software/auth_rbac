@@ -11,7 +11,7 @@ import {
   Transition,
 } from '@headlessui/react'
 import { useRouter } from 'next/navigation'
-import clsx from 'clsx'
+import combinarClasses from '../helpers/combinarClasses'
 
 interface DropdownMenuProps {
   items: DropdownMenuItem[]
@@ -112,7 +112,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({
       <Menu as="div" className="relative inline-block text-left">
         <div className="flex justify-center w-full">
           <MenuButton
-            className={clsx(
+            className={combinarClasses(
               `inline-flex justify-center w-56 px-2 py-2 text-sm font-medium text-white bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`,
               buttonClassName
             )}
@@ -135,7 +135,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({
           leaveTo="transform opacity-0 scale-95"
         >
           <MenuItems
-            className={clsx(
+            className={combinarClasses(
               'absolute mt-2 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none z-10',
               getPositionClasses(),
               menuClassName
@@ -146,7 +146,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({
                 {({ active }: { active: boolean }) => (
                   <button
                     onClick={() => handleNavigation(href, label, content, icon)}
-                    className={clsx(
+                    className={combinarClasses(
                       'group flex items-center w-full px-4 py-2 text-sm',
                       active ? 'bg-gray-200 text-gray-900' : 'text-gray-200',
                       menuItemClassName

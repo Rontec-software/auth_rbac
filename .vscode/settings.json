@@ -9,6 +9,7 @@
     "menuItemClassName",
     "buttonClassName",
     "ngClass",
+    "inputBg",
     "class:list"
   ],
   "editor.quickSuggestions": {
