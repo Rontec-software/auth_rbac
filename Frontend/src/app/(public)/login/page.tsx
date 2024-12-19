@@ -30,10 +30,11 @@ export default function Login() {
         <div className="w-[450px] bg-[#18181B] p-12 rounded-md">
           <div className="flex flex-col justify-center items-center">
             <Image
-              src="/logo.svg"
-              width={200}
-              height={200}
+              src="/logo.png"
+              width={150}
+              height={150}
               alt="icone-escrever"
+              className='rounded-full'
             />
           </div>
           <div className="flex flex-col justify-center items-center text-[14px] text-white">
