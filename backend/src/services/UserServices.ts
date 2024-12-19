@@ -11,7 +11,7 @@ class UsersServices {
     this.cripto = new ProvedorCriptografia();
   }
 
-  async create({ nome, email, senha, telefone }: ICreateUser) {
+  async create({ name, email, password, phoneNumber }: ICreateUser) {
     if (!email) {
       throw new Error("Um e-mail é necessário!");
     }
@@ -21,13 +21,13 @@ class UsersServices {
       throw new Error("Usuário já existe!");
     }
 
-    const hashPassword = await this.cripto.criptografar(senha);
+    const hashPassword = await this.cripto.criptografar(password);
 
     const created = await this.repository.create({
-      nome,
+      name,
       email,
-      senha: hashPassword,
-      telefone,
+      password: hashPassword,
+      phoneNumber,
     });
 
     //delete created.senha;

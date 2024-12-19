@@ -11,14 +11,14 @@ class UsersController {
   findByEmail() {}
 
   async create(req: Request, resp: Response, next: NextFunction) {
-    const { nome, email, senha, telefone } = req.body;
+    const { name, email, password, phoneNumber } = req.body;
 
     try {
       const result = await this.userServices.create({
-        nome,
+        name,
         email,
-        senha,
-        telefone,
+        password,
+        phoneNumber,
       });
       return resp.status(201).json(result);
     } catch (error) {

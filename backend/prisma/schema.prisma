@@ -2,32 +2,6 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 
-// Usuário
-
-// ID: Identificador único do usuário (geralmente um UUID ou número inteiro autoincremental).
-// Nome Completo: Nome completo do usuário.
-// E-mail: E-mail do usuário, utilizado como identificador único para login.
-// Senha: Hash da senha do usuário (armazenada de forma segura com hashing).
-// Data de Criação: Data e hora em que o usuário foi criado no sistema.
-// Ativo: Status booleano indicando se o usuário está ativo ou desativado.
-// Token de Recuperação de Senha: Token temporário usado para a recuperação de senha.
-// Data de Expiração do Token: Data de expiração para o token de recuperação de senha.
-// Autenticação de Dois Fatores Ativa: Booleano indicando se a autenticação de dois fatores está habilitada para o usuário.
-// Telefone: Número de telefone do usuário, necessário caso 2FA seja ativado por SMS.
-// Imagem de Perfil: URL ou caminho da imagem de perfil do usuário.
-// Perfis: Relação muitos-para-muitos com a entidade Perfil, contendo os perfis associados ao usuário.
-
-
-// Perfil
-
-// ID: Identificador único do perfil (geralmente um UUID ou número inteiro autoincremental).
-// Nome: Nome do perfil, como "Administrador", "Usuário Padrão", "Editor", etc.
-// Descrição: Breve descrição sobre o perfil, explicando seu propósito ou o tipo de acesso que ele concede.
-// Data de Criação: Data e hora em que o perfil foi criado.
-// Ativo: Status booleano indicando se o perfil está ativo ou inativo, permitindo desativação sem exclusão.
-// Permissões: Relação muitos-para-muitos com a entidade Permissão, contendo as permissões associadas ao perfil.
-
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -37,43 +11,66 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Usuario {
-  id        Int @id @default (autoincrement())
-  nome      String
-  senha     String @unique
-  email     String
-  telefone  String
-  imgUrl    String
-  perfil    Perfil[]          // um usuário pode ter muitos perfis
-  ativo     Boolean @default(true)
-  tokenRecuperacaoSenha          String
-  dataExpiracaoToken              DateTime
-  autenticacaoDoisFatoresAtiva    Boolean  @default(true)
+model User {
+  id                    String    @id @default(uuid())
+  name                  String
+  email                 String    @unique
+  password              String
+  phoneNumber           String
+  profilePicture        String?
+  active                Boolean   @default(true)
+  passwordResetToken    String?
+  expPasswordResetToken DateTime?
+  twoFactorAuthEnable   Boolean   @default(false)
+  createdAt             DateTime  @default(now())
 
-  @@map("usuarios")
+  profiles UserProfile[]
+
+  @@map("users")
 }
 
-model Perfil {
-  id                  Int @id @default (autoincrement())
-  nome                String
-  descricao           String
-  usuario             Usuario[]         // um perfil pode ter muitos usuários
-  permissao           Permissao[]       // um perfil pode ter muitas permissões
-  dataDeCriacao       DateTime @default(now())
-  ativo               Boolean @default(true)
+model Profile {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
 
-  @@map("perfil")
+  users UserProfile[]
+  permitions ProfilePermition[]
+
+  @@map("profiles")
 }
 
-model Permissao {
-  id                  Int @id @default (autoincrement())
-  nome                String
-  descricao           String
-  dataDeCriacao       DateTime @default(now())
-  ativo               Boolean @default(true)
-  perfil              Perfil[]        // uma permissão pode ter muitos perfis
+model Permition {
+  id              String @id @default (uuid())
+  name            String
+  descrition      String
+  active          Boolean @default(true)
+  createdAt       DateTime @default(now())
 
-  @@map("permissao")
+  profiles ProfilePermition[]
+
+  @@map("permition")
 }
 
+model UserProfile {
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+  profile   Profile @relation(fields: [profileId], references: [id])
+  profileId String
+
+  @@id([userId, profileId])
+  @@map("users_profiles")
+}
+
+model ProfilePermition {
+  profile     Profile @relation(fields: [profileId], references: [id])
+  profileId   String
+  permition   Permition @relation(fields: [permitionId], references: [id])
+  permitionId String
+
+  @@id([profileId, permitionId ])
+  @@map("profiles_permission")
+}
 

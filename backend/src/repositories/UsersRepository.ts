@@ -2,13 +2,13 @@ import { ICreateUser } from "../interfaces/UsersInterface";
 import { prismaDB } from "../lib/prisma";
 
 class UsersRepository {
-  async create({ nome, email, senha, telefone }: ICreateUser) {
-    const result = await prismaDB.usuario.create({
+  async create({ name, email, password, phoneNumber  }: ICreateUser) {
+    const result = await prismaDB.user.create({
       data: {
-        nome,
+        name,
         email,
-        senha,
-        telefone,
+        password,
+        phoneNumber ,
       },
     });
 
@@ -16,7 +16,7 @@ class UsersRepository {
   }
 
   async findByEmail(email: string) {
-    const result = await prismaDB.usuario.findUnique({ where: { email } });
+    const result = await prismaDB.user.findUnique({ where: { email } });
 
     return result;
   }
