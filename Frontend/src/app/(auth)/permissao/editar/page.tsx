@@ -22,7 +22,6 @@ export default function EditarPermissao() {
   }
 
   const isFormValid = () => {
-
     // Verifica se o ID é maior que 3 caracteres
     const isIdValid = formData.id.trim().length > 3
 
@@ -94,68 +93,46 @@ export default function EditarPermissao() {
         </form>
       </div>
 
-      <div className="flex gap-4">
-        <div className="flex flex-col w-1/2">
+      <div className="flex flex-col lg:flex-row gap-4">
+        <div className="flex flex-col lg:w-1/2">
           <div className="flex py-2 rounded-tl-lg rounded-tr-lg bg-gray-800">
             <h1 className="font-semibold ml-10">Permissões Disponíveis</h1>
           </div>
 
           <div className="flex bg-transparent border border-gray-800">
             <div className={divSpanClass}>
-              <span className={spanClass}>
-                Incluir-a
-              </span>
-              <span className={spanClass}>
-                Incluir-a
-              </span>
-              <span className={spanClass}>
-                Incluir-a
-              </span>
-              <span className={spanClass}>
-                Incluir-a
-              </span>
-              <span className={spanClass}>
-                Incluir-a
-              </span>
-              <span className={spanClass}>
-                Incluir-a
-              </span>
+              <span className={spanClass}>Incluir-a</span>
+              <span className={spanClass}>Incluir-a</span>
+              <span className={spanClass}>Incluir-a</span>
+              <span className={spanClass}>Incluir-a</span>
+              <span className={spanClass}>Incluir-a</span>
+              <span className={spanClass}>Incluir-a</span>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col w-1/2">
+        <div className="flex flex-col lg:w-1/2">
           <div className="flex py-2 rounded-tl-lg rounded-tr-lg bg-gray-800">
             <h1 className="font-semibold ml-10">Permissões Selecionados</h1>
           </div>
 
           <div className="flex bg-transparent border border-gray-800">
             <div className={divSpanClass}>
-              <span className={spanClass}>
-                Incluir-a
-              </span>
-              <span className={spanClass}>
-                Incluir-a
-              </span>
-              <span className={spanClass}>
-                Incluir-a
-              </span>
-              <span className={spanClass}>
-                Incluir-a
-              </span>
-              <span className={spanClass}>
-                Incluir-a
-              </span>
+              <span className={spanClass}>Incluir-a</span>
+              <span className={spanClass}>Incluir-a</span>
+              <span className={spanClass}>Incluir-a</span>
+              <span className={spanClass}>Incluir-a</span>
+              <span className={spanClass}>Incluir-a</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="flex justify-end gap-6 mr-10">
+      <div className="flex justify-center gap-6 lg:justify-end lg:mr-10">
         <button
           onClick={handleSubmit}
           type="submit"
-          className={`py-2 px-5 rounded-md ${
+          className={`py-2 w-1/2 rounded-md lg:w-fit lg:px-5 ${
             isFormValid()
               ? 'bg-green-600 hover:bg-green-400'
               : 'bg-gray-400 cursor-not-allowed'
@@ -166,7 +143,7 @@ export default function EditarPermissao() {
         </button>
         <button
           type="reset"
-          className="bg-red-500 py-2 px-5 rounded-md"
+          className="bg-red-500 py-2 w-1/2 rounded-md lg:w-fit lg:px-5"
           onClick={() => {
             setFormData({ id: '', nome: '', descricao: '' })
           }}
