@@ -1,3 +1,3 @@
 export default function PermissionsProfile() {
-  return <h1>Perfil de Permissões</h1>;
+  return <h1>Perfil de Acesso</h1>;
 }

@@ -9,7 +9,7 @@ import { NotFoundError } from "./helpers/api-errors";
 
 dotenv.config();
 
-const port: number = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 const server = express();
 
 server.use(cors());
