@@ -3,6 +3,7 @@ import { Chip } from '@/components/shared/chip/Chip';
 import { DataTable } from '@/components/shared/data-table/DataTable';
 import { IColumn } from '@/components/shared/data-table/DataTable.interface';
 import { InputSearch } from '@/components/shared/input-search/InputSeach';
+import Pagination from '@/components/shared/pagination/pagination';
 import { FormEvent, useState } from 'react';
 
 interface IPermissionProfile {
@@ -33,7 +34,7 @@ export default function PermissionsProfile() {
 
   const columns: IColumn<IPermissionProfile>[] = [
     { label: 'Nome', key: 'nome', align: 'left' },
-    { label: 'Email', key: 'descricao', align: 'left' },
+    { label: 'Descrição', key: 'descricao', align: 'left' },
     {
       label: 'Status',
       key: 'ativo',
@@ -51,17 +52,19 @@ export default function PermissionsProfile() {
     {
       id: 1,
       nome: 'Pefil 1',
+      descricao: 'Descrição do Perfil 1',
       ativo: true,
     },
     {
       id: 2,
       nome: 'Perfil 2',
+      descricao: 'Descrição do Perfil 2',
       ativo: false,
     },
   ];
 
   return (
-    <div className="p-4">
+    <div className="w-full h-full p-4">
       <div className="flex items-center justify-center rounded-lg w-full pb-4">
         <InputSearch
           label="Pesquisar Perfil"
@@ -73,6 +76,8 @@ export default function PermissionsProfile() {
       </div>
 
       <DataTable columns={columns} data={data} />
+
+      <Pagination totalPages={10} onPageChange={(page) => console.log(page)} />
     </div>
   );
 }
