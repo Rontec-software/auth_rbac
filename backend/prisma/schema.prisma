@@ -1,6 +1,7 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -36,8 +37,21 @@ model Profile {
   createdAt   DateTime @default(now())
 
   users UserProfile[]
+  permitions ProfilePermition[]
 
   @@map("profiles")
+}
+
+model Permition {
+  id              String @id @default (uuid())
+  name            String
+  descrition      String
+  active          Boolean @default(true)
+  createdAt       DateTime @default(now())
+
+  profiles ProfilePermition[]
+
+  @@map("permition")
 }
 
 model UserProfile {
@@ -48,4 +62,14 @@ model UserProfile {
 
   @@id([userId, profileId])
   @@map("users_profiles")
+}
+
+model ProfilePermition {
+  profile     Profile @relation(fields: [profileId], references: [id])
+  profileId   String
+  permition   Permition @relation(fields: [permitionId], references: [id])
+  permitionId String
+
+  @@id([profileId, permitionId ])
+  @@map("profiles_permission")
 }
