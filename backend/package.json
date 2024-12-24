@@ -10,7 +10,7 @@
     "start": "node dist/server.js"
     "build": "tsc"
   },
-   "keywords": [],
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
