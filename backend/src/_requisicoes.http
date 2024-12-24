@@ -1,12 +1,6 @@
 GET http://localhost:3000
 
 ###
-GET http://localhost:3000/ping
-
-###
-GET http://localhost:3000/user/list
-
-###
 POST http://localhost:3000/users/register
 content-type: application/json
 
@@ -15,4 +9,13 @@ content-type: application/json
   "email": "teste2@teste.com",
   "password": "123456",
   "phoneNumber": "51999998877"
+}
+
+###
+POST http://localhost:3000/auth/login
+content-type: application/json
+
+{
+  "email": "teste2@teste.com",
+  "password": "123456"
 }

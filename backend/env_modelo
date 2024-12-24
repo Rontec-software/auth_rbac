@@ -1,2 +1,3 @@
 DATABASE_URL="file:./dev.db"
 PORT=3000
+JWT_SECRET_KEY=-XfdQz**ji`2}xR=7D1inJ{q}_{Et|
