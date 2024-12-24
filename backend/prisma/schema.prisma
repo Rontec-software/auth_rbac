@@ -73,4 +73,3 @@ model ProfilePermition {
   @@id([profileId, permitionId ])
   @@map("profiles_permission")
 }
-

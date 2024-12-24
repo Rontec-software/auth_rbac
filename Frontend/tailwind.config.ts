@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from 'tailwindcss'
 
 export default {
   content: [
@@ -12,13 +12,16 @@ export default {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
         'background-secondary': '#18181b',
+        'background-janela-principal': '#0A0A0AA8',
+        'background-janela-secundaria': '#27272a',
         'border-color': '#a1a1aa',
       },
       screens: {
         xs: '375px', // Adiciona um breakpoint extra para telas muito pequenas
         '3xl': '1920px', // Adiciona um breakpoint para telas muito grandes
-      }
+      },
     },
   },
+  safelist: ['inputTextColor'],
   plugins: [],
-} satisfies Config;
+} satisfies Config

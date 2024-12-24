@@ -13,12 +13,12 @@ class UsersServices {
 
   async create({ name, email, password, phoneNumber }: ICreateUser) {
     if (!email) {
-      throw new Error("Um e-mail é necessário!");
+      throw new Error("E-mail is required");
     }
 
     const alreadExist = await this.repository.findByEmail(email);
     if (alreadExist) {
-      throw new Error("Usuário já existe!");
+      throw new Error("User alread exists");
     }
 
     const hashPassword = await this.cripto.criptografar(password);
@@ -30,7 +30,7 @@ class UsersServices {
       phoneNumber,
     });
 
-    //delete created.senha;
+    delete created.password;
 
     return created;
   }

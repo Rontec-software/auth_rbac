@@ -1,0 +1,18 @@
+{
+//   //! Tailwind CSS
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "containerClassName",
+    "menuClassName",
+    "menuItemClassName",
+    "buttonClassName",
+    "ngClass",
+    "inputBg",
+    "class:list"
+  ],
+  "editor.quickSuggestions": {
+    "strings": "on"
+  }
+}
