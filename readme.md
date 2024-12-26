@@ -37,3 +37,32 @@ Após o push abrir o Pull Request com a branch de desenvolvimento.
 ```sh
 git commit -m 'Start Frontend (closes #4)'
 ```
+
+### Iniciar backend
+#### 1. Instalar pacotes
+```sh
+cd backend && npm install
+
+```
+#### 2. Rodar migrations
+```sh
+npm run migrate
+```
+#### 3. Rodar ambiente de desenvolvimento
+```sh
+npm run dev
+```
+
+## Iniciar frontend
+#### 1. Instalar pacotes
+```sh
+cd Frontend && npm install
+
+```
+#### 3. Rodar ambiente de desenvolvimento
+```sh
+npm run dev
+```
+
+### Extensão para o VSCODE
+- [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
