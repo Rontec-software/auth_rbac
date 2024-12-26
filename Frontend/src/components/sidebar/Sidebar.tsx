@@ -5,7 +5,7 @@ import { User, Shield, ClipboardMinus, FileText, Plus, List, Edit, Trash2, Downl
 import { useRouter } from 'next/navigation'
 import DropdownMenu from '@/components/dropdown/DropdownMenu'
 import Image from 'next/image'
-import logo from './logo.png'
+import logo from '../../../public/logo.png'
 
 export const Sidebar = () => {
   const router = useRouter()
