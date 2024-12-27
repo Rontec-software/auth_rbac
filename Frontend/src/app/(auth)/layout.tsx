@@ -1,33 +1,38 @@
-import { Header } from '@/components/header/Header';
-import { Sidebar } from '@/components/sidebar/Sidebar';
-import type { Metadata } from 'next';
-import '../globals.css';
-import { DrawerMenu } from '@/components/drawer-menu/DrawerMenu';
-
-export const metadata: Metadata = {
-  title: 'Cod3rs - Auth RBAC',
-  description: 'Autorização e autenticação com nextjs',
-};
+import { Header } from '@/components/header/Header'
+import { Sidebar } from '@/components/sidebar/Sidebar'
+import type { Metadata } from 'next'
+import '../globals.css'
+import { DrawerMenu } from '@/components/drawer-menu/DrawerMenu'
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <div className="flex h-screen">
-      <div className="hidden md:block">
+    <div className="flex flex-col md:flex-row w-full h-screen">
+      {/* Sidebar para dispositivos maiores */}
+      <div className="hidden md:block w-64">
         <Sidebar />
       </div>
+
+      {/* DrawerMenu para dispositivos móveis */}
       <div className="md:hidden">
         <DrawerMenu />
       </div>
-      <div className="flex flex-col flex-1 p-2">
-        <Header />
-        <main className="flex flex-1 justify-center items-center bg-background-secondary overflow-y-auto">
+
+      {/* Conteúdo principal */}
+      <div className="flex flex-1 flex-col w-full h-full">
+        {/* Cabeçalho para telas grandes */}
+        <div className="hidden md:block">
+          <Header />
+        </div>
+
+        {/* Main ocupa todo o espaço restante */}
+        <main className="flex flex-1 w-full h-full bg-background-secondary justify-center items-center overflow-y-auto">
           {children}
         </main>
       </div>
     </div>
-  );
+  )
 }
