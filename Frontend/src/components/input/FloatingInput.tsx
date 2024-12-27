@@ -7,6 +7,9 @@ interface FloatingInputProps {
   type:
     | 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search' | 'date' | 'datetime-local' | 'month' | 'week' | 'time' | 'color' | 'file'
   label: string
+  name: string
+  value: string
+  onChange: React.ChangeEventHandler<HTMLInputElement>
   inputText?: string
   inputTextColor?: string
   inputTextColorDark?: string
@@ -37,21 +40,21 @@ interface FloatingInputProps {
 }
 
 const generateId = (label: string, prefix: string = 'input') => {
-  console.log(`Gerando ID para o label: ${label}, com o prefixo: ${prefix}`)
+  // console.log(`Gerando ID para o label: ${label}, com o prefixo: ${prefix}`)
 
   // Normaliza o prefixo, removendo espaços e caracteres inválidos, convertendo para minúsculas.
   const normalizedPrefix = prefix
     .toLowerCase()
     .replace(/\s+/g, '-')
     .replace(/[^a-z0-9-]/g, '')
-  console.log(`Prefixo normalizado: ${normalizedPrefix}`)
+  // console.log(`Prefixo normalizado: ${normalizedPrefix}`)
 
   // Normaliza o label da mesma forma
   const normalizedLabel = label
     .toLowerCase()
     .replace(/\s+/g, '-')
     .replace(/[^a-z0-9-]/g, '')
-  console.log(`Label normalizado: ${normalizedLabel}`)
+  // console.log(`Label normalizado: ${normalizedLabel}`)
 
   return `${normalizedPrefix}-${normalizedLabel}`
 
@@ -68,9 +71,10 @@ const generateInputPadding = (
   icon: boolean,
   iconPosition: 'left' | 'right'
 ): string => {
-  console.log(
-    `Configurando espaçamento. \nÍcone presente: ${icon}, Posição: ${iconPosition}`
-  )
+  // console.log(
+  //   `Configurando espaçamento. \nÍcone presente: ${icon}, Posição: ${iconPosition}`
+  // )
+  
   if (!icon) return 'px-4 pb-2.5 pt-4'
   return iconPosition === 'right'
     ? 'px-4 pb-2.5 pt-4 pr-10'
@@ -81,9 +85,10 @@ const generateLabelPositionClasses = (
   icon: boolean,
   iconPosition: 'left' | 'right'
 ): string => {
-  console.log(
-    `Calculando posição do label. Ícone presente: ${icon}, Posição: ${iconPosition}`
-  )
+  // console.log(
+  //   `Calculando posição do label. Ícone presente: ${icon}, Posição: ${iconPosition}`
+  // )
+
   if (icon && iconPosition === 'left') {
     return 'peer-placeholder-shown:translate-x-8 peer-placeholder-shown:left-1 peer-focus:translate-x-0 peer-focus:left-3'
   }
@@ -93,6 +98,8 @@ const generateLabelPositionClasses = (
 const FloatingInput: React.FC<FloatingInputProps> = ({
   type,
   label,
+  value,
+  onChange,
   inputText = 'text-sm',
   inputTextColor = 'text-gray-100',
   inputTextColorDark = 'dark:text-white',
@@ -122,7 +129,7 @@ const FloatingInput: React.FC<FloatingInputProps> = ({
   ...props
 }) => {
   const id = generateId(label, idPrefix)
-  console.log(`ID gerado dinamicamente: ${id}`)
+  // console.log(`ID gerado dinamicamente: ${id}`)
 
   if (fixedLabel && !placeholder) {
     console.warn(
@@ -229,6 +236,8 @@ const FloatingInput: React.FC<FloatingInputProps> = ({
       <input
         id={id}
         type={type}
+        value={value}
+        onChange={onChange}
         className={inputClasses}
         placeholder={
           fixedLabel ? placeholder || 'Adicione a propriedade placeholder!' : ''
