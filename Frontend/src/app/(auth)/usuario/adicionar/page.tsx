@@ -24,7 +24,7 @@ const ativoItems = [
 export default function CriarUsuario() {
   
   return (
-    <div className="flex flex-col w-3/4">
+    <div className="flex flex-wrap flex-col w-3/4">
       <div className="flex h-14 justify-center items-center bg-gray-800 rounded-tl-xl rounded-tr-xl">
         <span className="text-xl font-semibold">Criar Usuário</span>
       </div>
