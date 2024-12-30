@@ -1,6 +1,6 @@
 import { Header } from '@/components/header/Header';
+import { PrivateRoute } from '@/components/privateRouter/privateRouter';
 import { Sidebar } from '@/components/sidebar/Sidebar';
-import { AuthProvider } from '@/context/auth/authContext';
 import type { Metadata } from 'next';
 import '../globals.css';
 
@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <AuthProvider>
+    <PrivateRoute>
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-col flex-1 p-2">
@@ -25,6 +25,6 @@ export default function RootLayout({
           </main>
         </div>
       </div>
-    </AuthProvider>
+    </PrivateRoute>
   );
 }
