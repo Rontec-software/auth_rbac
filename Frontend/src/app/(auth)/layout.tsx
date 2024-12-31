@@ -1,5 +1,5 @@
 import { Header } from '@/components/header/Header';
-import { PrivateRoute } from '@/components/privateRouter/privateRouter';
+import { PrivateRoute } from '@/components/privateRoute/privateRouter';
 import { Sidebar } from '@/components/sidebar/Sidebar';
 import type { Metadata } from 'next';
 import '../globals.css';
