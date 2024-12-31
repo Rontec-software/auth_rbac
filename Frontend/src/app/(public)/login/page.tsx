@@ -37,7 +37,7 @@ export default function Login() {
       saveToken(await res.json());
       router.push('/usuario');
     } catch (error) {
-      alert('Credenciais inválidas');
+      alert(`Credenciais inválidas${error}`);
     }
   }
 

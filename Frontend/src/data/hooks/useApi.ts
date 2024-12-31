@@ -27,7 +27,7 @@ export default function useApi<T>() {
         errors: json.errors,
       };
     },
-    [baseUrl]
+    [baseUrl, getToken]
   );
 
   function sucesso(status: number): boolean {
