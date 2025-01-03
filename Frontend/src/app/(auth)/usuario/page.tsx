@@ -60,7 +60,7 @@ export default function User() {
   ];
 
   return (
-    <div className="p-4">
+    <div className="w-full h-full p-4">
       <div className="flex items-center justify-center rounded-lg w-full pb-4">
         <InputSearch
           label="Pesquisar Usuários"
