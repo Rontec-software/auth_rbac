@@ -20,6 +20,15 @@ class UsersRepository {
 
     return result;
   }
+
+  async rename({ name, id }: { name: string; id: string }) {
+    const result = await prismaDB.user.update({
+      where: { id },
+      data: { name },
+    });
+
+    return result;
+  }
 }
 
 export { UsersRepository };

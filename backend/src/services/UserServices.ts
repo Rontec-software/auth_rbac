@@ -34,6 +34,17 @@ class UsersServices {
 
     return created;
   }
+
+  async rename({ name, id }: { name: string; id: string }) {
+    if (!name) {
+      throw new Error("Name is required");
+    }
+
+    const updated = await this.repository.rename({ name, id });
+
+    return updated;
+
+  }
 }
 
 export { UsersServices };
