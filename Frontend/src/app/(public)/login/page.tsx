@@ -21,23 +21,35 @@ export default function Login() {
     setEmailError('');
     setPasswordError('');
     const data = { email, password };
+
     if (!email) {
       return setEmailError('Campo obrigatório');
     }
+
     if (!password) {
       return setPasswordError('Campo obrigatório');
     }
+
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
     try {
       const res = await fetch(`${baseUrl}auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      saveToken(await res.json());
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Erro ao fazer login');
+      }
+
+      const responseData = await res.json();
+
+      saveToken(responseData.token);
       router.push('/usuario');
     } catch (error) {
-      alert(`Credenciais inválidas${error}`);
+      alert(`Credenciais inválidas: ${error}`);
     }
   }
 
