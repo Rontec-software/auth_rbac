@@ -14,7 +14,7 @@ export default function useApi<T>() {
         },
         body: JSON.stringify(body),
       });
-      const json = await res.json();
+      const json = res.status === 204 ? null : await res.json();
       // TODO: Criar função renderizarErrosSeExistir
       // renderizarErrosSeExistir(json.erros)
 

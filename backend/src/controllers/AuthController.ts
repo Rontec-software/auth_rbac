@@ -33,8 +33,8 @@ class AuthController {
     const { email } = req.body;
 
     try {
-      const result = await this.authServices.recoverPassword(email);
-      return resp.status(200).json(result);
+      await this.authServices.recoverPassword(email);
+      return resp.status(204).send({});
     } catch (error) {
       next(error);
     }
@@ -44,8 +44,8 @@ class AuthController {
     const { email, token, password } = req.body;
 
     try {
-      const result = await this.authServices.resetPassword({ email, token, password });
-      return resp.status(200).json(result);
+      await this.authServices.resetPassword({ email, token, password });
+      return resp.status(204).send({});
     } catch (error) {
       next(error);
     }
