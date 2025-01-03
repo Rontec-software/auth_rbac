@@ -30,7 +30,7 @@ class UsersServices {
       phoneNumber,
     });
 
-    delete created.password;
+    created.password = "";
 
     return created;
   }

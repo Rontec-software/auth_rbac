@@ -8,7 +8,7 @@ class UsersController {
     this.userServices = new UsersServices();
   }
 
-  findByEmail() {}
+  findByEmail() { }
 
   async create(req: Request, resp: Response, next: NextFunction) {
     const { name, email, password, phoneNumber } = req.body;

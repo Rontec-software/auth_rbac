@@ -19,10 +19,10 @@ export default function useApi<T>() {
       // renderizarErrosSeExistir(json.erros)
 
       return {
-        json,
+        json: json && null,
         status: res.status,
         success: sucesso(res.status),
-        errors: json.errors,
+        errors: json?.errors ?? [],
       };
     },
     [baseUrl]

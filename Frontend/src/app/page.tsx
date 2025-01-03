@@ -23,7 +23,7 @@ export default function Home() {
       </h1>
       <button
         className="button text-lg p-6"
-        onClick={() => router.push('/recuperarSenha')}
+        onClick={() => router.push('/recuperar-senha')}
       >
         Rota Recuperar Senha
       </button>
