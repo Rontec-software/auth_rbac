@@ -34,7 +34,6 @@ class UsersController {
   async rename(req: Request, resp: Response, next: NextFunction) {
     const { name } = req.body;
     const id = req.params.id as string;
-    console.log('id', id)
 
     try {
       const result = await this.userServices.rename({ id, name });

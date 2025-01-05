@@ -14,7 +14,7 @@ class UsersRoutes {
 
   getRoutes() {
     this.router.post("/register", this.controller.create.bind(this.controller));
-    this.router.put("/{id}/rename", this.controller.rename.bind(this.controller));
+    this.router.put("/:id/rename", this.controller.rename.bind(this.controller));
     this.router.get(
       "/profile",
       authMiddleware,

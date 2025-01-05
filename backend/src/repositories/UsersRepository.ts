@@ -26,6 +26,12 @@ class UsersRepository {
       where: { id },
       data: { name },
     });
+
+    if (!result) {
+      throw new Error('Update user failed');
+    }
+
+    return result;
   }
 
   async findById(id: string) {

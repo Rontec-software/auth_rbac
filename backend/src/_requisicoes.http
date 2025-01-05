@@ -35,3 +35,10 @@ GET http://localhost:3000/users/profile
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliNDU0YjExLWViMTktNDRkMC04ZTg0LTg4MmE4MmY0MDk0MSIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJwcm9maWxlUGljdHVyZSI6bnVsbCwiYWN0aXZlIjp0cnVlLCJpYXQiOjE3MzU5MjM4MjEsImV4cCI6MTczNTkzODIyMX0.O0u9rz1apwMlX81qCr_P2vWEXlzUxGBla_czMn9gOCA
 
+###
+POST http://localhost:3000/users/1a12653d-7ecd-4c20-8107-f1ae86b12cc9/rename
+content-type: application/json
+
+{
+  "name": "Teste teste"
+}
