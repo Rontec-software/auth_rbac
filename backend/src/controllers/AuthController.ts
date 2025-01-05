@@ -16,7 +16,7 @@ class AuthController {
 
     const user = await this.authServices.login({ email, password });
 
-    const secretKey: string = process.env.JWT_SECRET_KEY;
+    const secretKey: string = process.env.JWT_SECRET_KEY ?? "";
     const token = jwt.sign(user, secretKey, {
       expiresIn: "4h",
     });
