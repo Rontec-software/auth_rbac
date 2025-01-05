@@ -2,13 +2,13 @@ import { prismaDB } from "../lib/prisma";
 
 class RbacRepository {
   async verifyUserPermission(userid: string, permissionName: string) {
-    const userProfiles = await prismaDB.userProfile.findFirst({
+    const userProfiles = await prismaDB.userProfile.findMany({
       where: {
         userId: userid,
       },
     });
 
-    if (!userProfiles?.profileId) return null;
+    if (!userProfiles) return null;
 
     const permission = await prismaDB.permission.findFirst({
       where: {
@@ -18,16 +18,18 @@ class RbacRepository {
 
     if (!permission?.id) return null;
 
-    const profilePermission = await prismaDB.profilePermission.findFirst({
-      where: {
-        profileId: userProfiles.profileId,
-        permissionId: permission.id,
-      },
-    });
+    for (const userProfile of userProfiles) {
+      const profilePermission = await prismaDB.profilePermission.findFirst({
+        where: {
+          profileId: userProfile.profileId,
+          permissionId: permission.id,
+        },
+      });
 
-    if (!profilePermission) return null;
+      if (profilePermission) return true;
+    }
 
-    return true;
+    return null;
   }
 }
 
