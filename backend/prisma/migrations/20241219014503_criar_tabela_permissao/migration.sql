@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "permition" (
+CREATE TABLE "permission" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
     "descrition" TEXT NOT NULL,
@@ -10,9 +10,9 @@ CREATE TABLE "permition" (
 -- CreateTable
 CREATE TABLE "profiles_permission" (
     "profileId" TEXT NOT NULL,
-    "permitionId" TEXT NOT NULL,
+    "permissionId" TEXT NOT NULL,
 
-    PRIMARY KEY ("profileId", "permitionId"),
+    PRIMARY KEY ("profileId", "permissionId"),
     CONSTRAINT "profiles_permission_profileId_fkey" FOREIGN KEY ("profileId") REFERENCES "profiles" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "profiles_permission_permitionId_fkey" FOREIGN KEY ("permitionId") REFERENCES "permition" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "profiles_permission_permissionId_fkey" FOREIGN KEY ("permissionId") REFERENCES "permission" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );

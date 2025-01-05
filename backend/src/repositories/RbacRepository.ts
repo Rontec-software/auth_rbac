@@ -10,7 +10,7 @@ class RbacRepository {
 
     if (!userProfiles?.profileId) return null;
 
-    const permission = await prismaDB.permition.findFirst({
+    const permission = await prismaDB.permission.findFirst({
       where: {
         name: permissionName,
       },
@@ -18,10 +18,10 @@ class RbacRepository {
 
     if (!permission?.id) return null;
 
-    const profilePermission = await prismaDB.profilePermition.findFirst({
+    const profilePermission = await prismaDB.profilePermission.findFirst({
       where: {
         profileId: userProfiles.profileId,
-        permitionId: permission.id,
+        permissionId: permission.id,
       },
     });
 
