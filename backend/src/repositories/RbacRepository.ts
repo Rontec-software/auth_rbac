@@ -1,10 +1,10 @@
 import { prismaDB } from "../lib/prisma";
 
 class RbacRepository {
-  async getPermission(user: string, permissionName: string) {
+  async verifyUserPermission(userid: string, permissionName: string) {
     const userProfiles = await prismaDB.userProfile.findFirst({
       where: {
-        userId: user,
+        userId: userid,
       },
     });
 

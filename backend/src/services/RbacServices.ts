@@ -7,9 +7,9 @@ class RbacServices {
     this.repository = new RbacRepository();
   }
 
-  async havePermission(user: string, permissionName: string) {
-    const permission = await this.repository.getPermission(
-      user,
+  async havePermission(userid: string, permissionName: string) {
+    const permission = await this.repository.verifyUserPermission(
+      userid,
       permissionName
     );
 
