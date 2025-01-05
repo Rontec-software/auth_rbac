@@ -16,7 +16,7 @@ class AuthController {
 
     const user = await this.authServices.login({ email, password });
 
-    const secretKey: string | undefined = process.env.JWT_SECRET_KEY;
+    const secretKey: string | undefined = process.env.JWT_SECRET_KEY ?? "";
 
     if (!secretKey) {
       return resp.status(500).json({ error: "JWT secret key is not defined" });

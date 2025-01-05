@@ -1,7 +1,11 @@
 'use client';
 import Input from '@/components/shared/Input';
+
+import { useSession } from '@/hooks/useSession';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 import { useState } from 'react';
 
 export default function Login() {
@@ -10,17 +14,43 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
+  const router = useRouter();
+  const { saveToken } = useSession();
+
   async function handleLogin() {
     setEmailError('');
     setPasswordError('');
     const data = { email, password };
+
     if (!email) {
       return setEmailError('Campo obrigatório');
     }
+
     if (!password) {
       return setPasswordError('Campo obrigatório');
     }
-    console.log('data', data);
+
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
+    try {
+      const res = await fetch(`${baseUrl}auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Erro ao fazer login');
+      }
+
+      const responseData = await res.json();
+
+      saveToken(responseData.token);
+      router.push('/usuario');
+    } catch (error) {
+      alert(`Credenciais inválidas: ${error}`);
+    }
   }
 
   return (
@@ -34,7 +64,7 @@ export default function Login() {
               width={150}
               height={150}
               alt="icone-escrever"
-              className='rounded-full'
+              className="rounded-full"
             />
           </div>
           <div className="flex flex-col justify-center items-center text-[14px] text-white">
