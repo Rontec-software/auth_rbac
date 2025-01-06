@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { UnauthorizedError } from "../helpers/api-errors";
 import * as jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import 'dotenv/config';
 import { UsersServices } from "../services/UserServices";
 import { ILoggedUser } from "../interfaces/LoggedUserInterface";
 
@@ -14,7 +14,6 @@ export const authMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  dotenv.config();
 
   const userServices = new UsersServices();
 

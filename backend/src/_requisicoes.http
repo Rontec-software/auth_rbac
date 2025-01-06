@@ -1,7 +1,7 @@
-GET http://localhost:3000
+GET http://localhost:3001
 
 ###
-POST http://localhost:3000/users/register
+POST http://localhost:3001/users/register
 content-type: application/json
 
 {
@@ -12,12 +12,30 @@ content-type: application/json
 }
 
 ###
-POST http://localhost:3000/auth/login
+POST http://localhost:3001/auth/login
 content-type: application/json
 
 {
   "email": "teste2@teste.com",
   "password": "123456"
+}
+
+### 
+POST http://localhost:3001/auth/recover-password
+content-type: application/json
+
+{
+  "email": "teste2@teste.com"
+}
+
+###
+POST http://localhost:3001/auth/reset-password
+content-type: application/json
+
+{
+  "email": "teste2@teste.com",
+  "token": "5b03cbbc-9b7c-4de4-8832-f945a9d9be0e",
+  "password": "654321"
 }
 
 ### TOKEN EXPIRADO para negar o acesso

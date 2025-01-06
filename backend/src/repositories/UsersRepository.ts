@@ -1,4 +1,4 @@
-import { ICreateUser } from "../interfaces/UsersInterface";
+import { ICreateUser, IPasswordResetToken } from "../interfaces/UsersInterface";
 import { prismaDB } from "../lib/prisma";
 
 class UsersRepository {
@@ -19,6 +19,29 @@ class UsersRepository {
     const result = await prismaDB.user.findUnique({ where: { email } });
 
     return result;
+  }
+
+  async setPasswordResetToken({ email, token, expToken }: IPasswordResetToken) {
+    const result = await prismaDB.user.update({
+      where: { email },
+      data: {
+        passwordResetToken: token,
+        expPasswordResetToken: expToken,
+      },
+    });
+
+    return result;
+  }
+
+  async changePassword(email: string, password: string) {
+    const result = await prismaDB.user.update({
+      where: { email },
+      data: {
+        password,
+        passwordResetToken: null,
+        expPasswordResetToken: null,
+      },
+    });
   }
 
   async findById(id: string) {

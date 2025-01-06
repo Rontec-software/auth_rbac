@@ -12,6 +12,8 @@ class AuthRoutes {
 
   getRoutes() {
     this.router.post("/login", this.controller.login.bind(this.controller));
+    this.router.post("/recover-password", this.controller.recoverPassword.bind(this.controller));
+    this.router.post("/reset-password", this.controller.resetPassword.bind(this.controller));
     return this.router;
   }
 }
