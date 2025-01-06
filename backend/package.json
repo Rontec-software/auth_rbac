@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "npx tsx watch src/server.ts",
     "migrate": "npx prisma migrate dev",
+    "migrate-postgres": "npx prisma migrate dev --schema=\"./prisma-postgresql/schema.prisma\"",
     "build": "tsc",
     "start": "node dist/server.js"
   },

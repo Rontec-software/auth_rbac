@@ -33,10 +33,22 @@ class UsersController {
 
   async rename(req: Request, resp: Response, next: NextFunction) {
     const { name } = req.body;
-    const id = req.params.id as string;
+    const id = req.user.id;
 
     try {
       const result = await this.userServices.rename({ id, name });
+      return resp.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async updatePassword(req: Request, resp: Response, next: NextFunction) {
+    const { password } = req.body;
+    const email = req.user.email;
+
+    try {
+      const result = await this.userServices.updatePassword({ email, password });
       return resp.status(200).json(result);
     } catch (error) {
       next(error);

@@ -1,8 +1,0 @@
-DATABASE_URL="file:./dev.db"
-PORT=3001
-JWT_SECRET_KEY=-XfdQz**ji`2}xR=7D1inJ{q}_{Et|
-MAILTRIP_SENDER=<sender's email address>
-MAILTRIP_USER_KEY=<mailtrap user key>
-MAILTRIP_PASSWORD=<mailtrap password>
-BASE_URL_FRONTEND=http://localhost:3000
-EXPIRATION_TOKEN_PASSWORD_RESET=24*60*60*1000

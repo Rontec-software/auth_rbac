@@ -43,7 +43,33 @@ class UsersServices {
 
     const updated = await this.repository.rename({ name, id });
 
-    return updated;
+    return {
+      id: updated.id,
+      name: updated.name,
+      email: updated.email,
+      phoneNumber: updated.phoneNumber,
+      active: updated.active,
+      profilePicture: updated.profilePicture,
+    };
+  }
+
+  async updatePassword({ password, email }: { password: string; email: string }) {
+    if (!password) {
+      throw new Error("Password is required");
+    }
+
+    const hashPassword = await this.cripto.criptografar(password);
+
+    const updated = await this.repository.changePassword(email, hashPassword);
+
+    return {
+      id: updated.id,
+      name: updated.name,
+      email: updated.email,
+      phoneNumber: updated.phoneNumber,
+      active: updated.active,
+      profilePicture: updated.profilePicture,
+    };
   }
 
   async getProfileById(id: string) {
