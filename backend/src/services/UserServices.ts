@@ -40,14 +40,7 @@ class UsersServices {
       phoneNumber,
     });
 
-<<<<<<< HEAD
-    //! Estava causando erro, informa que o operador delete deve ser opcional
-    // delete created.password;
-
-    delete (created as {password?: string}).password
-=======
     created.password = "";
->>>>>>> 1057338d213695120cbb76b81ef611719f36ddc4
 
     return created;
   }

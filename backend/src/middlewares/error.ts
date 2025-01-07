@@ -13,10 +13,5 @@ export const errorMiddleware = (
   const response: { message: string; field?: string } = { message };
   if (error.field) response.field = error.field;
 
-<<<<<<< HEAD
-  console.log(error);
-  return resp.status(status).json(response);
-=======
   return resp.status(status).json({ message });
->>>>>>> 1057338d213695120cbb76b81ef611719f36ddc4
 };
