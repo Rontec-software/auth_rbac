@@ -3,12 +3,16 @@ import { ApiError } from "../helpers/api-errors";
 
 export const errorMiddleware = (
   error: Error & Partial<ApiError>,
-  req: Request,
+  _req: Request,  //foi adicionado "_" pois o parâmetro não estava sendo usado
   resp: Response,
-  next: NextFunction
+  _next: NextFunction
 ) => {
   const status = error.statusCode ?? 500;
-  const message = error.statusCode ? error.message : "Internal Server Error";
+  const message = error.message || "Internal Server Error";
 
-  return resp.status(status).json({ message });
+  const response: { message: string; field?: string } = { message };
+  if (error.field) response.field = error.field;
+
+  console.log(error);
+  return resp.status(status).json(response);
 };
