@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 export default {
   content: [
@@ -8,6 +8,15 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+      },
+      animation: {
+        spin: 'spin 1s linear infinite',
+      },
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
@@ -24,4 +33,4 @@ export default {
   },
   safelist: ['inputTextColor'],
   plugins: [],
-} satisfies Config
+} satisfies Config;

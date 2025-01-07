@@ -39,30 +39,74 @@ git commit -m 'Start Frontend (closes #4)'
 ```
 
 ### Iniciar backend
-#### 1. Instalar pacotes
+#### 1. Acessar pasta
 ```sh
-cd backend && npm install
-
+cd backend
 ```
-#### 2. Rodar migrations
+
+#### 2. Criar arquivo env
+```sh
+cp env_modelo .env
+```
+
+#### 3. Setar versão do node com NVM (opcional)
+```sh
+nvm use
+```
+
+#### 4. Instalar pacotes
+```sh
+npm install
+```
+
+#### 5. Rodar migrations (por default é sqlite)
 ```sh
 npm run migrate
 ```
-#### 3. Rodar ambiente de desenvolvimento
+
+#### 5. Rodar app em ambiente de desenvolvimento
 ```sh
 npm run dev
 ```
 
-## Iniciar frontend
-#### 1. Instalar pacotes
+### Iniciar frontend
+#### 1. Acessar pasta
 ```sh
-cd Frontend && npm install
-
+cd Frontend
 ```
-#### 3. Rodar ambiente de desenvolvimento
+
+#### 2. Criar arquivo env
+```sh
+cp env_modelo .env
+```
+
+#### 3. Setar versão do node com NVM (opcional)
+```sh
+nvm use
+```
+
+#### 4. Instalar pacotes
+```sh
+npm install
+```
+
+#### 5. Rodar app em ambiente de desenvolvimento
 ```sh
 npm run dev
 ```
 
-### Extensão para o VSCODE
+### Extensão para testar APIs pelo VSCODE
 - [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
+
+### Serviço de email gratuito
+- [nodemailer](https://mailtrap.io/)
+
+
+### Observações
+- A complexidade da senha está fraca.
+- O uuid está sendo gerado pelo prisma. Mudar para gerar o uuid pelo pacote uuidv4.
+- Migrar as entidades para um pacote core.
+- Criar testes unitários para os casos de uso.
+
+### Padrões de desenvolvimento do projeto
+- Usar "ident spaces" número 2 (vscode).

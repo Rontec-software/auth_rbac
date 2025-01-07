@@ -4,3 +4,9 @@ export interface ICreateUser {
   password: string;
   phoneNumber: string;
 }
+
+export interface IPasswordResetToken {
+  email: string;
+  token: string;
+  expToken: Date;
+}

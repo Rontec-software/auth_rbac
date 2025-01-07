@@ -1,21 +1,55 @@
-GET http://localhost:3000
+GET http://localhost:3001
 
 ###
-POST http://localhost:3000/users/register
+POST http://localhost:3001/users/register
 content-type: application/json
 
 {
-  "name": "samples",
-  "email": "teste2@teste.com",
+  "name": "joao",
+  "email": "joao@teste.com",
   "password": "123456",
-  "phoneNumber": "51999998877"
+  "phoneNumber": "51999998866"
 }
 
 ###
-POST http://localhost:3000/auth/login
+POST http://localhost:3001/auth/login
 content-type: application/json
 
 {
   "email": "teste2@teste.com",
   "password": "123456"
 }
+
+### 
+POST http://localhost:3001/auth/recover-password
+content-type: application/json
+
+{
+  "email": "teste2@teste.com"
+}
+
+###
+POST http://localhost:3001/auth/reset-password
+content-type: application/json
+
+{
+  "email": "teste2@teste.com",
+  "token": "5b03cbbc-9b7c-4de4-8832-f945a9d9be0e",
+  "password": "654321"
+}
+
+### TOKEN EXPIRADO para negar o acesso
+GET http://localhost:3000/users/profile
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIxMTg3NjQ0LTQxZjEtNGYwZS1hZWU0LTQzNGYxMjBiMjcxZiIsIm5hbWUiOiJzYW1wbGVzIiwiZW1haWwiOiJ0ZXN0ZTJAdGVzdGUuY29tIiwicGhvbmVOdW1iZXIiOiI1MTk5OTk5ODg3NyIsInByb2ZpbGVQaWN0dXJlIjpudWxsLCJhY3RpdmUiOnRydWUsImlhdCI6MTczNTg0MzcwOCwiZXhwIjoxNzM1ODU4MTA4fQ.Bpb_DJf9sNZbGCdBV9U6GYkJM2lWM_OmAJYUkcBebKg
+
+### TOKEN VALIDO sem acesso
+GET http://localhost:3000/users/profile
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIxMTg3NjQ0LTQxZjEtNGYwZS1hZWU0LTQzNGYxMjBiMjcxZiIsIm5hbWUiOiJzYW1wbGVzIiwiZW1haWwiOiJ0ZXN0ZTJAdGVzdGUuY29tIiwicGhvbmVOdW1iZXIiOiI1MTk5OTk5ODg3NyIsInByb2ZpbGVQaWN0dXJlIjpudWxsLCJhY3RpdmUiOnRydWUsImlhdCI6MTczNTkyNDYzNywiZXhwIjoxNzM1OTM5MDM3fQ.AekVuA812eabC360_INYdvtWL7yi6TS26G32JyjI8lg
+
+### TOKEN COM ACESSO
+GET http://localhost:3000/users/profile
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliNDU0YjExLWViMTktNDRkMC04ZTg0LTg4MmE4MmY0MDk0MSIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJwcm9maWxlUGljdHVyZSI6bnVsbCwiYWN0aXZlIjp0cnVlLCJpYXQiOjE3MzU5MjM4MjEsImV4cCI6MTczNTkzODIyMX0.O0u9rz1apwMlX81qCr_P2vWEXlzUxGBla_czMn9gOCA
+
