@@ -41,4 +41,33 @@ body {
   .input-container .icon-container-eye {
     @apply absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer;
   }
+
+  /* cor botão dropdown quando clicado */
+  .react-tel-input .flag-dropdown.open.buttonClass .selected-flag {
+    background-color: #76787a !important;
+  }
+
+  .react-tel-input .buttonClass .selected-flag:hover,
+  .react-tel-input .buttonClass .selected-flag:focus {
+    background-color: #76787a !important;
+  }
+
+  /* highlight dropdown países */
+  .react-tel-input .country:hover {
+    background-color: #a0a0a0 !important;
+  }
+
+  /* highlight dropdown países */
+  .react-tel-input .country.highlight {
+    background-color: #76787a !important;
+  }
+
+  /* cor código países */
+  .react-tel-input .country-list .country .dial-code {
+    color: #0ce216 !important;
+  }
+
+  .scrollbar {
+    scrollbar-color:  #5d5d5e #2c2c2c;
+  }
 }
