@@ -6,6 +6,6 @@ interface objError {
 export default interface ResponseApi<T> {
   success: boolean;
   status: number;
-  json: T;
+  json: T | null;
   errors?: objError[];
 }

@@ -55,7 +55,7 @@ export default function Cadastrar() {
       return setPhoneError('Número de telefone inválido.')
     }
 
-    const resp = await httpPost('/users/register', data);
+    const resp = await httpPost('users/register', data);
     if (resp.success) {
       console.log('Deu bom, usuário cadastrado com sucesso!');
     } else {
