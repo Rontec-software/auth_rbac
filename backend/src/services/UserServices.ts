@@ -17,9 +17,9 @@ class UsersServices {
       throw new BadRequestError("E-mail is required");
     }
 
-    const alreadExist = await this.repository.findByEmail(email);
-    if (alreadExist) {
-      throw new BadRequestError("User alread exists");
+    const alreadyExist = await this.repository.findByEmail(email);
+    if (alreadyExist) {
+      throw new BadRequestError("User already exists");
     }
 
     const hashPassword = await this.cripto.criptografar(password);

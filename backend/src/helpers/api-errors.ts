@@ -30,3 +30,9 @@ export class ForbiddenError extends ApiError {
     super(message, 403);
   }
 }
+
+export class AlreadyExistError extends ApiError {
+  constructor(message: string) {
+    super(message, 409);
+  }
+}

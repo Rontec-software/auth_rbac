@@ -6,6 +6,7 @@ import { UsersRoutes } from "./routes/usersRoutes";
 import { AuthRoutes } from "./routes/authRoutes";
 import { errorMiddleware } from "./middlewares/error";
 import { NotFoundError } from "./helpers/api-errors";
+import { PermissionsRoutes } from "./routes/permissionsRoutes";
 
 dotenv.config();
 
@@ -18,9 +19,11 @@ server.use(express.urlencoded({ extended: true }));
 
 const authRoutes = new AuthRoutes().getRoutes();
 const usersRoutes = new UsersRoutes().getRoutes();
+const permissionsRoutes = new PermissionsRoutes().getRoutes();
 
 server.use("/auth", authRoutes);
 server.use("/users", usersRoutes);
+server.use("/permissions", permissionsRoutes);
 
 server.use((req: Request, res: Response) => {
   throw new NotFoundError("Endpoint not found");
