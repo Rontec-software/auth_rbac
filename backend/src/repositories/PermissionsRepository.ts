@@ -21,10 +21,7 @@ class PermissionsRepository {
   async delete(id: string) {
     try {
       const deleted = await prismaDB.permission.delete({ where: { id } });
-
-      if (!deleted) return false;
-
-      return true;
+      return deleted;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         console.log(error.message);
@@ -53,6 +50,12 @@ class PermissionsRepository {
     const result = await prismaDB.permission.findFirst({ where: { name } });
 
     return result;
+  }
+
+  async nameExists(name: string) {
+    const countRecords = await prismaDB.permission.count({ where: { name } });
+
+    return !!countRecords;
   }
 
   async update({ id, name, descrition, active }: IUpdatePermission) {
