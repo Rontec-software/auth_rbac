@@ -19,7 +19,6 @@ class PermissionsServices {
   async create({ name, descrition }: ICreatePermission) {
     const alreadyExist = await this.repository.nameExists(name);
 
-    console.log("alreadyExist", alreadyExist);
     if (alreadyExist)
       throw new AlreadyExistError("Permission Name already exists");
 
