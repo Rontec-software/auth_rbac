@@ -4,6 +4,7 @@ import { DataTable } from '@/components/shared/data-table/DataTable';
 import { IColumn } from '@/components/shared/data-table/DataTable.interface';
 import { InputSearch } from '@/components/shared/input-search/InputSeach';
 import Pagination from '@/components/shared/pagination/pagination';
+import useApi from '@/data/hooks/useApi';
 import { FormEvent, useState } from 'react';
 
 interface IPermissionProfile {
@@ -16,6 +17,7 @@ interface IPermissionProfile {
 }
 export default function PermissionsProfile() {
   const [search, setSearch] = useState<string>('');
+  const {} = useApi<IPermissionProfile>();
   const handleSearcPermissionProfile = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
