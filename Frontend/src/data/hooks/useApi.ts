@@ -1,38 +1,19 @@
 import { useSession } from '@/hooks/useSession';
 import { useCallback } from 'react';
-import ResponseApi from '../model/ResponseApi';
+import { HttpMethod } from '../model/api';
+import { apiRequest } from './api';
 
 export default function useApi<T>() {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL!;
   const { getToken } = useSession();
-  const httpPost = useCallback(
-    async function (path: string, body: T): Promise<ResponseApi<T>> {
-      const url = `${baseUrl}${path}`;
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${getToken()}`,
-        },
-        body: JSON.stringify(body),
-      });
-      const json = res.status === 204 ? null : await res.json();
-      // TODO: Criar função renderizarErrosSeExistir
-      // renderizarErrosSeExistir(json.erros)
 
-      return {
-        json: json && null,
-        status: res.status,
-        success: sucesso(res.status),
-        errors: json?.errors ?? [],
-      };
+  const httpRequest = useCallback(
+    async (path: string, method: HttpMethod, body?: T) => {
+      const token = getToken();
+      return await apiRequest<T>(baseUrl, path, method, token, body);
     },
     [baseUrl, getToken]
   );
 
-  function sucesso(status: number): boolean {
-    return status >= 200 && status < 300;
-  }
-
-  return { httpPost };
+  return { httpRequest };
 }

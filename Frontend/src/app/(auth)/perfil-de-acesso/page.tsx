@@ -17,7 +17,7 @@ interface IPermissionProfile {
 }
 export default function PermissionsProfile() {
   const [search, setSearch] = useState<string>('');
-  const {} = useApi<IPermissionProfile>();
+  const { httpRequest } = useApi<IPermissionProfile>();
   const handleSearcPermissionProfile = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

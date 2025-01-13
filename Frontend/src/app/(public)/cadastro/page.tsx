@@ -16,7 +16,7 @@ export default function Login() {
   const [passwordRepeat, setPasswordRepeat] = useState('');
   const [passwordRepeatError, setPasswordRepeatError] = useState('');
   const [phone, setPhone] = useState('');
-  const { httpPost } = useApi();
+  const { httpRequest } = useApi();
 
   async function handleRegister() {
     setNameError('');
@@ -27,7 +27,7 @@ export default function Login() {
     if (password !== passwordRepeat) {
       return setPasswordRepeatError('As senhas não são iguais');
     }
-    const resp = await httpPost('/users', data);
+    const resp = await httpRequest('/users', 'POST', data);
     if (resp.success) {
       console.log('Deu bom!');
     } else {
