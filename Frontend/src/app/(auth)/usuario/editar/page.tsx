@@ -13,8 +13,8 @@ export default function EditarUsuario() {
   const [passwordError, setPasswordError] = useState('');
 
   useEffect(() => {
-    setName('Usuário 1');
-    setPassword('123456');
+    setName('');
+    setPassword('');
   }, []);
 
   async function handleSave() {
