@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { RbacServices } from "../services/RbacServices";
-import { ForbiddenError, UnauthorizedError } from "../helpers/api-errors";
+import { ForbiddenError } from "../helpers/api-errors";
 
 export const rbacMiddleware = (permission: string) => {
   return async (req: Request, res: Response, next: NextFunction) => {
