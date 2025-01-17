@@ -1,5 +1,6 @@
 'use client';
 import Input from '@/components/shared/Input';
+import { useAuth } from '@/hooks/useAuth';
 
 import { useSession } from '@/hooks/useSession';
 import Image from 'next/image';
@@ -15,6 +16,7 @@ export default function Login() {
   const [passwordError, setPasswordError] = useState('');
 
   const router = useRouter();
+  const { setIsAuthenticated } = useAuth();
   const { saveToken } = useSession();
 
   async function handleLogin() {
@@ -47,7 +49,7 @@ export default function Login() {
       const responseData = await res.json();
 
       saveToken(responseData.token);
-      console.log(responseData, 'oi');
+      setIsAuthenticated(true);
       router.push('/usuario');
     } catch (error) {
       alert(`Credenciais inválidas: ${error}`);

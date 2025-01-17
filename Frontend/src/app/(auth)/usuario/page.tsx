@@ -3,15 +3,20 @@ import { Chip } from '@/components/shared/chip/Chip';
 import { DataTable } from '@/components/shared/data-table/DataTable';
 import { IColumn } from '@/components/shared/data-table/DataTable.interface';
 import { InputSearch } from '@/components/shared/input-search/InputSeach';
-import { FormEvent, useState } from 'react';
+import { useApi } from '@/data/hooks/useApi';
+
+import { FormEvent, useEffect, useState } from 'react';
 
 interface IUser {
   name: string;
   email: string;
   active: boolean;
 }
+
 export default function User() {
-  const [search, setSearch] = useState<string>('');
+  const { get } = useApi();
+  const [search, setSearch] = useState<string | null>(null);
+  const [data, setData] = useState<IUser[]>([]);
   const handleSearchUser = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -44,7 +49,7 @@ export default function User() {
     },
   ];
 
-  const data = [
+  /*   const data = [
     {
       name: 'Usuário 1',
       email: 'email1@gmail',
@@ -58,6 +63,23 @@ export default function User() {
       active: false,
     },
   ];
+ */
+  const fetchUsers = async () => {
+    const queryParams = {};
+    const response = await get<IUser[]>('/auth/users', {
+      query: { ...queryParams, active: true },
+    });
+    if (response.success) {
+      setData(response.json);
+      console.log(response.json);
+    } else {
+      console.error(response.errors);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, [search]);
 
   return (
     <div className="w-full h-full p-4">

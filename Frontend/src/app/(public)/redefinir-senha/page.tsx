@@ -1,5 +1,6 @@
 'use client';
-import useApi from '@/data/hooks/useApi';
+
+import { useApi } from '@/data/hooks/useApi';
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -13,7 +14,7 @@ export default function RedefinirSenha() {
   const [msgError, setMsgError] = useState('');
   const [token, setToken] = useState('');
   const [email, setEmail] = useState('');
-  const { httpRequest } = useApi();
+  const { post } = useApi();
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
 
@@ -40,7 +41,7 @@ export default function RedefinirSenha() {
     }
 
     const data = { email, token, password: newPass };
-    const resp = await httpRequest('/auth/reset-password', 'POST', data);
+    const resp = await post('/auth/reset-password', data);
     if (resp.success) {
       setMsgSuccess('Senha redefinida com sucesso');
     } else {

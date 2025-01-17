@@ -1,29 +1,37 @@
-import { HttpMethod } from '../model/api';
 import ResponseApi from '../model/ResponseApi';
 
-export async function apiRequest<T>(
+export async function apiRequest<TResponse, TBody = undefined>(
   baseUrl: string,
   path: string,
-  method: HttpMethod,
-  token: string | null,
-  body?: T
-): Promise<ResponseApi<T>> {
-  const url = `${baseUrl}${path}`;
-  const res = await fetch(url, {
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
+  options?: {
+    query?: Record<string, any>;
+    body?: TBody;
+    token?: string | null;
+  }
+): Promise<ResponseApi<TResponse>> {
+  const queryString = options?.query
+    ? `?${new URLSearchParams(
+        options.query as Record<string, string>
+      ).toString()}`
+    : '';
+
+  const fullUrl = `${baseUrl}${path}${queryString}`;
+  const response = await fetch(fullUrl, {
     method,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      ...(options?.token ? { Authorization: `Bearer ${options.token}` } : {}),
     },
-    body: body ? JSON.stringify(body) : undefined,
+    body: options?.body ? JSON.stringify(options.body) : undefined,
   });
 
-  const json = res.status === 204 ? null : await res.json();
+  const responseData = response.status === 204 ? null : await response.json();
 
   return {
-    json: json || null,
-    status: res.status,
-    success: res.status >= 200 && res.status < 300,
-    errors: json?.errors ?? [],
+    json: responseData || null,
+    status: response.status,
+    success: response.ok,
+    errors: responseData?.errors ?? [],
   };
 }

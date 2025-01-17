@@ -1,5 +1,6 @@
 'use client';
-import useApi from '@/data/hooks/useApi';
+
+import { useApi } from '@/data/hooks/useApi';
 import { IconMail } from '@tabler/icons-react';
 import { useState } from 'react';
 
@@ -7,7 +8,7 @@ export default function RecuperarSenha() {
   const [email, setEmail] = useState('');
   const [msgError, setMsgError] = useState('');
   const [msgSuccess, setMsgSuccess] = useState('');
-  const { httpRequest } = useApi();
+  const { post } = useApi();
 
   async function handleSubmit() {
     if (!email) {
@@ -16,7 +17,7 @@ export default function RecuperarSenha() {
     }
 
     const data = { email };
-    const resp = await httpRequest('/auth/recover-password', 'POST', data);
+    const resp = await post('/auth/recover-password', data);
     if (resp.success) {
       setMsgSuccess(
         'E-mail enviado com sucesso. Verifique sua caixa de entrada.'

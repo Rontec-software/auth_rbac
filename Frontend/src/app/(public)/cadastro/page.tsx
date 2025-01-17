@@ -1,7 +1,8 @@
 'use client';
 import Input from '@/components/shared/Input';
 import InputPhone from '@/components/shared/InputPhone';
-import useApi from '@/data/hooks/useApi';
+import { useApi } from '@/data/hooks/useApi';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -16,7 +17,7 @@ export default function Login() {
   const [passwordRepeat, setPasswordRepeat] = useState('');
   const [passwordRepeatError, setPasswordRepeatError] = useState('');
   const [phone, setPhone] = useState('');
-  const { httpRequest } = useApi();
+  const { post } = useApi();
 
   async function handleRegister() {
     setNameError('');
@@ -27,7 +28,7 @@ export default function Login() {
     if (password !== passwordRepeat) {
       return setPasswordRepeatError('As senhas não são iguais');
     }
-    const resp = await httpRequest('/users', 'POST', data);
+    const resp = await post('/users', data);
     if (resp.success) {
       console.log('Deu bom!');
     } else {

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
 
 interface AuthContextType {
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   isAuthenticated: boolean;
   loading: boolean;
 }
@@ -38,7 +39,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   }, [getToken, router]);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, loading }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, setIsAuthenticated, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );
