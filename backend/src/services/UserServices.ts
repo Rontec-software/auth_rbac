@@ -36,6 +36,17 @@ class UsersServices {
     return created;
   }
 
+  async getAllUsers() {
+    const user = await this.repository.findAll();
+    return user;
+  }
+
+  async getById(id: string) {
+    const user = await this.repository.findById(id);
+
+    return user;
+  }
+
   async getProfileById(id: string) {
     const user = await this.repository.findById(id);
 

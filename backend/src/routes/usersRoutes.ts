@@ -14,6 +14,12 @@ class UsersRoutes {
 
   getRoutes() {
     this.router.post("/register", this.controller.create.bind(this.controller));
+    this.router.get(
+      "/",
+      authMiddleware,
+      rbacMiddleware("read_user"),
+      this.controller.getAll.bind(this.controller)
+    );
 
     this.router.get(
       "/profile",

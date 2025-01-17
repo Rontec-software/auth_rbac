@@ -49,6 +49,12 @@ class UsersRepository {
 
     return result;
   }
+
+  async findAll() {
+    const result = await prismaDB.user.findMany();
+
+    return result;
+  }
 }
 
 export { UsersRepository };

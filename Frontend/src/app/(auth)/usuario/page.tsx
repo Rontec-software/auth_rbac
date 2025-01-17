@@ -66,7 +66,7 @@ export default function User() {
  */
   const fetchUsers = async () => {
     const queryParams = {};
-    const response = await get<IUser[]>('/auth/users', {
+    const response = await get<IUser[]>('/users', {
       query: { ...queryParams, active: true },
     });
     if (response.success) {

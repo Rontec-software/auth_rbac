@@ -12,7 +12,7 @@ class UsersController {
     this.userServices = new UsersServices();
   }
 
-  findByEmail() { }
+  findByEmail() {}
 
   async create(req: Request, resp: Response, next: NextFunction) {
     const { name, email, password, phoneNumber } = req.body;
@@ -29,6 +29,16 @@ class UsersController {
       console.log(error);
       next(error);
     }
+  }
+
+  async getAll(req: Request, resp: Response) {
+    const result = await this.userServices.getAllUsers();
+    resp.status(200).json(result);
+  }
+
+  async getById(req: Request, resp: Response) {
+    const result = await this.userServices.getById(req.params.id);
+    resp.status(200).json(result);
   }
 
   async getProfile(req: Request, resp: Response) {
