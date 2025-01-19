@@ -26,9 +26,9 @@ class UsersServices {
       throw new Error("Formato de número de telefone inválido!")
     }
 
-    const alreadExist = await this.repository.findByEmail(email);
-    if (alreadExist) {
-      throw new BadRequestError("User alread exists");
+    const alreadyExist = await this.repository.findByEmail(email);
+    if (alreadyExist) {
+      throw new BadRequestError("User already exists");
     }
 
     const hashPassword = await this.cripto.criptografar(password);
