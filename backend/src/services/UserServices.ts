@@ -36,9 +36,26 @@ class UsersServices {
     return created;
   }
 
-  async getAllUsers() {
-    const user = await this.repository.findAll();
-    return user;
+  async getAllUsers({
+    name,
+    page = 1,
+    limit = 10,
+  }: {
+    name?: string;
+    page?: number;
+    limit?: number;
+  }) {
+    const skip = (page - 1) * limit;
+
+    const users = await this.repository.findAll({ name, skip, take: limit });
+    const total = await this.repository.countAll(name);
+
+    return {
+      users,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit),
+    };
   }
 
   async getById(id: string) {

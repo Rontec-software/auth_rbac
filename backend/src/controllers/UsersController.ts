@@ -32,8 +32,19 @@ class UsersController {
   }
 
   async getAll(req: Request, resp: Response) {
-    const result = await this.userServices.getAllUsers();
-    resp.status(200).json(result);
+    const { name, page, limit } = req.query;
+
+    try {
+      const result = await this.userServices.getAllUsers({
+        name: String(name),
+        page: Number(page),
+        limit: Number(limit),
+      });
+      resp.status(200).json(result);
+    } catch (error) {
+      console.log(error);
+      resp.status(500).json(error);
+    }
   }
 
   async getById(req: Request, resp: Response) {

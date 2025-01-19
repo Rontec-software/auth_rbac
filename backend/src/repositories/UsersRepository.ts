@@ -50,10 +50,34 @@ class UsersRepository {
     return result;
   }
 
-  async findAll() {
-    const result = await prismaDB.user.findMany();
+  async findAll({
+    name,
+    skip,
+    take,
+  }: {
+    name?: string;
+    skip: number;
+    take: number;
+  }) {
+    const where = !!name
+      ? { name: { contains: name, mode: "insensitive" } }
+      : {};
 
-    return result;
+    return await prismaDB.user.findMany({
+      where,
+      skip,
+      take,
+    });
+  }
+
+  async countAll(name?: string) {
+    const where = !!name
+      ? { name: { contains: name, mode: "insensitive" } }
+      : {};
+
+    return await prismaDB.user.count({
+      where,
+    });
   }
 }
 
