@@ -1,3 +1,4 @@
+import { useAuth } from '@/hooks/useAuth';
 import { useSession } from '@/hooks/useSession';
 import { useCallback } from 'react';
 import ResponseApi from '../model/ResponseApi';
@@ -5,7 +6,8 @@ import { apiRequest } from './api';
 
 export function useApi() {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL!;
-  const { getToken } = useSession();
+  const { getToken, clearToken } = useSession();
+  const { setIsAuthenticated } = useAuth();
   const token = getToken();
 
   const get = useCallback(
@@ -13,10 +15,15 @@ export function useApi() {
       path: string,
       options?: { query?: Record<string, any> }
     ): Promise<ResponseApi<TResponse>> => {
-      return await apiRequest<TResponse>(baseUrl, path, 'GET', {
+      const response = await apiRequest<TResponse>(baseUrl, path, 'GET', {
         ...options,
         token,
       });
+      if (response && response.status === 401) {
+        clearToken();
+        setIsAuthenticated(false);
+      }
+      return response;
     },
     [baseUrl, token]
   );
@@ -27,11 +34,21 @@ export function useApi() {
       body: TBody,
       options?: { query?: Record<string, any> }
     ): Promise<ResponseApi<TResponse>> => {
-      return await apiRequest<TResponse, TBody>(baseUrl, path, 'POST', {
-        ...options,
-        body,
-        token,
-      });
+      const response = await apiRequest<TResponse, TBody>(
+        baseUrl,
+        path,
+        'POST',
+        {
+          ...options,
+          body,
+          token,
+        }
+      );
+      if (response && response.status === 401) {
+        clearToken();
+        setIsAuthenticated(false);
+      }
+      return response;
     },
     [baseUrl, token]
   );
@@ -42,11 +59,21 @@ export function useApi() {
       body: TBody,
       options?: { query?: Record<string, any> }
     ): Promise<ResponseApi<TResponse>> => {
-      return await apiRequest<TResponse, TBody>(baseUrl, path, 'PUT', {
-        ...options,
-        body,
-        token,
-      });
+      const response = await apiRequest<TResponse, TBody>(
+        baseUrl,
+        path,
+        'PUT',
+        {
+          ...options,
+          body,
+          token,
+        }
+      );
+      if (response && response.status === 401) {
+        clearToken();
+        setIsAuthenticated(false);
+      }
+      return response;
     },
     [baseUrl, token]
   );
@@ -57,11 +84,21 @@ export function useApi() {
       body: TBody,
       options?: { query?: Record<string, any> }
     ): Promise<ResponseApi<TResponse>> => {
-      return await apiRequest<TResponse, TBody>(baseUrl, path, 'PATCH', {
-        ...options,
-        body,
-        token,
-      });
+      const response = await apiRequest<TResponse, TBody>(
+        baseUrl,
+        path,
+        'PATCH',
+        {
+          ...options,
+          body,
+          token,
+        }
+      );
+      if (response && response.status === 401) {
+        clearToken();
+        setIsAuthenticated(false);
+      }
+      return response;
     },
     [baseUrl, token]
   );
@@ -71,10 +108,15 @@ export function useApi() {
       path: string,
       options?: { query?: Record<string, any> }
     ): Promise<ResponseApi<TResponse>> => {
-      return await apiRequest<TResponse>(baseUrl, path, 'DELETE', {
+      const response = await apiRequest<TResponse>(baseUrl, path, 'DELETE', {
         ...options,
         token,
       });
+      if (response && response.status === 401) {
+        clearToken();
+        setIsAuthenticated(false);
+      }
+      return response;
     },
     [baseUrl, token]
   );

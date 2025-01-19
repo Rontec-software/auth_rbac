@@ -3,6 +3,7 @@ import { Chip } from '@/components/shared/chip/Chip';
 import { DataTable } from '@/components/shared/data-table/DataTable';
 import { IColumn } from '@/components/shared/data-table/DataTable.interface';
 import { InputSearch } from '@/components/shared/input-search/InputSeach';
+import Pagination from '@/components/shared/pagination/pagination';
 import { useApi } from '@/data/hooks/useApi';
 
 import { FormEvent, useEffect, useState } from 'react';
@@ -16,6 +17,11 @@ interface IUser {
 export default function User() {
   const { get } = useApi();
   const [search, setSearch] = useState<string | null>(null);
+  const [pagination, setPagination] = useState({
+    total: 0,
+    page: 1,
+    totalPages: 1,
+  });
   const [data, setData] = useState<IUser[]>([]);
   const handleSearchUser = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,7 +36,6 @@ export default function User() {
 
   const handleReset = () => {
     setSearch('');
-    console.log(search);
   };
 
   const columns: IColumn<IUser>[] = [
@@ -49,37 +54,40 @@ export default function User() {
     },
   ];
 
-  /*   const data = [
-    {
-      name: 'Usuário 1',
-      email: 'email1@gmail',
-      profile: 'Perfil 1',
-      active: true,
-    },
-    {
-      name: 'Usuário 2',
-      email: 'email2@gmail',
-      profile: 'Perfil 2',
-      active: false,
-    },
-  ];
- */
-  const fetchUsers = async () => {
-    const queryParams = {};
-    const response = await get<IUser[]>('/users', {
-      query: { ...queryParams, active: true },
-    });
-    if (response.success) {
-      setData(response.json);
-      console.log(response.json);
-    } else {
-      console.error(response.errors);
+  const fetchUsers = async (page = 1, limit = 10) => {
+    const queryParams: Record<string, any> = { page, limit };
+    if (search) {
+      queryParams.name = search;
     }
+
+    const response = await get<{
+      users: IUser[];
+      total: number;
+      page: number;
+      totalPages: number;
+    }>('/users', {
+      query: queryParams,
+    });
+
+    if (response.success) {
+      setData(response.json.users);
+      setPagination({
+        total: response.json.total,
+        page: response.json.page,
+        totalPages: response.json.totalPages,
+      });
+    } else {
+      console.log(response);
+    }
+  };
+
+  const handlePageChange = (newPage: number) => {
+    fetchUsers(newPage);
   };
 
   useEffect(() => {
     fetchUsers();
-  }, [search]);
+  }, []);
 
   return (
     <div className="w-full h-full p-4">
@@ -94,6 +102,10 @@ export default function User() {
       </div>
 
       <DataTable columns={columns} data={data} />
+      <Pagination
+        totalPages={pagination.totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 }
