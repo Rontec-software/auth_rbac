@@ -4,6 +4,7 @@ import FloatingInput from '@/components/input/FloatingInput';
 import { ChangeEvent, useEffect } from 'react';
 import Image from 'next/image';
 import { useState } from 'react';
+import { useSession } from '@/hooks/useSession';
 
 export default function EditarUsuario() {
 
@@ -13,14 +14,19 @@ export default function EditarUsuario() {
   const [passwordError, setPasswordError] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
   const [passwordRepeatError, setPasswordRepeatError] = useState('');
+  const [btnDisable, setBtnDisable] = useState(true);
 
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const { getToken } = useSession();
 
   useEffect(() => {
 
     fetch(`${baseUrl}users/profile`, {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${getToken()}`,
+      },
     })
       .then((res) => {
         if (!res.ok) {
@@ -46,7 +52,10 @@ export default function EditarUsuario() {
     if (name) {
       fetch(`${baseUrl}users/rename`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${getToken()}`,
+        },
         body: JSON.stringify(data),
       })
         .then((_) => {
@@ -64,7 +73,10 @@ export default function EditarUsuario() {
 
       fetch(`${baseUrl}users/rename`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${getToken()}`,
+        },
         body: JSON.stringify(data),
       })
         .then((_) => {
@@ -72,7 +84,18 @@ export default function EditarUsuario() {
         })
         .catch((error) => {
           alert(`Credenciais inválidas: ${error}`);
-        });
+        }).finally(() => {
+          setPassword('')
+          setPasswordRepeat('')
+        })
+    }
+  }
+
+  function enableBtn() {
+    if (name && password && passwordRepeat) {
+      setBtnDisable(false);
+    } else {
+      setBtnDisable(true);
     }
   }
 
@@ -90,7 +113,10 @@ export default function EditarUsuario() {
             iconPosition="left"
             name={'nome'}
             value={name}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setName(e.target.value)
+              enableBtn()
+            }}
           />
           <FloatingInput
             label="Nova Senha"
@@ -99,7 +125,10 @@ export default function EditarUsuario() {
             iconPosition="left"
             name={'senha'}
             value={password}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setPassword(e.target.value)
+              enableBtn()
+            }}
           />
           <FloatingInput
             label="Repetir Senha"
@@ -108,15 +137,28 @@ export default function EditarUsuario() {
             iconPosition="left"
             name={'senha'}
             value={passwordRepeat}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setPasswordRepeat(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              setPasswordRepeat(e.target.value)
+              enableBtn()
+            }}
           />
         </form>
         <div className="flex gap-20">
-          <button
-            onClick={handleSave}
-            className='button w-auto hover:bg-gray-400 active:bg-emerald-800'>
-            Salvar
-          </button>
+          {btnDisable
+            ? (
+              <button
+                onClick={() => { }}
+                className='button w-auto hover:bg-gray-600 bg-gray-600'>
+                Salvar
+              </button>
+            )
+            : (
+              <button
+                onClick={handleSave}
+                className='button w-auto hover:bg-gray-400 active:bg-emerald-800'>
+                Salvar
+              </button>
+            )}
         </div>
       </div>
     </div>
