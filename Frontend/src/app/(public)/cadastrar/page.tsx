@@ -1,7 +1,7 @@
 'use client';
 import Input from '@/components/shared/Input';
 import InputPhone from '@/components/shared/InputPhone';
-import useApi from '@/data/hooks/useApi';
+import useApi from '@/hooks/useApi';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';

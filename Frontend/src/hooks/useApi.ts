@@ -1,6 +1,6 @@
 import { useSession } from '@/hooks/useSession'
 import { useCallback } from 'react'
-import ResponseApi from '../model/ResponseApi'
+import ResponseApi from '../data/model/ResponseApi'
 
 export default function useApi<T>() {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL!
