@@ -47,7 +47,7 @@ export default function Login() {
       const responseData = await res.json();
 
       saveToken(responseData.token);
-      router.push('/usuario');
+      router.push('/usuario/listar');
     } catch (error) {
       alert(`Credenciais inválidas: ${error}`);
     }

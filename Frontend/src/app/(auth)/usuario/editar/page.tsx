@@ -11,23 +11,69 @@ export default function EditarUsuario() {
   const [nameError, setNameError] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [passwordRepeat, setPasswordRepeat] = useState('');
+  const [passwordRepeatError, setPasswordRepeatError] = useState('');
+
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
-    setName('');
-    setPassword('');
+
+    fetch(`${baseUrl}users/profile`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((errorData) => {
+            throw new Error(errorData.message || 'Erro ao fazer login');
+          });
+        }
+        return res.json();
+      })
+      .then((responseData) => {
+        setName(responseData.name);
+      })
+      .catch((error) => {
+        alert(`Credenciais inválidas: ${error}`);
+      });
   }, []);
 
   async function handleSave() {
     setNameError('');
     setPasswordError('');
     const data = { name, password };
-    if (!name) {
-      return setNameError('Campo obrigatório');
+
+    if (name) {
+      fetch(`${baseUrl}users/rename`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+        .then((_) => {
+          alert('Usuário atualizado com sucesso');
+        })
+        .catch((error) => {
+          alert(`Credenciais inválidas: ${error}`);
+        });
     }
-    if (!password) {
-      return setPasswordError('Campo obrigatório');
+
+    if (password) {
+      if (password !== passwordRepeat) {
+        return setPasswordRepeatError('As senhas não coincidem');
+      }
+
+      fetch(`${baseUrl}users/rename`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+        .then((_) => {
+          alert('Usuário atualizado com sucesso');
+        })
+        .catch((error) => {
+          alert(`Credenciais inválidas: ${error}`);
+        });
     }
-    console.log('Usuário salvo!');
   }
 
   return (
@@ -47,13 +93,22 @@ export default function EditarUsuario() {
             onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
           />
           <FloatingInput
-            label="Senha"
+            label="Nova Senha"
             type={'password'}
             icon={<Image src="/eye.svg" width={20} height={20} alt="senha" />}
             iconPosition="left"
             name={'senha'}
             value={password}
             onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+          />
+          <FloatingInput
+            label="Repetir Senha"
+            type={'password'}
+            icon={<Image src="/eye.svg" width={20} height={20} alt="senha" />}
+            iconPosition="left"
+            name={'senha'}
+            value={passwordRepeat}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setPasswordRepeat(e.target.value)}
           />
         </form>
         <div className="flex gap-20">

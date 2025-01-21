@@ -26,6 +26,11 @@ npm install
 npm run migrate
 ```
 
+### 6. Inserir dados default.
+```sh
+npm run npm run seed
+```
+
 ### 6. Rodar app em ambiente de desenvolvimento.
 ```sh
 npm run dev
@@ -66,14 +71,14 @@ datasource db {
 }
 ```
 
-#### 7. Apagar as migrations.
-```sh
-rm -rf prisma/migrations
-```
-
-#### 8. Gerar as migrations.
+#### 7. Gerar as migrations.
 ```sh
 npm run migrate-postgres
+```
+
+#### 8. Inserir dados default.
+```sh
+npm run seed
 ```
 
 ### 9. Rodar app em ambiente de desenvolvimento.

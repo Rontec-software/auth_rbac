@@ -6,6 +6,7 @@
     "dev": "npx tsx watch src/server.ts",
     "migrate": "npx prisma migrate dev",
     "migrate-postgres": "npx prisma migrate dev --schema=\"./prisma-postgresql/schema.prisma\"",
+    "seed-postgres": "npx prisma db seed --schema=\"./prisma-postgresql/schema.prisma\"",
     "seed": "npx prisma db seed",
     "build": "tsc",
     "start": "node dist/server.js"
