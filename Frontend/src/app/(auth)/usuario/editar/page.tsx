@@ -87,6 +87,7 @@ export default function EditarUsuario() {
         }).finally(() => {
           setPassword('')
           setPasswordRepeat('')
+          setBtnDisable(true)
         })
     }
   }
