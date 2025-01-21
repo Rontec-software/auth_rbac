@@ -14,6 +14,7 @@ class UsersRoutes {
 
   getRoutes() {
     this.router.post("/register", this.controller.create.bind(this.controller));
+
     this.router.get(
       "/",
       authMiddleware,

@@ -36,7 +36,7 @@ class UsersController {
 
     try {
       const result = await this.userServices.getAllUsers({
-        name: String(name),
+        name: name as string | undefined,
         page: Number(page),
         limit: Number(limit),
       });

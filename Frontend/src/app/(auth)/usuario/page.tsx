@@ -5,10 +5,13 @@ import { IColumn } from '@/components/shared/data-table/DataTable.interface';
 import { InputSearch } from '@/components/shared/input-search/InputSeach';
 import Pagination from '@/components/shared/pagination/pagination';
 import { useApi } from '@/data/hooks/useApi';
+import { Edit, Trash2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import { FormEvent, useEffect, useState } from 'react';
 
 interface IUser {
+  id: number;
   name: string;
   email: string;
   active: boolean;
@@ -16,6 +19,7 @@ interface IUser {
 
 export default function User() {
   const { get } = useApi();
+  const router = useRouter();
   const [search, setSearch] = useState<string | null>(null);
   const [pagination, setPagination] = useState({
     total: 0,
@@ -50,6 +54,22 @@ export default function User() {
           label={row.active ? 'Ativo' : 'Inativo'}
           color={row.active ? 'bg-green-500' : 'bg-gray-500'}
         />
+      ),
+    },
+    {
+      label: 'Ações',
+      align: 'center',
+      customRender: (row) => (
+        <div className="flex items-center justify-center space-x-2">
+          <Edit
+            className="text-blue-500 cursor-pointer hover:text-blue-700 "
+            onClick={() => router.push(`/usuario/form/${row.id}`)}
+          />
+          <Trash2
+            className="text-red-500 cursor-pointer hover:text-red-700"
+            onClick={() => alert('Implementar exclusão')}
+          />
+        </div>
       ),
     },
   ];
