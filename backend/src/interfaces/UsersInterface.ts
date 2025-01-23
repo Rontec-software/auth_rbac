@@ -3,6 +3,8 @@ export interface ICreateUser {
   email: string;
   password: string;
   phoneNumber: string;
+  profileIds?: number[];
+  active: boolean;
 }
 
 export interface IPasswordResetToken {

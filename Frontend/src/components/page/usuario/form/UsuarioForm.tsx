@@ -1,8 +1,13 @@
 'use client';
-import CustomCombobox, { Option } from '@/components/input/Combobox';
+import { CustomCheckBox } from '@/components/input/Checkbox';
+import { Option } from '@/components/input/Combobox';
+import ComboboxMultiple from '@/components/input/ComboboxMultiple';
 import FloatingInput from '@/components/input/FloatingInput';
+import Input from '@/components/shared/Input';
+import InputPhone from '@/components/shared/InputPhone';
 import { useApi } from '@/data/hooks/useApi';
 import { User2 } from 'lucide-react';
+import Image from 'next/image';
 import { useState } from 'react';
 
 const perfilItems: Option[] = [
@@ -12,37 +17,29 @@ const perfilItems: Option[] = [
   },
   { label: 'Gerente', value: 2 },
   { label: 'Usuário', value: 3 },
-];
-
-const diasTrabalhoItems: Option[] = [
-  {
-    label: 'Segunda a Sexta',
-    value: 1,
-  },
-  { label: 'Sábado', value: 2 },
-  { label: 'Domingo', value: 3 },
-];
-
-const ativoItems: Option[] = [
-  { label: 'Ativo', value: 1 },
-  { label: 'Inativo', value: 2 },
+  { label: 'Ativo', value: 4 },
+  { label: 'Inativo', value: 5 },
 ];
 
 export const UsuarioForm = ({}) => {
   const [nome, setNome] = useState('');
-  const [diasDeTrabalho, setDiasDeTrabalho] = useState<Option | null>(null);
-  const [perfil, setPerfil] = useState<Option | null>(null);
-  const [ativo, setAtivo] = useState<Option | null>(null);
+  const [perfil, setPerfil] = useState<Option[]>([]);
+  const [ativo, setAtivo] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
-
+  const [password, setPassword] = useState('');
+  const [passwordRepeat, setPasswordRepeat] = useState('');
+  const [email, setEmail] = useState('');
   const { post } = useApi();
 
   const submitForm = async () => {
     const data = {};
-    const response = await post('/users', {
+    const response = await post('/users/register', {
       name: nome,
-
-      active: ativo?.value === 1 ? true : false,
+      active: ativo,
+      email,
+      password,
+      phoneNumber,
+      profileIds: perfil.map((p) => p.value),
     });
   };
 
@@ -64,25 +61,59 @@ export const UsuarioForm = ({}) => {
           />
         </form>
         <div className="flex gap-5 pb-32">
-          <CustomCombobox
+          <ComboboxMultiple
             options={perfilItems}
             placeholder="Selecione o Perfil"
-            value={perfil}
-            onChange={(val) => setPerfil(val)}
+            defaultValue={perfil}
+            onChange={setPerfil}
           />
-          <CustomCombobox
-            options={diasTrabalhoItems}
-            placeholder="Dias de Trabalho"
-            value={diasDeTrabalho}
-            onChange={(val) => setDiasDeTrabalho(val)}
-          />
-          <CustomCombobox
-            options={ativoItems}
-            placeholder="Ativo"
-            value={ativo}
+          <CustomCheckBox
+            name="ativo"
+            label="Ativo"
+            checked={ativo}
             onChange={(val) => setAtivo(val)}
           />
         </div>
+        <>
+          <Input
+            name="Email"
+            iconBefore={
+              <Image src="/email.svg" width={20} height={20} alt="email" />
+            }
+            type="text"
+            value={email}
+            event={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            name="Senha"
+            iconBefore={
+              <Image src="/padlock.svg" width={20} height={20} alt="senha" />
+            }
+            iconAfter={
+              <Image src="/eye.svg" width={20} height={20} alt="senha" />
+            }
+            type="password"
+            value={password}
+            event={(e) => setPassword(e.target.value)}
+          />
+          <Input
+            name="Senha"
+            iconBefore={
+              <Image
+                src="/padlock.svg"
+                width={20}
+                height={20}
+                alt="senha-repetir"
+              />
+            }
+            type="password"
+            value={passwordRepeat}
+            event={(e) => setPasswordRepeat(e.target.value)}
+          />
+          <div className="flex flex-col pt-5">
+            <InputPhone phone={phoneNumber} setPhone={setPhoneNumber} />
+          </div>
+        </>
         <div className="flex gap-20">
           <button
             className="button w-auto hover:bg-gray-400 active:bg-emerald-800"

@@ -60,7 +60,7 @@ export default function CustomCombobox({
       <Combobox
         value={selectedValue}
         onChange={(selected: Option) => handleSelection(selected)}
-        onClose={() => setQuery('')} // Limpa a busca ao fechar o dropdown.
+        onClose={() => setQuery('')}
       >
         <div className="relative">
           <ComboboxInput

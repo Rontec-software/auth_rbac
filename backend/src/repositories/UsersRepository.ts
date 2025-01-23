@@ -2,13 +2,28 @@ import { ICreateUser, IPasswordResetToken } from "../interfaces/UsersInterface";
 import { prismaDB } from "../lib/prisma";
 
 class UsersRepository {
-  async create({ name, email, password, phoneNumber }: ICreateUser) {
+  async create({
+    name,
+    email,
+    password,
+    phoneNumber,
+    profileIds,
+    active,
+  }: ICreateUser) {
     const result = await prismaDB.user.create({
       data: {
         name,
         email,
         password,
         phoneNumber,
+        active,
+        ...(profileIds && {
+          profiles: {
+            create: profileIds.map((profileId) => ({
+              profile: { connect: { id: profileId.toString() } },
+            })),
+          },
+        }),
       },
     });
 
