@@ -22,7 +22,7 @@ export default function InputPhone(props: InputPhoneProps) {
         paddingLeft: '50px',
       }}
       onlyCountries={['br']}
-      masks={{ br: '(..) ...-...-...' }}
+      masks={{ br: '(..) .....-....' }}
       dropdownClass="scrollbar"
       dropdownStyle={{
         backgroundColor: '#09090B',
