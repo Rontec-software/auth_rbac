@@ -18,7 +18,7 @@ class UsersRoutes {
     this.router.get(
       "/profile",
       authMiddleware,
-      rbacMiddleware("read_profile"),
+      // rbacMiddleware("read_profile"),
       this.controller.getProfile.bind(this.controller)
     );
 
