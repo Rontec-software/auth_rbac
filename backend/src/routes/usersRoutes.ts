@@ -23,6 +23,20 @@ class UsersRoutes {
     );
 
     this.router.get(
+      "/:id",
+      authMiddleware,
+      rbacMiddleware("read_user"),
+      this.controller.getById.bind(this.controller)
+    );
+
+    this.router.patch(
+      "/:id",
+      authMiddleware,
+      rbacMiddleware("update_user"),
+      this.controller.update.bind(this.controller)
+    );
+
+    this.router.get(
       "/profile",
       authMiddleware,
       rbacMiddleware("read_profile"),

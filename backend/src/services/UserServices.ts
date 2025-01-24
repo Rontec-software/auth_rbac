@@ -1,5 +1,5 @@
 import { BadRequestError } from "../helpers/api-errors";
-import { ICreateUser } from "../interfaces/UsersInterface";
+import { ICreateUser, IUpdateUser } from "../interfaces/UsersInterface";
 import ProvedorCriptografia from "../providers/ProvedorCriptografia";
 import { UsersRepository } from "../repositories/UsersRepository";
 
@@ -71,6 +71,36 @@ class UsersServices {
     const user = await this.repository.findById(id);
 
     return user;
+  }
+
+  async update({
+    id,
+    name,
+    email,
+    password,
+    phoneNumber,
+    profileIds,
+    active,
+  }: IUpdateUser) {
+    const user = await this.repository.findById(id);
+
+    if (!user) {
+      throw new BadRequestError("User not found");
+    }
+
+    const hashPassword = await this.cripto.criptografar(password);
+
+    const updated = await this.repository.update({
+      id,
+      name,
+      email,
+      password: hashPassword,
+      phoneNumber,
+      profileIds,
+      active,
+    });
+
+    return updated;
   }
 
   async getProfileById(id: string) {

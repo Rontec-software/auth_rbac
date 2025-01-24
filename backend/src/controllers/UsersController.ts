@@ -54,6 +54,25 @@ class UsersController {
     resp.status(200).json(result);
   }
 
+  async update(req: Request, resp: Response) {
+    const { name, email, password, phoneNumber, profileIds, active } = req.body;
+
+    try {
+      const result = await this.userServices.update({
+        id: req.params.id,
+        name,
+        email,
+        password,
+        phoneNumber,
+        profileIds,
+        active,
+      });
+      resp.status(200).json(result);
+    } catch (error) {
+      resp.status(500).json(error);
+    }
+  }
+
   async getProfile(req: Request, resp: Response) {
     resp.status(200).json(req.user);
   }

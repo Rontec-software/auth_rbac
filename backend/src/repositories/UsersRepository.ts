@@ -1,4 +1,8 @@
-import { ICreateUser, IPasswordResetToken } from "../interfaces/UsersInterface";
+import {
+  ICreateUser,
+  IPasswordResetToken,
+  IUpdateUser,
+} from "../interfaces/UsersInterface";
 import { prismaDB } from "../lib/prisma";
 
 class UsersRepository {
@@ -19,6 +23,37 @@ class UsersRepository {
         active,
         ...(profileIds && {
           profiles: {
+            create: profileIds.map((profileId) => ({
+              profile: { connect: { id: profileId.toString() } },
+            })),
+          },
+        }),
+      },
+    });
+
+    return result;
+  }
+
+  async update({
+    id,
+    name,
+    email,
+    password,
+    phoneNumber,
+    profileIds,
+    active,
+  }: IUpdateUser) {
+    const result = await prismaDB.user.update({
+      where: { id },
+      data: {
+        name,
+        email,
+        password,
+        phoneNumber,
+        active,
+        ...(profileIds && {
+          profiles: {
+            deleteMany: {},
             create: profileIds.map((profileId) => ({
               profile: { connect: { id: profileId.toString() } },
             })),
@@ -60,7 +95,26 @@ class UsersRepository {
   }
 
   async findById(id: string) {
-    const result = await prismaDB.user.findUnique({ where: { id } });
+    const result = await prismaDB.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phoneNumber: true,
+        active: true,
+        profiles: {
+          select: {
+            profile: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
 
     return result;
   }

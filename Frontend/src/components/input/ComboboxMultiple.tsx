@@ -34,9 +34,11 @@ export default function ComboboxMultiple({
   buttonClassName,
   optionClassName,
 }: CustomListboxProps) {
-  const [internalValue, setInternalValue] = useState<Option[]>(defaultValue);
+  const [internalValue, setInternalValue] = useState<Option[]>(
+    value || defaultValue
+  );
 
-  const selectedValues = value || internalValue;
+  const selectedValues = value ?? internalValue;
 
   const handleSelection = (selected: Option[]) => {
     if (!value) setInternalValue(selected);
@@ -60,12 +62,13 @@ export default function ComboboxMultiple({
   };
 
   return (
-    <div className={clsx('w-64', className)}>
+    <div className={clsx('w-full, h-[35px]', className)}>
+      <label className="text-[14px]">{placeholder}</label>
       <Listbox value={selectedValues} onChange={handleSelection} multiple>
         <div className="relative">
           <ListboxButton
             className={clsx(
-              'relative w-full truncate rounded-lg border border-gray-300 bg-white py-2 pl-3 pr-10 text-sm text-gray-900 focus:border-blue-500 focus:outline-none',
+              'relative w-full truncate rounded-md border-2 border-black bg-[#09090B] py-2 pl-3 pr-10 text-sm text-gray-50 focus:outline-none',
               buttonClassName
             )}
             title={selectedValues.map((option) => option.label).join(', ')}
