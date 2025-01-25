@@ -36,6 +36,13 @@ class UsersRoutes {
       this.controller.update.bind(this.controller)
     );
 
+    this.router.delete(
+      "/:id",
+      authMiddleware,
+      rbacMiddleware("delete_user"),
+      this.controller.delete.bind(this.controller)
+    );
+
     this.router.get(
       "/profile",
       authMiddleware,

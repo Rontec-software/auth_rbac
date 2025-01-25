@@ -72,6 +72,17 @@ class UsersServices {
 
     return user;
   }
+  async delete(id: string) {
+    const user = await this.repository.findById(id);
+
+    if (!user) {
+      throw new BadRequestError("User not found");
+    }
+
+    const result = await this.repository.delete(id);
+
+    return result;
+  }
 
   async update({
     id,

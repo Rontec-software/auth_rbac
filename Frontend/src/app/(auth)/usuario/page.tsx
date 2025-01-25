@@ -18,7 +18,7 @@ interface IUser {
 }
 
 export default function User() {
-  const { get } = useApi();
+  const { get, del } = useApi();
   const router = useRouter();
   const [search, setSearch] = useState<string | null>(null);
   const [pagination, setPagination] = useState({
@@ -27,6 +27,7 @@ export default function User() {
     totalPages: 1,
   });
   const [data, setData] = useState<IUser[]>([]);
+
   const handleSearchUser = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -67,12 +68,21 @@ export default function User() {
           />
           <Trash2
             className="text-red-500 cursor-pointer hover:text-red-700"
-            onClick={() => alert('Implementar exclusão')}
+            onClick={() => handleDeleteUser(row.id)}
           />
         </div>
       ),
     },
   ];
+
+  const handleDeleteUser = async (id: number) => {
+    const response = await del(`/users/${id}`);
+
+    if (response.success) {
+      alert('Usuário excluído com sucesso');
+      fetchUsers();
+    }
+  };
 
   const fetchUsers = async (page = 1, limit = 10) => {
     const queryParams: Record<string, any> = { page, limit };

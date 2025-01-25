@@ -94,6 +94,24 @@ class UsersRepository {
     });
   }
 
+  async delete(id: string) {
+    try {
+      const result = await prismaDB.$transaction(async (prisma) => {
+        await prisma.userProfile.deleteMany({
+          where: { userId: id },
+        });
+
+        return prisma.user.delete({
+          where: { id },
+        });
+      });
+
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async findById(id: string) {
     const result = await prismaDB.user.findUnique({
       where: { id },

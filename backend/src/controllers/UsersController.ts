@@ -44,14 +44,26 @@ class UsersController {
       });
       resp.status(200).json(result);
     } catch (error) {
-      console.log(error);
       resp.status(500).json(error);
     }
   }
 
   async getById(req: Request, resp: Response) {
-    const result = await this.userServices.getById(req.params.id);
-    resp.status(200).json(result);
+    try {
+      const result = await this.userServices.getById(req.params.id);
+      resp.status(200).json(result);
+    } catch (error) {
+      resp.status(500).json(error);
+    }
+  }
+
+  async delete(req: Request, resp: Response) {
+    try {
+      const result = await this.userServices.delete(req.params.id);
+      resp.status(200).json(result);
+    } catch (error) {
+      resp.status(500).json(error);
+    }
   }
 
   async update(req: Request, resp: Response) {
