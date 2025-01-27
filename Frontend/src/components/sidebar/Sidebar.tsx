@@ -13,22 +13,16 @@ export const Sidebar = () => {
     usuarios: [
       { label: 'Adicionar', href: '/usuario/adicionar', icon: <Plus className="w-4 h-4" /> },
       { label: 'Listar', href: '/usuario/listar', icon: <List className="w-4 h-4" /> },
-      { label: 'Editar', href: '/usuario/editar', icon: <Edit className="w-4 h-4" /> },
-      { label: 'Remover', href: '/usuario/remover', icon: <Trash2 className="w-4 h-4" /> },
     ],
-    perfilAcesso:[
+    perfilAcesso: [
       { label: 'Adicionar', href: '/perfil-de-acesso/adicionar', icon: <Plus className="w-4 h-4" /> },
       { label: 'Listar', href: '/perfil-de-acesso/listar', icon: <List className="w-4 h-4" /> },
-      { label: 'Editar', href: '/perfil-de-acesso/editar', icon: <Edit className="w-4 h-4" /> },
-      { label: 'Remover', href: '/perfil-de-acesso/remover', icon: <Trash2 className="w-4 h-4" /> },
     ],
     permissoes: [
       { label: 'Adicionar', href: '/permissao/adicionar', icon: <Plus className="w-4 h-4" /> },
       { label: 'Listar', href: '/permissao/listar', icon: <List className="w-4 h-4" /> },
-      { label: 'Editar', href: '/permissao/editar', icon: <Edit className="w-4 h-4" /> },
-      { label: 'Remover', href: '/permissao/remover', icon: <Trash2 className="w-4 h-4" /> },
     ],
-    relatorios:[
+    relatorios: [
       { label: 'Gerar', href: '/relatorio/gerar', icon: <File className="w-4 h-4" /> },
       { label: 'Listar', href: '/relatorio/listar', icon: <List className="w-4 h-4" /> },
       { label: 'Baixar', href: '/relatorio/baixar', icon: <Download className="w-4 h-4" /> },
