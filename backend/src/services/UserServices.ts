@@ -2,6 +2,7 @@ import { BadRequestError } from "../helpers/api-errors";
 import { ICreateUser } from "../interfaces/UsersInterface";
 import ProvedorCriptografia from "../providers/ProvedorCriptografia";
 import { UsersRepository } from "../repositories/UsersRepository";
+import validator from "validator"
 
 class UsersServices {
   private repository: UsersRepository;
@@ -17,9 +18,17 @@ class UsersServices {
       throw new BadRequestError("E-mail is required");
     }
 
-    const alreadyExist = await this.repository.findByEmail(email);
-    if (alreadyExist) {
-      throw new BadRequestError("User already exists");
+    if (!validator.isEmail(email)) {
+      throw new Error("Formato de email inválido!")
+    }
+
+    if (!phoneNumber || !validator.isMobilePhone(phoneNumber, 'pt-BR')) {
+      throw new Error("Formato de número de telefone inválido!")
+    }
+
+    const alreadExist = await this.repository.findByEmail(email);
+    if (alreadExist) {
+      throw new Error("User alread exists");
     }
 
     const hashPassword = await this.cripto.criptografar(password);
