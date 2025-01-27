@@ -1,5 +1,5 @@
 'use client';
-import useApi from '@/data/hooks/useApi';
+import useApi from '@/hooks/useApi';
 import { IconMail } from '@tabler/icons-react';
 import { useState } from 'react';
 
