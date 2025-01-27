@@ -4,6 +4,7 @@ import InputPhone from '@/components/shared/InputPhone';
 import useApi from '@/hooks/useApi';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function Cadastrar() {
@@ -18,6 +19,7 @@ export default function Cadastrar() {
   const [phone, setPhone] = useState('');
   const [phoneError, setPhoneError] = useState('');
   const { httpPost } = useApi();
+  const router = useRouter();
 
   async function handleRegister() {
     setNameError('');
@@ -25,16 +27,16 @@ export default function Cadastrar() {
     setPasswordError('');
     setPasswordRepeatError('');
     const data = { name, email, password, phoneNumber: phone };
-    if(name.trim().length < 3) {
+    if (name.trim().length < 3) {
       return setNameError('Digite seu nome completo.')
     }
     const nomeParts = name.trim().split(' ')
-    if(nomeParts.length < 2){
+    if (nomeParts.length < 2) {
       return setNameError('Nome Incompleto, digite o sobrenome.')
     }
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-    if(!emailRegex.test(email)) {
+    if (!emailRegex.test(email)) {
       return setEmailError('Digite um email válido.')
     }
 
@@ -43,7 +45,7 @@ export default function Cadastrar() {
     // if(senhaForte.test(password)) {
     //   return setPasswordError('Digite uma senha forte!')
     // }
-    if(password.length < 6) {
+    if (password.length < 6) {
       return setEmailError('A senha deve conter no mínimo 6 caracteres')
     }
     if (password !== passwordRepeat) {
@@ -51,12 +53,14 @@ export default function Cadastrar() {
     }
 
     const phoneRegex = /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/
-    if(phoneRegex.test(phone)) {
+    if (phoneRegex.test(phone)) {
       return setPhoneError('Número de telefone inválido.')
     }
 
     const resp = await httpPost('users/register', data);
     if (resp.success) {
+      alert('Usuário cadastrado com sucesso!')
+      router.push('/login')
       console.log('Deu bom, usuário cadastrado com sucesso!');
     } else {
       const errors = resp.errors;
@@ -71,9 +75,9 @@ export default function Cadastrar() {
         (err) => err.field === 'password'
       );
       if (indexErrorPassword) setPasswordError(indexErrorPassword.message);
-      
+
       const indexErrorPhone = errors?.find((err) => err.field === 'phoneNumber')
-      if(indexErrorPhone) setPhoneError(indexErrorPhone.message)
+      if (indexErrorPhone) setPhoneError(indexErrorPhone.message)
     }
   }
 
