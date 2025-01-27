@@ -3,7 +3,7 @@ import { IconEyeOff, IconEye } from '@tabler/icons-react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import useApi from '@/data/hooks/useApi';
+import useApi from '@/hooks/useApi';
 
 export default function RedefinirSenha() {
   const searchParams = useSearchParams()

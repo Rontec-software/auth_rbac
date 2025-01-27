@@ -21,6 +21,9 @@ export default function InputPhone(props: InputPhoneProps) {
         borderRadius: '5px',
         paddingLeft: '50px',
       }}
+      onlyCountries={['br']}
+      masks={{ br: '(..) .....-....' }}
+      dropdownClass="scrollbar"
       dropdownStyle={{
         backgroundColor: '#09090B',
         color: 'white',
@@ -33,6 +36,7 @@ export default function InputPhone(props: InputPhoneProps) {
         border: '2px solid black',
         borderRadius: '5px',
       }}
+      buttonClass="buttonClass"
       buttonStyle={{
         backgroundColor: '#09090B',
         color: 'white',
@@ -40,5 +44,5 @@ export default function InputPhone(props: InputPhoneProps) {
         borderRadius: '5px',
       }}
     />
-  );
+  )
 }

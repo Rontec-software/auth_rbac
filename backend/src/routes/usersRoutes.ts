@@ -14,11 +14,22 @@ class UsersRoutes {
 
   getRoutes() {
     this.router.post("/register", this.controller.create.bind(this.controller));
-
+    this.router.put(
+      "/rename",
+      authMiddleware,
+      rbacMiddleware("update_user"),
+      this.controller.rename.bind(this.controller)
+    );
+    this.router.put(
+      "/password",
+      authMiddleware,
+      rbacMiddleware("update_user"),
+      this.controller.updatePassword.bind(this.controller)
+    );
     this.router.get(
       "/profile",
       authMiddleware,
-      rbacMiddleware("read_profile"),
+      // rbacMiddleware("read_profile"),
       this.controller.getProfile.bind(this.controller)
     );
 

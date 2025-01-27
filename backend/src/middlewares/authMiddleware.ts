@@ -40,6 +40,10 @@ export const authMiddleware = async (
 
     next();
   } catch (error) {
-    throw new UnauthorizedError(error.message);
+    if (error instanceof Error) {
+      throw new UnauthorizedError(error.message);
+    } else {
+      throw new UnauthorizedError("Unknown error");
+    }
   }
 };
