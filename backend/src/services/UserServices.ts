@@ -45,6 +45,42 @@ class UsersServices {
     return created;
   }
 
+  async rename({ name, id }: { name: string; id: string }) {
+    if (!name) {
+      throw new Error("Name is required");
+    }
+
+    const updated = await this.repository.rename({ name, id });
+
+    return {
+      id: updated.id,
+      name: updated.name,
+      email: updated.email,
+      phoneNumber: updated.phoneNumber,
+      active: updated.active,
+      profilePicture: updated.profilePicture,
+    };
+  }
+
+  async updatePassword({ password, email }: { password: string; email: string }) {
+    if (!password) {
+      throw new Error("Password is required");
+    }
+
+    const hashPassword = await this.cripto.criptografar(password);
+
+    const updated = await this.repository.changePassword(email, hashPassword);
+
+    return {
+      id: updated.id,
+      name: updated.name,
+      email: updated.email,
+      phoneNumber: updated.phoneNumber,
+      active: updated.active,
+      profilePicture: updated.profilePicture,
+    };
+  }
+
   async getProfileById(id: string) {
     const user = await this.repository.findById(id);
 

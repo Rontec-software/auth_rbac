@@ -24,14 +24,14 @@ class AuthServices {
 
     if (!matchPassword) throw new UnauthorizedError("Invalid credentials");
 
-    delete user.password;
-    delete user.passwordResetToken;
-    delete user.expPasswordResetToken;
-    delete user.createdAt;
-    delete user.twoFactorAuthEnable;
-    //delete user.active;
-
-    return user;
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      active: user.active,
+      profilePicture: user.profilePicture,
+    };
   }
 
   async recoverPassword(email: string) {
