@@ -9,6 +9,7 @@ import { useSession } from '@/hooks/useSession';
 export default function EditarUsuario() {
 
   const [name, setName] = useState('');
+  const [nameOriginal, setNameOriginal] = useState('');
   const [nameError, setNameError] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -38,6 +39,7 @@ export default function EditarUsuario() {
       })
       .then((responseData) => {
         setName(responseData.name);
+        setNameOriginal(responseData.name);
       })
       .catch((error) => {
         alert(`Credenciais inválidas: ${error}`);
@@ -47,9 +49,10 @@ export default function EditarUsuario() {
   async function handleSave() {
     setNameError('');
     setPasswordError('');
+    setPasswordRepeatError('');
     const data = { name, password };
 
-    if (name) {
+    if (name !== nameOriginal) {
       fetch(`${baseUrl}users/rename`, {
         method: 'PUT',
         headers: {
@@ -58,8 +61,13 @@ export default function EditarUsuario() {
         },
         body: JSON.stringify(data),
       })
-        .then((_) => {
-          alert('Usuário atualizado com sucesso');
+        .then(async (res) => {
+          const data = await res.json()
+          if (data?.name === name) {
+            alert('Usuário atualizado com sucesso');
+          } else {
+            setNameError(data?.message);
+          }
         })
         .catch((error) => {
           alert(`Credenciais inválidas: ${error}`);
@@ -119,6 +127,7 @@ export default function EditarUsuario() {
               enableBtn()
             }}
           />
+          {nameError && <span className="text-red-500 text-sm">{nameError}</span>}
           <FloatingInput
             label="Nova Senha"
             type={'password'}
@@ -143,6 +152,8 @@ export default function EditarUsuario() {
               enableBtn()
             }}
           />
+          {passwordError && <span className="text-red-500 text-sm">{passwordRepeatError}</span>}
+          {passwordRepeatError && <span className="text-red-500 text-sm">{passwordRepeatError}</span>}
         </form>
         <div className="flex gap-20">
           {btnDisable

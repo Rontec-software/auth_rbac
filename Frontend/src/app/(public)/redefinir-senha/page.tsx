@@ -40,7 +40,7 @@ export default function RedefinirSenha() {
     }
 
     const data = { email, token, password: newPass }
-    const resp = await httpPost('/auth/reset-password', data);
+    const resp = await httpPost('auth/reset-password', data);
     if (resp.success) {
       setMsgSuccess('Senha redefinida com sucesso');
     } else {

@@ -25,7 +25,7 @@ export const Header = () => {
   useEffect(() => {
     const handlerUser = () => {
       httpGet('users/profile').then((res) => {
-        setUser({ name: res.json.name, email: res.json.email });
+        setUser({ name: res?.json?.name ?? "", email: res?.json?.email ?? "" });
       }).catch((error) => {
         console.error(`Erro ao buscar dados do usuário: ${error}`);
       })

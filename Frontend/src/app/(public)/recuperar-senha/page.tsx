@@ -18,7 +18,7 @@ export default function RecuperarSenha() {
     }
 
     const data = { email }
-    const resp = await httpPost('/auth/recover-password', data);
+    const resp = await httpPost('auth/recover-password', data);
     if (resp.success) {
       setMsgSuccess('E-mail enviado com sucesso. Verifique sua caixa de entrada.');
     } else {

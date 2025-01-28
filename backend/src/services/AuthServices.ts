@@ -65,7 +65,7 @@ class AuthServices {
       theme: 'default',
       product: {
         name: 'Global Coders',
-        link: process.env.BASE_URL_FRONTEND ?? "http://localhost:3000"
+        link: process.env.BASE_URL_FRONTEND ?? "http://localhost:3000/"
       }
     });
 
@@ -80,7 +80,7 @@ class AuthServices {
           button: {
             color: '#DC4D2F',
             text: 'Redefinir sua senha',
-            link: `${process.env.BASE_URL_FRONTEND}/redefinir-senha?token=${token}&email=${email}`
+            link: `${process.env.BASE_URL_FRONTEND}redefinir-senha?token=${token}&email=${email}`
           }
         },
         outro: 'Se você não solicitou uma redefinição de senha, nenhuma outra ação será necessária de sua parte.'
@@ -101,7 +101,7 @@ class AuthServices {
       subject: 'Redefinir senha',
       html: emailBody,
       text: emailText,
-    }, function (err) {
+    }, function (err: any) {
       if (err) return console.log(err);
       console.log('Message sent successfully.');
     });

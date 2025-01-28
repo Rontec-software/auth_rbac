@@ -1,5 +1,5 @@
 ###
-POST http://localhost:3000/auth/login
+POST http://localhost:3001/auth/login
 content-type: application/json
 
 {
@@ -8,18 +8,18 @@ content-type: application/json
 }
 
 ### GET PERMISSIONS
-GET http://localhost:3000/permissions
+GET http://localhost:3001/permissions
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjZDg4Zjc1LTQ0YjYtNGM1Zi05ZTE5LTZkMGU2MzE4OGMxZiIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJwcm9maWxlUGljdHVyZSI6bnVsbCwiYWN0aXZlIjp0cnVlLCJpYXQiOjE3MzYzNjM4NDMsImV4cCI6MTczNjM3ODI0M30.YZF4T9wJ5MqPfjLOOGJanJTqkAwyRsNZfpFKFHUj334
 
 ### GET PERMISSIONS/:id
-GET http://localhost:3000/permissions/8f753a61-cbb4-4e23-8eb1-e7e8212d3330
+GET http://localhost:3001/permissions/8f753a61-cbb4-4e23-8eb1-e7e8212d3330
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjZDg4Zjc1LTQ0YjYtNGM1Zi05ZTE5LTZkMGU2MzE4OGMxZiIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJwcm9maWxlUGljdHVyZSI6bnVsbCwiYWN0aXZlIjp0cnVlLCJpYXQiOjE3MzYzNjM4NDMsImV4cCI6MTczNjM3ODI0M30.YZF4T9wJ5MqPfjLOOGJanJTqkAwyRsNZfpFKFHUj334
 
 
 ### POST PERMISSIONS
-POST http://localhost:3000/permissions/
+POST http://localhost:3001/permissions/
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjZDg4Zjc1LTQ0YjYtNGM1Zi05ZTE5LTZkMGU2MzE4OGMxZiIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJwcm9maWxlUGljdHVyZSI6bnVsbCwiYWN0aXZlIjp0cnVlLCJpYXQiOjE3MzY1MTE5NDUsImV4cCI6MTczNjUyNjM0NX0.4V3d23F9N3-IgS5a9k6TGpfdk4Das_M96KTfkVTl4fI
 
@@ -29,7 +29,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjZDg4Zjc1L
 }
 
 ### PUT PERMISSIONS
-PUT  http://localhost:3000/permissions/8f753a61-cbb4-4e23-8eb1-e7e8212d3330
+PUT  http://localhost:3001/permissions/8f753a61-cbb4-4e23-8eb1-e7e8212d3330
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjZDg4Zjc1LTQ0YjYtNGM1Zi05ZTE5LTZkMGU2MzE4OGMxZiIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJwcm9maWxlUGljdHVyZSI6bnVsbCwiYWN0aXZlIjp0cnVlLCJpYXQiOjE3MzYzNjM4NDMsImV4cCI6MTczNjM3ODI0M30.YZF4T9wJ5MqPfjLOOGJanJTqkAwyRsNZfpFKFHUj334
 
@@ -40,6 +40,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjZDg4Zjc1L
 }
 
 ### DELETE PERMISSIONS
-DELETE http://localhost:3000/permissions/3da0fd8f-0721-4f1a-b7f3-ae7950bb2a0e
+DELETE http://localhost:3001/permissions/3da0fd8f-0721-4f1a-b7f3-ae7950bb2a0e
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjZDg4Zjc1LTQ0YjYtNGM1Zi05ZTE5LTZkMGU2MzE4OGMxZiIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJwcm9maWxlUGljdHVyZSI6bnVsbCwiYWN0aXZlIjp0cnVlLCJpYXQiOjE3MzY1MTE5NDUsImV4cCI6MTczNjUyNjM0NX0.4V3d23F9N3-IgS5a9k6TGpfdk4Das_M96KTfkVTl4fI

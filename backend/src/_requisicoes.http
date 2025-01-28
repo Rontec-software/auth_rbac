@@ -1,7 +1,7 @@
-GET http://localhost:3000
+GET http://localhost:3001
 
 ###
-POST http://localhost:3000/users/register
+POST http://localhost:3001/users/register
 content-type: application/json
 
 {
@@ -12,7 +12,7 @@ content-type: application/json
 }
 
 ###
-POST http://localhost:3000/auth/login
+POST http://localhost:3001/auth/login
 content-type: application/json
 
 {
@@ -21,15 +21,15 @@ content-type: application/json
 }
 
 ###
-POST http://localhost:3000/auth/recover-password
+POST http://localhost:3001/auth/recover-password
 content-type: application/json
 
 {
-  "email": "teste2@teste.com"
+  "email": "joao@teste.com"
 }
 
 ###
-POST http://localhost:3000/auth/reset-password
+POST http://localhost:3001/auth/reset-password
 content-type: application/json
 
 {
@@ -39,17 +39,17 @@ content-type: application/json
 }
 
 ### TOKEN EXPIRADO para negar o acesso
-GET http://localhost:3000/users/profile
+GET http://localhost:3001/users/profile
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIxMTg3NjQ0LTQxZjEtNGYwZS1hZWU0LTQzNGYxMjBiMjcxZiIsIm5hbWUiOiJzYW1wbGVzIiwiZW1haWwiOiJ0ZXN0ZTJAdGVzdGUuY29tIiwicGhvbmVOdW1iZXIiOiI1MTk5OTk5ODg3NyIsInByb2ZpbGVQaWN0dXJlIjpudWxsLCJhY3RpdmUiOnRydWUsImlhdCI6MTczNTg0MzcwOCwiZXhwIjoxNzM1ODU4MTA4fQ.Bpb_DJf9sNZbGCdBV9U6GYkJM2lWM_OmAJYUkcBebKg
 
 ### TOKEN COM ACESSO
-GET http://localhost:3000/users/profile
+GET http://localhost:3001/users/profile
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiYmI4MjBjLWQ0ODMtNDlmNS04NmQ5LTNiMmQyNzE4NzFiMyIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJwcm9maWxlUGljdHVyZSI6bnVsbCwiYWN0aXZlIjp0cnVlLCJpYXQiOjE3MzYyNzQ3NzQsImV4cCI6MTczNjI4OTE3NH0.1sM2WB3nLBHzFbRxt8yoNs1pHfbSa2o4w1b6gF5FOoo
 
 ### RENAME
-PUT http://localhost:3000/users/rename
+PUT http://localhost:3001/users/rename
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlkNDk5NzUyLWZjOGEtNDdlMi04NTU0LWU0MzkyNjVjNjc1ZiIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJhY3RpdmUiOnRydWUsInByb2ZpbGVQaWN0dXJlIjpudWxsLCJpYXQiOjE3MzczODM4NDEsImV4cCI6MTczNzM5ODI0MX0.gPpzLVawxFIeI3Cbx8ifQ6vJOJElAaBmwhMtPc1poiQ
 
@@ -58,7 +58,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlkNDk5NzUyL
 }
 
 ### UPDATE PASSWORD
-PUT http://localhost:3000/users/password
+PUT http://localhost:3001/users/password
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlkNDk5NzUyLWZjOGEtNDdlMi04NTU0LWU0MzkyNjVjNjc1ZiIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJhY3RpdmUiOnRydWUsInByb2ZpbGVQaWN0dXJlIjpudWxsLCJpYXQiOjE3MzczODM4NDEsImV4cCI6MTczNzM5ODI0MX0.gPpzLVawxFIeI3Cbx8ifQ6vJOJElAaBmwhMtPc1poiQ
 

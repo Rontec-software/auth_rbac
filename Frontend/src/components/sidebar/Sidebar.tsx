@@ -13,6 +13,7 @@ export const Sidebar = () => {
     usuarios: [
       { label: 'Adicionar', href: '/usuario/adicionar', icon: <Plus className="w-4 h-4" /> },
       { label: 'Listar', href: '/usuario/listar', icon: <List className="w-4 h-4" /> },
+      { label: 'Editar', href: '/usuario/editar', icon: <Edit className="w-4 h-4" /> },
     ],
     perfilAcesso: [
       { label: 'Adicionar', href: '/perfil-de-acesso/adicionar', icon: <Plus className="w-4 h-4" /> },

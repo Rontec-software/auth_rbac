@@ -1,4 +1,4 @@
-POST http://localhost:3000/auth/login
+POST http://localhost:3001/auth/login
 content-type: application/json
 
 {
@@ -7,18 +7,18 @@ content-type: application/json
 }
 
 ### GET PROFILES
-GET http://localhost:3000/profiles
+GET http://localhost:3001/profiles
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjZDg4Zjc1LTQ0YjYtNGM1Zi05ZTE5LTZkMGU2MzE4OGMxZiIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJwcm9maWxlUGljdHVyZSI6bnVsbCwiYWN0aXZlIjp0cnVlLCJpYXQiOjE3MzY1MzI5NDUsImV4cCI6MTczNjU0NzM0NX0.5ekmBH9qgrvqfdRi7nIIYeXn3RbliTufj1b5agkRnyQ
 
 ### GET PROFILES/:id
-GET http://localhost:3000/profiles/01446440-f022-4b6a-aa67-bfa71831c4b5
+GET http://localhost:3001/profiles/01446440-f022-4b6a-aa67-bfa71831c4b5
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjZDg4Zjc1LTQ0YjYtNGM1Zi05ZTE5LTZkMGU2MzE4OGMxZiIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJwcm9maWxlUGljdHVyZSI6bnVsbCwiYWN0aXZlIjp0cnVlLCJpYXQiOjE3MzY1MzI5NDUsImV4cCI6MTczNjU0NzM0NX0.5ekmBH9qgrvqfdRi7nIIYeXn3RbliTufj1b5agkRnyQ
 
 
 ### POST PROFILES
-POST http://localhost:3000/profiles/
+POST http://localhost:3001/profiles/
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjZDg4Zjc1LTQ0YjYtNGM1Zi05ZTE5LTZkMGU2MzE4OGMxZiIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJwcm9maWxlUGljdHVyZSI6bnVsbCwiYWN0aXZlIjp0cnVlLCJpYXQiOjE3MzY1MzI5NDUsImV4cCI6MTczNjU0NzM0NX0.5ekmBH9qgrvqfdRi7nIIYeXn3RbliTufj1b5agkRnyQ
 
@@ -28,7 +28,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjZDg4Zjc1L
 }
 
 ### PUT PROFILES
-PUT  http://localhost:3000/profiles/01446440-f022-4b6a-aa67-bfa71831c4b5
+PUT  http://localhost:3001/profiles/01446440-f022-4b6a-aa67-bfa71831c4b5
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjZDg4Zjc1LTQ0YjYtNGM1Zi05ZTE5LTZkMGU2MzE4OGMxZiIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJwcm9maWxlUGljdHVyZSI6bnVsbCwiYWN0aXZlIjp0cnVlLCJpYXQiOjE3MzY1MzI5NDUsImV4cCI6MTczNjU0NzM0NX0.5ekmBH9qgrvqfdRi7nIIYeXn3RbliTufj1b5agkRnyQ
 
@@ -39,6 +39,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjZDg4Zjc1L
 }
 
 ### DELETE PROFILES
-DELETE http://localhost:3000/profiles/f131f8c7-0092-4fd1-8dc5-e5bb825e29ad
+DELETE http://localhost:3001/profiles/f131f8c7-0092-4fd1-8dc5-e5bb825e29ad
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFjZDg4Zjc1LTQ0YjYtNGM1Zi05ZTE5LTZkMGU2MzE4OGMxZiIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJwcm9maWxlUGljdHVyZSI6bnVsbCwiYWN0aXZlIjp0cnVlLCJpYXQiOjE3MzY1MzI5NDUsImV4cCI6MTczNjU0NzM0NX0.5ekmBH9qgrvqfdRi7nIIYeXn3RbliTufj1b5agkRnyQ
