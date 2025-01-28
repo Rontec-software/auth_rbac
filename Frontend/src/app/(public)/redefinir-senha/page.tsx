@@ -1,6 +1,6 @@
 'use client';
 
-import { useApi } from '@/data/hooks/useApi';
+import { useApi } from '@/hooks/useApi';
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
 import { useSearchParams } from 'next/navigation';
 

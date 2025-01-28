@@ -43,26 +43,30 @@ class UsersRepository {
     profileIds,
     active,
   }: IUpdateUser) {
-    const result = await prismaDB.user.update({
-      where: { id },
-      data: {
-        name,
-        email,
-        password,
-        phoneNumber,
-        active,
-        ...(profileIds && {
-          profiles: {
-            deleteMany: {},
-            create: profileIds.map((profileId) => ({
-              profile: { connect: { id: profileId.toString() } },
-            })),
-          },
-        }),
-      },
-    });
-
-    return result;
+    try {
+      const result = await prismaDB.user.update({
+        where: { id },
+        data: {
+          name,
+          email,
+          password,
+          phoneNumber,
+          active,
+          ...(profileIds && {
+            profiles: {
+              deleteMany: {},
+              create: profileIds.map((profileId) => ({
+                profile: { connect: { id: profileId.toString() } },
+              })),
+            },
+          }),
+        },
+      });
+      return result;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Update user failed");
+    }
   }
 
   async findByEmail(email: string) {
@@ -78,14 +82,13 @@ class UsersRepository {
         data: { name },
       });
 
-
       if (!result) {
-        throw new Error('Update user failed');
+        throw new Error("Update user failed");
       }
       return result;
     } catch (error) {
-      console.log('error', error);
-      throw new Error('Update user failed');
+      console.log("error", error);
+      throw new Error("Update user failed");
     }
   }
 
@@ -169,7 +172,7 @@ class UsersRepository {
     const where = !!name
       ? { name: { contains: name, mode: "insensitive" } }
       : {};
-
+    console.log(where);
     return await prismaDB.user.findMany({
       where,
       skip,

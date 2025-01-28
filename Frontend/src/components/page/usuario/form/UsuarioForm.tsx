@@ -4,10 +4,11 @@ import { Option } from '@/components/input/Combobox';
 import ComboboxMultiple from '@/components/input/ComboboxMultiple';
 import Input from '@/components/shared/Input';
 import InputPhone from '@/components/shared/InputPhone';
-import { useApi } from '@/data/hooks/useApi';
+
 import { User2 } from 'lucide-react';
 import Image from 'next/image';
 
+import { useApi } from '@/hooks/useApi';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import {
@@ -35,7 +36,7 @@ export const UsuarioForm = ({ edit }: { edit?: string }) => {
   async function getAllProfiles() {
     const response = await get<IGetAllProfiles[]>('/profiles');
 
-    if (response.status == 200) {
+    if (response.status == 200 && response.json) {
       const options = response.json.map((res) => ({
         label: res.name,
         value: res.id,
@@ -45,10 +46,10 @@ export const UsuarioForm = ({ edit }: { edit?: string }) => {
     }
   }
 
-  async function getById(id: string) {
+  async function getById() {
     const response = await get<IGetByIdUser>(`/users/${edit}`);
 
-    if (response.status == 200) {
+    if (response.status == 200 && response.json) {
       const profile = response.json.profiles.flatMap((p) => ({
         label: p.profile.name,
         value: p.profile.id,
@@ -84,15 +85,16 @@ export const UsuarioForm = ({ edit }: { edit?: string }) => {
     } else {
       response = await post<any, ISubmitUsuarioForm>('/users/register', data);
     }
-    if (response?.errors && response?.errors?.length > 0)
+    console.log();
+    if ((response?.errors && response?.errors?.length > 0) || !response?.status)
       return alert(response.errors);
-
-    alert('Usuário criado com sucesso');
-    router.push('/usuario');
+    console.log(response);
+    alert(`Usuário ${edit ? 'atualizado' : 'criado'} com sucesso`);
+    router.push('/usuario/listar');
   };
 
   async function getValues() {
-    if (edit) await getById(edit);
+    if (edit) await getById();
     await getAllProfiles();
     setLoading(false);
   }
@@ -196,7 +198,10 @@ export const UsuarioForm = ({ edit }: { edit?: string }) => {
         >
           Salvar
         </button>
-        <button className="w-full px-4 py-2 text-white bg-blue-600 hover:bg-blue-500 active:bg-blue-700 rounded-lg transition duration-300">
+        <button
+          className="w-full px-4 py-2 text-white bg-blue-600 hover:bg-blue-500 active:bg-blue-700 rounded-lg transition duration-300"
+          onClick={() => router.push('/usuario/listar')}
+        >
           Cancelar
         </button>
       </div>

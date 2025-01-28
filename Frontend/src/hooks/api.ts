@@ -1,4 +1,4 @@
-import ResponseApi from '../model/ResponseApi';
+import ResponseApi from '@/data/model/ResponseApi';
 
 export async function apiRequest<TResponse, TBody = undefined>(
   baseUrl: string,
@@ -32,6 +32,6 @@ export async function apiRequest<TResponse, TBody = undefined>(
     json: responseData || null,
     status: response.status,
     success: response.ok,
-    errors: responseData?.errors ?? [],
+    errors: responseData?.message ?? [],
   };
 }

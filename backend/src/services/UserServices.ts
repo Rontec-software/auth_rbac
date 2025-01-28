@@ -29,9 +29,9 @@ class UsersServices {
       throw new Error("Formato de email inválido!");
     }
 
-    if (!phoneNumber || !validator.isMobilePhone(phoneNumber, "pt-BR")) {
+    /*  if (!phoneNumber || !validator.isMobilePhone(phoneNumber, "pt-BR")) {
       throw new Error("Formato de número de telefone inválido!");
-    }
+    } */
 
     const alreadExist = await this.repository.findByEmail(email);
     if (alreadExist) {
@@ -123,6 +123,7 @@ class UsersServices {
 
     return user;
   }
+
   async delete(id: string) {
     const user = await this.repository.findById(id);
 

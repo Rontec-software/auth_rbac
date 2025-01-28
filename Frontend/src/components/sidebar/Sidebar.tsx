@@ -1,40 +1,98 @@
-'use client'
-import { ReactNode } from 'react'
-import { SecondaryMenu } from '../dropdown/interfaces/Types'
-import { User, Shield, ClipboardMinus, FileText, Plus, List, Edit, Trash2, Download, Upload, File } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import DropdownMenu from '@/components/dropdown/DropdownMenu'
-import Image from 'next/image'
-import logo from '../../../public/logo.png'
+'use client';
+import DropdownMenu from '@/components/dropdown/DropdownMenu';
+import {
+  ClipboardMinus,
+  Download,
+  Edit,
+  File,
+  FileText,
+  List,
+  Plus,
+  Shield,
+  Upload,
+  User,
+} from 'lucide-react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { ReactNode } from 'react';
+import logo from '../../../public/logo.png';
+import { SecondaryMenu } from '../dropdown/interfaces/Types';
 
 export const Sidebar = () => {
-  const router = useRouter()
+  const router = useRouter();
   const secondaryMenus: SecondaryMenu = {
     usuarios: [
-      { label: 'Adicionar', href: '/usuario/adicionar', icon: <Plus className="w-4 h-4" /> },
-      { label: 'Listar', href: '/usuario/listar', icon: <List className="w-4 h-4" /> },
-      { label: 'Editar', href: '/usuario/editar', icon: <Edit className="w-4 h-4" /> },
+      {
+        label: 'Adicionar',
+        href: '/usuario/form',
+        icon: <Plus className="w-4 h-4" />,
+      },
+      {
+        label: 'Listar',
+        href: '/usuario/listar',
+        icon: <List className="w-4 h-4" />,
+      },
     ],
     perfilAcesso: [
-      { label: 'Adicionar', href: '/perfil-de-acesso/adicionar', icon: <Plus className="w-4 h-4" /> },
-      { label: 'Listar', href: '/perfil-de-acesso/listar', icon: <List className="w-4 h-4" /> },
-      { label: 'Editar', href: '/perfil-de-acesso/editar', icon: <Edit className="w-4 h-4" /> },
+      {
+        label: 'Adicionar',
+        href: '/perfil-de-acesso/adicionar',
+        icon: <Plus className="w-4 h-4" />,
+      },
+      {
+        label: 'Listar',
+        href: '/perfil-de-acesso/listar',
+        icon: <List className="w-4 h-4" />,
+      },
+      {
+        label: 'Editar',
+        href: '/perfil-de-acesso/editar',
+        icon: <Edit className="w-4 h-4" />,
+      },
     ],
     permissoes: [
-      { label: 'Adicionar', href: '/permissao/adicionar', icon: <Plus className="w-4 h-4" /> },
-      { label: 'Listar', href: '/permissao/listar', icon: <List className="w-4 h-4" /> },
-      { label: 'Editar', href: '/permissao/editar', icon: <Edit className="w-4 h-4" /> },
+      {
+        label: 'Adicionar',
+        href: '/permissao/adicionar',
+        icon: <Plus className="w-4 h-4" />,
+      },
+      {
+        label: 'Listar',
+        href: '/permissao/listar',
+        icon: <List className="w-4 h-4" />,
+      },
+      {
+        label: 'Editar',
+        href: '/permissao/editar',
+        icon: <Edit className="w-4 h-4" />,
+      },
     ],
     relatorios: [
-      { label: 'Gerar', href: '/relatorio/gerar', icon: <File className="w-4 h-4" /> },
-      { label: 'Listar', href: '/relatorio/listar', icon: <List className="w-4 h-4" /> },
-      { label: 'Baixar', href: '/relatorio/baixar', icon: <Download className="w-4 h-4" /> },
-      { label: 'Enviar', href: '/relatorio/enviar', icon: <Upload className="w-4 h-4" /> },
+      {
+        label: 'Gerar',
+        href: '/relatorio/gerar',
+        icon: <File className="w-4 h-4" />,
+      },
+      {
+        label: 'Listar',
+        href: '/relatorio/listar',
+        icon: <List className="w-4 h-4" />,
+      },
+      {
+        label: 'Baixar',
+        href: '/relatorio/baixar',
+        icon: <Download className="w-4 h-4" />,
+      },
+      {
+        label: 'Enviar',
+        href: '/relatorio/enviar',
+        icon: <Upload className="w-4 h-4" />,
+      },
     ],
-  }
+  };
 
   const renderSecondaryMenu = (
-    menuItems: { label: string, href: string, icon: ReactNode }[]
+    menuItems: { label: string; href: string; icon: ReactNode }[]
   ) => (
     <div className="flex flex-col space-y-2">
       {menuItems.map((item, index) => (
@@ -48,8 +106,7 @@ export const Sidebar = () => {
         </button>
       ))}
     </div>
-  )
-
+  );
 
   return (
     <aside className="w-56 flex flex-col items-center">
@@ -96,5 +153,5 @@ export const Sidebar = () => {
         />
       </nav>
     </aside>
-  )
-}
+  );
+};

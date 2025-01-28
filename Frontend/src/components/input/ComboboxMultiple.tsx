@@ -64,7 +64,12 @@ export default function ComboboxMultiple({
   return (
     <div className={clsx('w-full, h-[35px]', className)}>
       <label className="text-[14px]">{placeholder}</label>
-      <Listbox value={selectedValues} onChange={handleSelection} multiple>
+      <Listbox
+        value={selectedValues}
+        onChange={handleSelection}
+        multiple
+        by={'value'}
+      >
         <div className="relative">
           <ListboxButton
             className={clsx(

@@ -1,3 +1,4 @@
+'use client';
 import DropdownMenu from '@/components/dropdown/DropdownMenu';
 import FloatingInput from '@/components/input/FloatingInput';
 import {
