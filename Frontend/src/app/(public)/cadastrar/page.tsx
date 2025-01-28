@@ -1,7 +1,8 @@
 'use client';
 import Input from '@/components/shared/Input';
 import InputPhone from '@/components/shared/InputPhone';
-import useApi from '@/hooks/useApi';
+import { useApi } from '@/hooks/useApi';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -18,7 +19,7 @@ export default function Cadastrar() {
   const [passwordRepeatError, setPasswordRepeatError] = useState('');
   const [phone, setPhone] = useState('');
   const [phoneError, setPhoneError] = useState('');
-  const { httpPost } = useApi();
+  const { post } = useApi();
   const router = useRouter();
 
   async function handleRegister() {
@@ -57,7 +58,7 @@ export default function Cadastrar() {
       return setPhoneError('Número de telefone inválido.');
     }
 
-    const resp = await httpPost('users/register', data);
+    const resp = await post('/users/register', data);
     if (resp.success) {
       alert('Usuário cadastrado com sucesso!');
       router.push('/login');
