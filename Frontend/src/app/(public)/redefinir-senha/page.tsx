@@ -3,7 +3,6 @@
 import { useApi } from '@/data/hooks/useApi';
 import { IconEye, IconEyeOff } from '@tabler/icons-react';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 export default function RedefinirSenha() {
   const searchParams = useSearchParams();

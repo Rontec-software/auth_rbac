@@ -71,6 +71,24 @@ class UsersRepository {
     return result;
   }
 
+  async rename({ name, id }: { name: string; id: string }) {
+    try {
+      const result = await prismaDB.user.update({
+        where: { id },
+        data: { name },
+      });
+
+
+      if (!result) {
+        throw new Error('Update user failed');
+      }
+      return result;
+    } catch (error) {
+      console.log('error', error);
+      throw new Error('Update user failed');
+    }
+  }
+
   async setPasswordResetToken({ email, token, expToken }: IPasswordResetToken) {
     const result = await prismaDB.user.update({
       where: { email },
@@ -92,6 +110,8 @@ class UsersRepository {
         expPasswordResetToken: null,
       },
     });
+
+    return result;
   }
 
   async delete(id: string) {

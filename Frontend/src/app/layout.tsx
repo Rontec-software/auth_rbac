@@ -1,4 +1,4 @@
-import { AuthProvider } from '@/context/auth/authContext';
+import { AuthProvider } from '@/context/authContext';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';

@@ -99,7 +99,7 @@ export default function User() {
       query: queryParams,
     });
 
-    if (response.success) {
+    if (response.success && response.json) {
       setData(response.json.users);
       setPagination({
         total: response.json.total,

@@ -1,13 +1,13 @@
 'use client';
 import Input from '@/components/shared/Input';
 import InputPhone from '@/components/shared/InputPhone';
-import { useApi } from '@/data/hooks/useApi';
-
+import useApi from '@/hooks/useApi';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-export default function Login() {
+export default function Cadastrar() {
   const [name, setName] = useState('');
   const [nameError, setNameError] = useState('');
   const [email, setEmail] = useState('');
@@ -17,31 +17,69 @@ export default function Login() {
   const [passwordRepeat, setPasswordRepeat] = useState('');
   const [passwordRepeatError, setPasswordRepeatError] = useState('');
   const [phone, setPhone] = useState('');
-  const { post } = useApi();
+  const [phoneError, setPhoneError] = useState('');
+  const { httpPost } = useApi();
+  const router = useRouter();
 
   async function handleRegister() {
     setNameError('');
     setEmailError('');
     setPasswordError('');
     setPasswordRepeatError('');
-    const data = { name, email, password };
+    const data = { name, email, password, phoneNumber: phone };
+    if (name.trim().length < 3) {
+      return setNameError('Digite seu nome completo.');
+    }
+    const nomeParts = name.trim().split(' ');
+    if (nomeParts.length < 2) {
+      return setNameError('Nome Incompleto, digite o sobrenome.');
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      return setEmailError('Digite um email válido.');
+    }
+
+    // const senhaForteRegex =
+    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    // if(senhaForte.test(password)) {
+    //   return setPasswordError('Digite uma senha forte!')
+    // }
+    if (password.length < 6) {
+      return setEmailError('A senha deve conter no mínimo 6 caracteres');
+    }
     if (password !== passwordRepeat) {
       return setPasswordRepeatError('As senhas não são iguais');
     }
-    const resp = await post('/users', data);
+
+    const phoneRegex = /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/;
+    if (phoneRegex.test(phone)) {
+      return setPhoneError('Número de telefone inválido.');
+    }
+
+    const resp = await httpPost('users/register', data);
     if (resp.success) {
-      console.log('Deu bom!');
+      alert('Usuário cadastrado com sucesso!');
+      router.push('/login');
+      console.log('Deu bom, usuário cadastrado com sucesso!');
     } else {
       const errors = resp.errors;
       console.log(errors);
       const indexErrorName = errors?.find((err) => err.field === 'name');
       if (indexErrorName) setNameError(indexErrorName.message);
+
       const indexErrorEmail = errors?.find((err) => err.field === 'email');
       if (indexErrorEmail) setEmailError(indexErrorEmail.message);
+
       const indexErrorPassword = errors?.find(
         (err) => err.field === 'password'
       );
       if (indexErrorPassword) setPasswordError(indexErrorPassword.message);
+
+      const indexErrorPhone = errors?.find(
+        (err) => err.field === 'phoneNumber'
+      );
+      if (indexErrorPhone) setPhoneError(indexErrorPhone.message);
     }
   }
 
@@ -108,6 +146,7 @@ export default function Login() {
           />
           <div className="flex flex-col pt-5">
             <InputPhone phone={phone} setPhone={setPhone} />
+            <span>{phoneError}</span>
           </div>
           <button
             onClick={handleRegister}
