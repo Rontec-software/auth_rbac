@@ -100,7 +100,7 @@ cd Frontend
 
 ### 2. Criar arquivo `.env`.
 ```sh
-cp env_modelo .env
+cp .env.example .env
 ```
 
 ### 3. Setar versão do node com NVM (opcional).
