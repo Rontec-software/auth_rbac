@@ -1,9 +1,9 @@
-'use client'
-import { IconSearch, IconUserShield, IconLogout2 } from '@tabler/icons-react';
+'use client';
 import { useSession } from '@/hooks/useSession';
-import useApi from '@/hooks/useApi';
-import { useEffect, useState } from 'react';
+import { IconLogout2, IconSearch, IconUserShield } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import useApi from '@/hooks/useApi';
 
 interface User {
   name: string;
@@ -11,25 +11,29 @@ interface User {
 }
 
 export const Header = () => {
-
   const { clearToken } = useSession();
-  const { httpGet } = useApi<User>();
+  const { httpGet } = useApi();
   const [user, setUser] = useState<User>({ name: '', email: '' });
   const router = useRouter();
 
   const handlerLogout = () => {
     clearToken();
     router.push('/login');
-  }
+  };
+
+  const handlerUser = async () => {
+    httpGet<User>('/users/profile')
+      .then((res) => {
+        if (res?.json?.name) {
+          setUser({ name: res?.json.name, email: res.json.email });
+        }
+      })
+      .catch((error) => {
+        console.log(`Erro ao buscar dados do usuário: ${error}`);
+      });
+  };
 
   useEffect(() => {
-    const handlerUser = () => {
-      httpGet('users/profile').then((res) => {
-        setUser({ name: res?.json?.name ?? "", email: res?.json?.email ?? "" });
-      }).catch((error) => {
-        console.error(`Erro ao buscar dados do usuário: ${error}`);
-      })
-    }
     handlerUser();
   }, []);
 
@@ -69,15 +73,17 @@ export const Header = () => {
         <div className="relative group">
           <IconLogout2
             onClick={handlerLogout}
-            className='cursor-pointer hover:text-red-500'
+            className="cursor-pointer hover:text-red-500"
           />
-          <div className={`absolute hidden mt-2
+          <div
+            className={`absolute hidden mt-2
             text-xs text-white bg-black rounded opacity-0 group-hover:block 
-            group-hover:opacity-100`}>
+            group-hover:opacity-100`}
+          >
             Logout
           </div>
         </div>
       </div>
     </header>
-  )
-}
+  );
+};

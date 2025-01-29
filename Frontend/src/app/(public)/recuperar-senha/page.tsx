@@ -4,25 +4,27 @@ import { IconMail } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function RecuperarSenha() {
-
   const [email, setEmail] = useState('');
   const [msgError, setMsgError] = useState('');
   const [msgSuccess, setMsgSuccess] = useState('');
   const { httpPost } = useApi();
 
   async function handleSubmit() {
-
     if (!email) {
-      setMsgError('O campo email é obrigatório')
-      return
+      setMsgError('O campo email é obrigatório');
+      return;
     }
 
     const data = { email }
     const resp = await httpPost('auth/recover-password', data);
     if (resp.success) {
-      setMsgSuccess('E-mail enviado com sucesso. Verifique sua caixa de entrada.');
+      setMsgSuccess(
+        'E-mail enviado com sucesso. Verifique sua caixa de entrada.'
+      );
     } else {
-      setMsgError('Erro ao enviar e-mail. Favor entrar em contato com o suporte.');
+      setMsgError(
+        'Erro ao enviar e-mail. Favor entrar em contato com o suporte.'
+      );
       const errors = resp.errors;
       console.log(errors);
     }
@@ -53,13 +55,10 @@ export default function RecuperarSenha() {
           {msgError && <span className="text-red-500">{msgError}</span>}
           {msgSuccess && <span className="text-green-500">{msgSuccess}</span>}
         </div>
-        <button
-          onClick={handleSubmit}
-          className="button"
-          type="button">
+        <button onClick={handleSubmit} className="button" type="button">
           Enviar
         </button>
       </div>
     </div>
-  )
+  );
 }

@@ -1,7 +1,8 @@
 'use client';
 import Input from '@/components/shared/Input';
 import InputPhone from '@/components/shared/InputPhone';
-import useApi from '@/hooks/useApi';
+import { useApi } from '@/hooks/useApi';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -18,7 +19,7 @@ export default function Cadastrar() {
   const [passwordRepeatError, setPasswordRepeatError] = useState('');
   const [phone, setPhone] = useState('');
   const [phoneError, setPhoneError] = useState('');
-  const { httpPost } = useApi();
+  const { post } = useApi();
   const router = useRouter();
 
   async function handleRegister() {
@@ -28,16 +29,16 @@ export default function Cadastrar() {
     setPasswordRepeatError('');
     const data = { name, email, password, phoneNumber: phone };
     if (name.trim().length < 3) {
-      return setNameError('Digite seu nome completo.')
+      return setNameError('Digite seu nome completo.');
     }
-    const nomeParts = name.trim().split(' ')
+    const nomeParts = name.trim().split(' ');
     if (nomeParts.length < 2) {
-      return setNameError('Nome Incompleto, digite o sobrenome.')
+      return setNameError('Nome Incompleto, digite o sobrenome.');
     }
 
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
-      return setEmailError('Digite um email válido.')
+      return setEmailError('Digite um email válido.');
     }
 
     // const senhaForteRegex =
@@ -46,21 +47,21 @@ export default function Cadastrar() {
     //   return setPasswordError('Digite uma senha forte!')
     // }
     if (password.length < 6) {
-      return setEmailError('A senha deve conter no mínimo 6 caracteres')
+      return setEmailError('A senha deve conter no mínimo 6 caracteres');
     }
     if (password !== passwordRepeat) {
       return setPasswordRepeatError('As senhas não são iguais');
     }
 
-    const phoneRegex = /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/
+    const phoneRegex = /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/;
     if (phoneRegex.test(phone)) {
-      return setPhoneError('Número de telefone inválido.')
+      return setPhoneError('Número de telefone inválido.');
     }
 
-    const resp = await httpPost('users/register', data);
+    const resp = await post('/users/register', data);
     if (resp.success) {
-      alert('Usuário cadastrado com sucesso!')
-      router.push('/login')
+      alert('Usuário cadastrado com sucesso!');
+      router.push('/login');
       console.log('Deu bom, usuário cadastrado com sucesso!');
     } else {
       const errors = resp.errors;
@@ -76,8 +77,10 @@ export default function Cadastrar() {
       );
       if (indexErrorPassword) setPasswordError(indexErrorPassword.message);
 
-      const indexErrorPhone = errors?.find((err) => err.field === 'phoneNumber')
-      if (indexErrorPhone) setPhoneError(indexErrorPhone.message)
+      const indexErrorPhone = errors?.find(
+        (err) => err.field === 'phoneNumber'
+      );
+      if (indexErrorPhone) setPhoneError(indexErrorPhone.message);
     }
   }
 

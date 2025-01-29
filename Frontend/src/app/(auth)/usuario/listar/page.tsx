@@ -3,16 +3,31 @@ import { Chip } from '@/components/shared/chip/Chip';
 import { DataTable } from '@/components/shared/data-table/DataTable';
 import { IColumn } from '@/components/shared/data-table/DataTable.interface';
 import { InputSearch } from '@/components/shared/input-search/InputSeach';
-import { FormEvent, useState } from 'react';
+import Pagination from '@/components/shared/pagination/pagination';
+import { useApi } from '@/hooks/useApi';
+import { Edit, Trash2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
+import { FormEvent, useEffect, useState } from 'react';
 
 interface IUser {
+  id: number;
   name: string;
   email: string;
   active: boolean;
 }
 
 export default function User() {
-  const [search, setSearch] = useState<string>('');
+  const { get, del } = useApi();
+  const router = useRouter();
+  const [search, setSearch] = useState<string | null>(null);
+  const [pagination, setPagination] = useState({
+    total: 0,
+    page: 1,
+    totalPages: 1,
+  });
+  const [data, setData] = useState<IUser[]>([]);
+
   const handleSearchUser = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -26,7 +41,6 @@ export default function User() {
 
   const handleReset = () => {
     setSearch('');
-    console.log(search);
   };
 
   const columns: IColumn<IUser>[] = [
@@ -43,22 +57,67 @@ export default function User() {
         />
       ),
     },
+    {
+      label: 'Ações',
+      align: 'center',
+      customRender: (row) => (
+        <div className="flex items-center justify-center space-x-2">
+          <Edit
+            className="text-blue-500 cursor-pointer hover:text-blue-700 "
+            onClick={() => router.push(`/usuario/form/${row.id}`)}
+          />
+          <Trash2
+            className="text-red-500 cursor-pointer hover:text-red-700"
+            onClick={() => handleDeleteUser(row.id)}
+          />
+        </div>
+      ),
+    },
   ];
 
-  const data = [
-    {
-      name: 'Usuário 1',
-      email: 'email1@gmail',
-      profile: 'Perfil 1',
-      active: true,
-    },
-    {
-      name: 'Usuário 2',
-      email: 'email2@gmail',
-      profile: 'Perfil 2',
-      active: false,
-    },
-  ];
+  const handleDeleteUser = async (id: number) => {
+    const response = await del(`/users/${id}`);
+
+    if (response.success) {
+      alert('Usuário excluído com sucesso');
+      fetchUsers();
+    }
+  };
+
+  const fetchUsers = async (page = 1, limit = 10) => {
+    const queryParams: Record<string, any> = { page, limit };
+    if (search) {
+      queryParams.name = search;
+    }
+
+    const response = await get<{
+      users: IUser[];
+      total: number;
+      page: number;
+      totalPages: number;
+    }>('/users', {
+      query: queryParams,
+    });
+
+    if (response.success && response.json) {
+      setData(response.json.users);
+      setPagination({
+        total: response.json.total,
+        page: response.json.page,
+        totalPages: response.json.totalPages,
+      });
+    } else {
+      console.log(response);
+    }
+  };
+
+  const handlePageChange = (newPage: number) => {
+    fetchUsers(newPage);
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, [search]);
 
   return (
     <div className="w-full h-full p-4">
@@ -73,6 +132,10 @@ export default function User() {
       </div>
 
       <DataTable columns={columns} data={data} />
+      <Pagination
+        totalPages={pagination.totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 }

@@ -1,8 +1,8 @@
+import validator from "validator";
 import { BadRequestError } from "../helpers/api-errors";
-import { ICreateUser } from "../interfaces/UsersInterface";
+import { ICreateUser, IUpdateUser } from "../interfaces/UsersInterface";
 import ProvedorCriptografia from "../providers/ProvedorCriptografia";
 import { UsersRepository } from "../repositories/UsersRepository";
-import validator from "validator"
 
 class UsersServices {
   private repository: UsersRepository;
@@ -13,18 +13,25 @@ class UsersServices {
     this.cripto = new ProvedorCriptografia();
   }
 
-  async create({ name, email, password, phoneNumber }: ICreateUser) {
+  async create({
+    name,
+    email,
+    password,
+    phoneNumber,
+    profileIds,
+    active,
+  }: ICreateUser) {
     if (!email) {
       throw new BadRequestError("E-mail is required");
     }
 
     if (!validator.isEmail(email)) {
-      throw new Error("Formato de email inválido!")
+      throw new Error("Formato de email inválido!");
     }
 
-    if (!phoneNumber || !validator.isMobilePhone(phoneNumber, 'pt-BR')) {
-      throw new Error("Formato de número de telefone inválido!")
-    }
+    /*  if (!phoneNumber || !validator.isMobilePhone(phoneNumber, "pt-BR")) {
+      throw new Error("Formato de número de telefone inválido!");
+    } */
 
     const alreadExist = await this.repository.findByEmail(email);
     if (alreadExist) {
@@ -38,6 +45,8 @@ class UsersServices {
       email,
       password: hashPassword,
       phoneNumber,
+      profileIds,
+      active,
     });
 
     created.password = "";
@@ -62,7 +71,13 @@ class UsersServices {
     };
   }
 
-  async updatePassword({ password, email }: { password: string; email: string }) {
+  async updatePassword({
+    password,
+    email,
+  }: {
+    password: string;
+    email: string;
+  }) {
     if (!password) {
       throw new Error("Password is required");
     }
@@ -79,6 +94,76 @@ class UsersServices {
       active: updated.active,
       profilePicture: updated.profilePicture,
     };
+  }
+
+  async getAllUsers({
+    name,
+    page = 1,
+    limit = 10,
+  }: {
+    name?: string;
+    page?: number;
+    limit?: number;
+  }) {
+    const skip = (page - 1) * limit;
+
+    const users = await this.repository.findAll({ name, skip, take: limit });
+    const total = await this.repository.countAll(name);
+
+    return {
+      users,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit),
+    };
+  }
+
+  async getById(id: string) {
+    const user = await this.repository.findById(id);
+
+    return user;
+  }
+
+  async delete(id: string) {
+    const user = await this.repository.findById(id);
+
+    if (!user) {
+      throw new BadRequestError("User not found");
+    }
+
+    const result = await this.repository.delete(id);
+
+    return result;
+  }
+
+  async update({
+    id,
+    name,
+    email,
+    password,
+    phoneNumber,
+    profileIds,
+    active,
+  }: IUpdateUser) {
+    const user = await this.repository.findById(id);
+
+    if (!user) {
+      throw new BadRequestError("User not found");
+    }
+
+    const hashPassword = await this.cripto.criptografar(password);
+
+    const updated = await this.repository.update({
+      id,
+      name,
+      email,
+      password: hashPassword,
+      phoneNumber,
+      profileIds,
+      active,
+    });
+
+    return updated;
   }
 
   async getProfileById(id: string) {

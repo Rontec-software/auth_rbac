@@ -8,7 +8,7 @@ export default function useApi<T>() {
 
   const baseUrl = process.env.NEXT_PUBLIC_API_URL!;
   const { getToken, clearToken } = useSession();
-  // const { setIsAuthenticated } = useAuth();
+  const { setIsAuthenticated } = useAuth();
   const token = getToken();
 
   const httpPost = useCallback(
@@ -29,7 +29,7 @@ export default function useApi<T>() {
       );
       if (response && response.status === 401) {
         clearToken();
-        // setIsAuthenticated(false);
+        setIsAuthenticated(false);
       }
       return response;
     },
@@ -47,7 +47,7 @@ export default function useApi<T>() {
       });
       if (response && response.status === 401) {
         clearToken();
-        // setIsAuthenticated(false);
+        setIsAuthenticated(false);
       }
       return response;
     },
@@ -72,7 +72,7 @@ export default function useApi<T>() {
       );
       if (response && response.status === 401) {
         clearToken();
-        // setIsAuthenticated(false);
+        setIsAuthenticated(false);
       }
       return response;
     },
@@ -97,7 +97,7 @@ export default function useApi<T>() {
       );
       if (response && response.status === 401) {
         clearToken();
-        // setIsAuthenticated(false);
+        setIsAuthenticated(false);
       }
       return response;
     },
@@ -115,7 +115,7 @@ export default function useApi<T>() {
       });
       if (response && response.status === 401) {
         clearToken();
-        // setIsAuthenticated(false);
+        setIsAuthenticated(false);
       }
       return response;
     },

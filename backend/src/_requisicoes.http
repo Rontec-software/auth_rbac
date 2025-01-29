@@ -16,7 +16,7 @@ POST http://localhost:3001/auth/login
 content-type: application/json
 
 {
-  "email": "joao@teste.com",
+  "email": "administrador@email.com",
   "password": "123456"
 }
 
@@ -41,7 +41,7 @@ content-type: application/json
 ### TOKEN EXPIRADO para negar o acesso
 GET http://localhost:3001/users/profile
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIxMTg3NjQ0LTQxZjEtNGYwZS1hZWU0LTQzNGYxMjBiMjcxZiIsIm5hbWUiOiJzYW1wbGVzIiwiZW1haWwiOiJ0ZXN0ZTJAdGVzdGUuY29tIiwicGhvbmVOdW1iZXIiOiI1MTk5OTk5ODg3NyIsInByb2ZpbGVQaWN0dXJlIjpudWxsLCJhY3RpdmUiOnRydWUsImlhdCI6MTczNTg0MzcwOCwiZXhwIjoxNzM1ODU4MTA4fQ.Bpb_DJf9sNZbGCdBV9U6GYkJM2lWM_OmAJYUkcBebKg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI5ZGRjYWViLTc0NTAtNDM5NC05NWRkLTk2NmRjYzUwY2MwMyIsIm5hbWUiOiJhZG1pbmlzdHJhZG9yIiwiZW1haWwiOiJhZG1pbmlzdHJhZG9yQGVtYWlsLmNvbSIsInBob25lTnVtYmVyIjoiMTE5MTIzNDU2NzgiLCJwcm9maWxlUGljdHVyZSI6bnVsbCwiYWN0aXZlIjp0cnVlLCJpYXQiOjE3MzcyNTgwMTIsImV4cCI6MTczNzI3MjQxMn0.bWhmZFd1R5tjBsFAI21nbep6_tw1o_vXQ8VIzcrhWFI
 
 ### TOKEN COM ACESSO
 GET http://localhost:3001/users/profile
