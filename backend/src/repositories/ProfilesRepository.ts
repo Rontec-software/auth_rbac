@@ -34,10 +34,42 @@ class ProfilesRepository {
     }
   }
 
-  async getAll() {
-    const result = await prismaDB.profile.findMany();
+  async findAll({
+    name,
+    skip,
+    take,
+  }: {
+    name?: string;
+    skip: number;
+    take: number;
+  }) {
+    const where = !!name
+      ? { name: { contains: name } }
+      : {};
+    const result = await prismaDB.profile.findMany({
+      where,
+      skip,
+      take,
+      include: {
+        permissions: {
+          include: {
+            permission: true,
+          }
+        },
+      }
+    });
 
     return result;
+  }
+
+  async countAll(name?: string) {
+    const where = !!name
+      ? { name: { contains: name } }
+      : {};
+
+    return await prismaDB.profile.count({
+      where,
+    });
   }
 
   async getById(id: string) {

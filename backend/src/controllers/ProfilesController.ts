@@ -26,8 +26,18 @@ class ProfilesController {
   }
 
   async getAll(req: Request, resp: Response) {
-    const result = await this.profilesServices.getAllProfiles();
-    resp.status(200).json(result);
+    const { name, page, limit } = req.query;
+    try {
+
+      const result = await this.profilesServices.getAllProfiles({
+        name: name as string,
+        page: page ? Number(page) : 1,
+        limit: limit ? Number(limit) : 10,
+      });
+      resp.status(200).json(result);
+    } catch (error) {
+      resp.status(500).json(error);
+    }
   }
 
   async getById(req: Request, resp: Response) {

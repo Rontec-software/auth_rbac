@@ -35,10 +35,25 @@ class ProfilesServices {
     return deleted;
   }
 
-  async getAllProfiles() {
-    const data = await this.repository.getAll();
+  async getAllProfiles({
+    name,
+    page = 1,
+    limit = 10,
+  }: {
+    name?: string;
+    page?: number;
+    limit?: number;
+  }) {
+    const skip = (page - 1) * limit;
+    const profiles = await this.repository.findAll({ name, skip, take: limit });
+    const total = await this.repository.countAll(name);
 
-    return data;
+    return {
+      profiles,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit),
+    };
   }
 
   async getProfileById(id: string) {

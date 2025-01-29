@@ -4,21 +4,36 @@ import { DataTable } from '@/components/shared/data-table/DataTable';
 import { IColumn } from '@/components/shared/data-table/DataTable.interface';
 import { InputSearch } from '@/components/shared/input-search/InputSeach';
 import Pagination from '@/components/shared/pagination/pagination';
-// import { useApi } from '@/data/hooks/useApi';
+import useApi from '@/hooks/useApi';
 import { Edit, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 import { FormEvent, useEffect, useState } from 'react';
 
+interface IPermission {
+  id: string;
+  name: string;
+  descrition: string;
+  active: boolean;
+  createdAt: string;
+}
+
+interface IProfilePermission {
+  profileId: string;
+  permissionId: string;
+  permission: IPermission;
+}
+
 interface IProfile {
   id: number;
   name: string;
-  permissions: string[];
+  permissions: IProfilePermission[];
+  permissionsGroup?: string;
   active: boolean;
 }
 
 export default function Page() {
-  //   const { get, del } = useApi();
+  const { httpGet } = useApi();
   const router = useRouter();
   const [search, setSearch] = useState<string | null>(null);
   const [pagination, setPagination] = useState({
@@ -26,7 +41,7 @@ export default function Page() {
     page: 1,
     totalPages: 1,
   });
-  const [data, setData] = useState<IProfile[]>([]);
+  const [dataList, setDataList] = useState<IProfile[]>([]);
 
   const handleSearchUser = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,7 +60,7 @@ export default function Page() {
 
   const columns: IColumn<IProfile>[] = [
     { label: 'Nome do perfil', key: 'name', align: 'left' },
-    { label: 'Permissões', key: 'permissions', align: 'left' },
+    { label: 'Permissões', key: 'permissionsGroup', align: 'left' },
     {
       label: 'Status',
       key: 'active',
@@ -80,43 +95,50 @@ export default function Page() {
 
     // if (response.success) {
     alert('Usuário excluído com sucesso');
-    fetchUsers();
+    fetchProfiles();
     // }
   };
 
-  const fetchUsers = async (page = 1, limit = 10) => {
+  const fetchProfiles = async (page = 1, limit = 10) => {
     const queryParams: Record<string, any> = { page, limit };
     if (search) {
       queryParams.name = search;
     }
 
-    // const response = await get<{
-    //   users: IUser[];
-    //   total: number;
-    //   page: number;
-    //   totalPages: number;
-    // }>('/users', {
-    //   query: queryParams,
-    // });
+    const response = await httpGet<{
+      profiles: IProfile[];
+      total?: number;
+      page?: number;
+      totalPages: number;
+    }>('profiles', {
+      query: queryParams,
+    });
 
-    // if (response.success) {
-    //   setData(response.json.users);
-    //   setPagination({
-    //     total: response.json.total,
-    //     page: response.json.page,
-    //     totalPages: response.json.totalPages,
-    //   });
-    // } else {
-    //   console.log(response);
-    // }
+    if (response.success) {
+      const list = response?.json?.profiles ?? []
+      // const listProcess = { ...list, permissionsGroup: list.map(perm => perm.permissions.map(p => p.permission.name).join(', ')) }
+      const listProcess = list.map((profile) => {
+        const permissionsGroup = profile.permissions.map((perm) => perm.permission.name).join(', ');
+        return { ...profile, permissionsGroup };
+      })
+      console.log(listProcess)
+      setDataList(listProcess);
+      setPagination({
+        total: response?.json?.total ?? 0,
+        page: response?.json?.page ?? 0,
+        totalPages: response?.json?.totalPages ?? 0,
+      });
+    } else {
+      console.log(response);
+    }
   };
 
   const handlePageChange = (newPage: number) => {
-    fetchUsers(newPage);
+    fetchProfiles(newPage);
   };
 
   useEffect(() => {
-    fetchUsers();
+    fetchProfiles();
   }, []);
 
   return (
@@ -131,7 +153,7 @@ export default function Page() {
         />
       </div>
 
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns} data={dataList} />
       <Pagination
         totalPages={pagination.totalPages}
         onPageChange={handlePageChange}

@@ -1,7 +1,7 @@
 'use client'
 import { IconSearch, IconUserShield, IconLogout2 } from '@tabler/icons-react';
 import { useSession } from '@/hooks/useSession';
-import useApi from '@/data/hooks/useApi';
+import useApi from '@/hooks/useApi';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
