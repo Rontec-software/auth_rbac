@@ -1,5 +1,6 @@
 'use client';
 import Input from '@/components/shared/Input';
+import { useAuth } from '@/hooks/useAuth';
 
 import { useSession } from '@/hooks/useSession';
 import Image from 'next/image';
@@ -15,6 +16,7 @@ export default function Login() {
   const [passwordError, setPasswordError] = useState('');
 
   const router = useRouter();
+  const { setIsAuthenticated } = useAuth();
   const { saveToken } = useSession();
 
   async function handleLogin() {
@@ -33,7 +35,7 @@ export default function Login() {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
     try {
-      const res = await fetch(`${baseUrl}auth/login`, {
+      const res = await fetch(`${baseUrl}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -45,8 +47,8 @@ export default function Login() {
       }
 
       const responseData = await res.json();
-
       saveToken(responseData.token);
+      setIsAuthenticated(true);
       router.push('/usuario/listar');
     } catch (error) {
       alert(`Credenciais inválidas: ${error}`);

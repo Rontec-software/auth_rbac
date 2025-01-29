@@ -12,10 +12,10 @@ class UsersController {
     this.userServices = new UsersServices();
   }
 
-  findByEmail() { }
+  findByEmail() {}
 
   async create(req: Request, resp: Response, next: NextFunction) {
-    const { name, email, password, phoneNumber } = req.body;
+    const { name, email, password, phoneNumber, profileIds, active } = req.body;
 
     try {
       const result = await this.userServices.create({
@@ -23,6 +23,8 @@ class UsersController {
         email,
         password,
         phoneNumber,
+        profileIds,
+        active,
       });
       return resp.status(201).json(result);
     } catch (error) {
@@ -48,10 +50,65 @@ class UsersController {
     const email = req.user.email;
 
     try {
-      const result = await this.userServices.updatePassword({ email, password });
+      const result = await this.userServices.updatePassword({
+        email,
+        password,
+      });
       return resp.status(200).json(result);
     } catch (error) {
       next(error);
+    }
+  }
+
+  async getAll(req: Request, resp: Response) {
+    const { name, page, limit } = req.query;
+
+    try {
+      const result = await this.userServices.getAllUsers({
+        name: name as string | undefined,
+        page: Number(page),
+        limit: Number(limit),
+      });
+      resp.status(200).json(result);
+    } catch (error) {
+      resp.status(500).json(error);
+    }
+  }
+
+  async getById(req: Request, resp: Response) {
+    try {
+      const result = await this.userServices.getById(req.params.id);
+      resp.status(200).json(result);
+    } catch (error) {
+      resp.status(500).json(error);
+    }
+  }
+
+  async delete(req: Request, resp: Response) {
+    try {
+      const result = await this.userServices.delete(req.params.id);
+      resp.status(200).json(result);
+    } catch (error) {
+      resp.status(500).json(error);
+    }
+  }
+
+  async update(req: Request, resp: Response) {
+    const { name, email, password, phoneNumber, profileIds, active } = req.body;
+
+    try {
+      const result = await this.userServices.update({
+        id: req.params.id,
+        name,
+        email,
+        password,
+        phoneNumber,
+        profileIds,
+        active,
+      });
+      resp.status(200).json(result);
+    } catch (error) {
+      resp.status(500).json(error);
     }
   }
 
