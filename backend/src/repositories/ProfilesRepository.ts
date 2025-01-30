@@ -24,7 +24,7 @@ class ProfilesRepository {
       return deleted;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
-        console.log(error.message);
+        console.error(error.message);
 
         if (error.code === "P2003")
           throw new BadRequestError("Foreign key constraint violated");
@@ -73,7 +73,16 @@ class ProfilesRepository {
   }
 
   async getById(id: string) {
-    const result = await prismaDB.profile.findUnique({ where: { id } });
+    const result = await prismaDB.profile.findUnique({
+      where: { id },
+      include: {
+        permissions: {
+          include: {
+            permission: true,
+          }
+        },
+      }
+    });
 
     return result;
   }

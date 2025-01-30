@@ -44,10 +44,6 @@ interface InputIconProps extends React.InputHTMLAttributes<HTMLInputElement> {
  * import { InputWithIcon } from './InputWithIcon';
  * 
  * export const ExemploUsoInput = () => {
- *   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
- *     console.log('Valor do input:', event.target.value);
- *   };
- * 
  *   return (
  *     <div className="space-y-6 p-6">
  *       <h2 className="text-xl font-bold">Exemplo de Uso do Componente InputWithIcon</h2>
@@ -140,25 +136,22 @@ const InputIcon: React.FC<InputIconProps> = ({
   return (
     <div className={`relative ${width}`}>
       <div
-        className={`absolute inset-y-0 flex items-center ${
-          iconPosition === 'left' ? 'left-3' : 'right-3'
-        }`}
+        className={`absolute inset-y-0 flex items-center ${iconPosition === 'left' ? 'left-3' : 'right-3'
+          }`}
       >
         {icon}
       </div>
       <input
         className={`peer w-full border border-gray-500 rounded-md px-3 py-2 text-gray-700 
-          outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-          iconPosition === 'left' ? 'pl-10' : 'pr-10'
-        } ${className}`}
+          outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${iconPosition === 'left' ? 'pl-10' : 'pr-10'
+          } ${className}`}
         placeholder={enableLabelTransition && label ? '' : placeholder}
         {...props}
       />
       {enableLabelTransition && label && (
         <label
-          className={`absolute ${
-            iconPosition === 'left' ? 'pl-8' : 'pl-3'
-          } left-2 top-0 text-gray-200 text-lg scale-100 transform transition-all peer-placeholder-shown:scale-100 
+          className={`absolute ${iconPosition === 'left' ? 'pl-8' : 'pl-3'
+            } left-2 top-0 text-gray-200 text-lg scale-100 transform transition-all peer-placeholder-shown:scale-100 
            peer-placeholder-shown:translate-y-2.5 peer-placeholder-shown:text-base peer-focus:scale-75 
            peer-focus:-translate-y-6 peer-focus:pl-1`
           }

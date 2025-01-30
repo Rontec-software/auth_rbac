@@ -48,7 +48,7 @@ export default function RedefinirSenha() {
         'Erro ao redefinir senha. Favor entrar em contato com o suporte.'
       );
       const errors = resp.errors;
-      console.log(errors);
+      console.error(errors);
     }
   }
 

@@ -1,9 +1,16 @@
-export interface IGetAllProfiles {
+interface IGetAllProfiles {
   id: string;
   name: string;
   description: string;
   active: true;
   createdAt: string;
+}
+
+export interface IGetAllProfilesWithPagination {
+  page: number;
+  profiles: IGetAllProfiles[];
+  total: number;
+  totalPages: number;
 }
 
 export interface ISubmitUsuarioForm {

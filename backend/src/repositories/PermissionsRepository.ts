@@ -24,7 +24,7 @@ class PermissionsRepository {
       return deleted;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
-        console.log(error.message);
+        console.error(error.message);
 
         if (error.code === "P2003")
           throw new BadRequestError("Foreign key constraint violated");
@@ -67,7 +67,6 @@ class PermissionsRepository {
         active,
       },
     });
-    console.log(result);
     return result;
   }
 }

@@ -22,14 +22,14 @@ export const Header = () => {
   };
 
   const handlerUser = async () => {
-    httpGet<User>('/users/profile')
+    httpGet<User>('users/profile')
       .then((res) => {
         if (res?.json?.name) {
           setUser({ name: res?.json.name, email: res.json.email });
         }
       })
       .catch((error) => {
-        console.log(`Erro ao buscar dados do usuário: ${error}`);
+        console.error(`Erro ao buscar dados do usuário: ${error}`);
       });
   };
 

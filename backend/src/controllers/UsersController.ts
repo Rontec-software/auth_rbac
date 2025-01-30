@@ -12,7 +12,7 @@ class UsersController {
     this.userServices = new UsersServices();
   }
 
-  findByEmail() {}
+  findByEmail() { }
 
   async create(req: Request, resp: Response, next: NextFunction) {
     const { name, email, password, phoneNumber, profileIds, active } = req.body;
@@ -28,7 +28,7 @@ class UsersController {
       });
       return resp.status(201).json(result);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       next(error);
     }
   }

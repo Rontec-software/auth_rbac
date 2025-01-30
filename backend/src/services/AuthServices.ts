@@ -116,7 +116,7 @@ class AuthServices {
         text: emailText,
       },
       function (err) {
-        if (err) return console.log(err);
+        if (err) return console.error(err);
         console.log("Message sent successfully.");
       }
     );

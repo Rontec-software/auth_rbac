@@ -4,7 +4,7 @@ import { DataTable } from '@/components/shared/data-table/DataTable';
 import { IColumn } from '@/components/shared/data-table/DataTable.interface';
 import { InputSearch } from '@/components/shared/input-search/InputSeach';
 import Pagination from '@/components/shared/pagination/pagination';
-import { useApi } from '@/hooks/useApi';
+import useApi from '@/hooks/useApi';
 import { Edit, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -18,7 +18,7 @@ interface IUser {
 }
 
 export default function User() {
-  const { get, del } = useApi();
+  const { httpGet, httpDel } = useApi();
   const router = useRouter();
   const [search, setSearch] = useState<string | null>(null);
   const [pagination, setPagination] = useState({
@@ -76,7 +76,7 @@ export default function User() {
   ];
 
   const handleDeleteUser = async (id: number) => {
-    const response = await del(`/users/${id}`);
+    const response = await httpDel(`users/${id}`);
 
     if (response.success) {
       alert('Usuário excluído com sucesso');
@@ -90,12 +90,12 @@ export default function User() {
       queryParams.name = search;
     }
 
-    const response = await get<{
+    const response = await httpGet<{
       users: IUser[];
       total: number;
       page: number;
       totalPages: number;
-    }>('/users', {
+    }>('users', {
       query: queryParams,
     });
 
@@ -107,7 +107,7 @@ export default function User() {
         totalPages: response.json.totalPages,
       });
     } else {
-      console.log(response);
+      console.error(response);
     }
   };
 

@@ -34,6 +34,13 @@ class UsersRoutes {
     );
 
     this.router.get(
+      "/profile",
+      authMiddleware,
+      rbacMiddleware("read_profile"),
+      this.controller.getProfile.bind(this.controller)
+    );
+
+    this.router.get(
       "/:id",
       authMiddleware,
       rbacMiddleware("read_user"),
@@ -52,13 +59,6 @@ class UsersRoutes {
       authMiddleware,
       rbacMiddleware("delete_user"),
       this.controller.delete.bind(this.controller)
-    );
-
-    this.router.get(
-      "/profile",
-      authMiddleware,
-      // rbacMiddleware("read_profile"),
-      this.controller.getProfile.bind(this.controller)
     );
 
     return this.router;

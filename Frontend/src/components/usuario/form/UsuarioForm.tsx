@@ -8,11 +8,11 @@ import InputPhone from '@/components/shared/InputPhone';
 import { User2 } from 'lucide-react';
 import Image from 'next/image';
 
-import { useApi } from '@/hooks/useApi';
+import useApi from '@/hooks/useApi';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import {
-  IGetAllProfiles,
+  IGetAllProfilesWithPagination,
   IGetByIdUser,
   ISubmitUsuarioForm,
 } from './UsuarioForm.Interface';
@@ -31,13 +31,13 @@ export const UsuarioForm = ({ edit }: { edit?: string }) => {
   const [profileOptions, setProfileOptions] = useState<Option[]>([]);
 
   const [loading, setLoading] = useState(true);
-  const { post, patch, get } = useApi();
+  const { httpPost, httpPatch, httpGet } = useApi();
 
   async function getAllProfiles() {
-    const response = await get<IGetAllProfiles[]>('/profiles');
+    const response = await httpGet<IGetAllProfilesWithPagination>('profiles');
 
     if (response.status == 200 && response.json) {
-      const options = response.json.map((res) => ({
+      const options = response.json?.profiles?.map((res) => ({
         label: res.name,
         value: res.id,
       }));
@@ -47,7 +47,7 @@ export const UsuarioForm = ({ edit }: { edit?: string }) => {
   }
 
   async function getById() {
-    const response = await get<IGetByIdUser>(`/users/${edit}`);
+    const response = await httpGet<IGetByIdUser>(`users/${edit}`);
 
     if (response.status == 200 && response.json) {
       const profile = response.json.profiles.flatMap((p) => ({
@@ -81,14 +81,12 @@ export const UsuarioForm = ({ edit }: { edit?: string }) => {
     let response;
 
     if (edit) {
-      response = await patch<any, ISubmitUsuarioForm>(`/users/${edit}`, data);
+      response = await httpPatch<any, ISubmitUsuarioForm>(`users/${edit}`, data);
     } else {
-      response = await post<any, ISubmitUsuarioForm>('/users/register', data);
+      response = await httpPost<any, ISubmitUsuarioForm>('users/register', data);
     }
-    console.log();
     if ((response?.errors && response?.errors?.length > 0) || !response?.status)
       return alert(response.errors);
-    console.log(response);
     alert(`Usuário ${edit ? 'atualizado' : 'criado'} com sucesso`);
     router.push('/usuario/listar');
   };

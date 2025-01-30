@@ -36,7 +36,7 @@ export const Sidebar = () => {
     perfilAcesso: [
       {
         label: 'Adicionar',
-        href: '/perfil-de-acesso/adicionar',
+        href: '/perfil-de-acesso/form',
         icon: <Plus className="w-4 h-4" />,
       },
       {

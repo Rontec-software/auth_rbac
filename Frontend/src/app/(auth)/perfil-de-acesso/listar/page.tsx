@@ -33,7 +33,7 @@ interface IProfile {
 }
 
 export default function Page() {
-  const { httpGet } = useApi();
+  const { httpGet, httpDel } = useApi();
   const router = useRouter();
   const [search, setSearch] = useState<string | null>(null);
   const [pagination, setPagination] = useState({
@@ -43,14 +43,14 @@ export default function Page() {
   });
   const [dataList, setDataList] = useState<IProfile[]>([]);
 
-  const handleSearchUser = (e: FormEvent<HTMLFormElement>) => {
+  const handleSearchProfile = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const searchUser = formData.get('search');
+    const searchProfile = formData.get('search');
 
-    if (typeof searchUser == 'string') {
-      setSearch(searchUser);
+    if (typeof searchProfile == 'string') {
+      setSearch(searchProfile);
     }
   };
 
@@ -79,24 +79,24 @@ export default function Page() {
         <div className="flex items-center justify-center space-x-2">
           <Edit
             className="text-blue-500 cursor-pointer hover:text-blue-700 "
-            onClick={() => router.push(`/usuario/form/${row.id}`)}
+            onClick={() => router.push(`/perfil-de-acesso/form/${row.id}`)}
           />
           <Trash2
             className="text-red-500 cursor-pointer hover:text-red-700"
-            onClick={() => handleDeleteUser(row.id)}
+            onClick={() => handleDeleteProfile(row.id)}
           />
         </div>
       ),
     },
   ];
 
-  const handleDeleteUser = async (id: number) => {
-    // const response = await del(`/users/${id}`);
+  const handleDeleteProfile = async (id: number) => {
+    const response = await httpDel(`profiles/${id}`);
 
-    // if (response.success) {
-    alert('Usuário excluído com sucesso');
-    fetchProfiles();
-    // }
+    if (response.success) {
+      alert('Perfil excluído com sucesso');
+      fetchProfiles();
+    }
   };
 
   const fetchProfiles = async (page = 1, limit = 10) => {
@@ -116,7 +116,6 @@ export default function Page() {
 
     if (response.success) {
       const list = response?.json?.profiles ?? []
-      // const listProcess = { ...list, permissionsGroup: list.map(perm => perm.permissions.map(p => p.permission.name).join(', ')) }
       const listProcess = list.map((profile) => {
         const permissionsGroup = profile.permissions.map((perm) => perm.permission.name).join(', ');
         return { ...profile, permissionsGroup };
@@ -129,7 +128,7 @@ export default function Page() {
         totalPages: response?.json?.totalPages ?? 0,
       });
     } else {
-      console.log(response);
+      console.error(response);
     }
   };
 
@@ -145,10 +144,10 @@ export default function Page() {
     <div className="w-full h-full p-4">
       <div className="flex items-center justify-center rounded-lg w-full pb-4">
         <InputSearch
-          label="Pesquisar Usuários"
+          label="Pesquisar Perfil"
           name="search"
-          placeholder="Buscar Usuários"
-          handleSearch={handleSearchUser}
+          placeholder="Buscar Perfis"
+          handleSearch={handleSearchProfile}
           handleReset={handleReset}
         />
       </div>

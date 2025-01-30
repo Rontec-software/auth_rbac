@@ -26,7 +26,7 @@ export default function RecuperarSenha() {
         'Erro ao enviar e-mail. Favor entrar em contato com o suporte.'
       );
       const errors = resp.errors;
-      console.log(errors);
+      console.error(errors);
     }
   }
 
