@@ -9,11 +9,13 @@ class ProfilesController {
   }
 
   async create(req: Request, resp: Response) {
-    const { name, description } = req.body;
+    const { name, description, active, permissionsIds } = req.body;
 
     const result = await this.profilesServices.create({
       name,
       description,
+      active,
+      permissionsIds
     });
 
     return resp.status(201).json(result);
@@ -46,7 +48,7 @@ class ProfilesController {
   }
 
   async update(req: Request, resp: Response) {
-    const { name, description, active } = req.body;
+    const { name, description, active, permissionsIds } = req.body;
     const id = req.params.id;
 
     const result = await this.profilesServices.update({
@@ -54,6 +56,7 @@ class ProfilesController {
       name,
       description,
       active,
+      permissionsIds,
     });
 
     return resp.status(200).json(result);

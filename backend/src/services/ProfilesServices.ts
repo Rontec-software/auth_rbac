@@ -12,7 +12,7 @@ class ProfilesServices {
     this.repository = new ProfilesRepository();
   }
 
-  async create({ name, description }: ICreateProfile) {
+  async create({ name, description, active, permissionsIds }: ICreateProfile) {
     const alreadyExist = await this.repository.nameExists(name);
 
     if (alreadyExist)
@@ -21,6 +21,8 @@ class ProfilesServices {
     const created = await this.repository.create({
       name,
       description,
+      active,
+      permissionsIds,
     });
 
     return created;
@@ -62,7 +64,7 @@ class ProfilesServices {
     return profile;
   }
 
-  async update({ id, name, description, active }: IUpdateProfile) {
+  async update({ id, name, description, active, permissionsIds }: IUpdateProfile) {
     const exist = await this.repository.getById(id);
 
     if (!exist) throw new NotFoundError("Profile Id not exists");
@@ -72,6 +74,7 @@ class ProfilesServices {
       name,
       description,
       active,
+      permissionsIds,
     });
 
     return result;

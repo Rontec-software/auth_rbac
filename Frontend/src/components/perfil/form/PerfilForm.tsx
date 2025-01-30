@@ -25,7 +25,7 @@ export const PerfilForm = ({ edit }: { edit?: string }) => {
   const [permissionOptions, setPermissionOptions] = useState<Option[]>([]);
 
   const [loading, setLoading] = useState(true);
-  const { httpPost, httpPatch, httpGet } = useApi();
+  const { httpPost, httpPut, httpGet } = useApi();
 
   async function getAllProfiles() {
     const response = await httpGet<IGetAllPermissions[]>('permissions');
@@ -67,7 +67,7 @@ export const PerfilForm = ({ edit }: { edit?: string }) => {
     let response;
 
     if (edit) {
-      response = await httpPatch<any, ISubmitProfileForm>(`profiles/${edit}`, data);
+      response = await httpPut<any, ISubmitProfileForm>(`profiles/${edit}`, data);
     } else {
       response = await httpPost<any, ISubmitProfileForm>('profiles', data);
     }
