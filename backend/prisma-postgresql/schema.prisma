@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                    String    @id @default(uuid())
+  name                  String
+  email                 String    @unique
+  password              String
+  phoneNumber           String
+  profilePicture        String?
+  active                Boolean   @default(true)
+  passwordResetToken    String?
+  expPasswordResetToken DateTime?
+  twoFactorAuthEnable   Boolean   @default(false)
+  createdAt             DateTime  @default(now())
+
+  profiles UserProfile[]
+
+  @@map("users")
+}
+
+model Profile {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  users       UserProfile[]
+  permissions ProfilePermission[]
+
+  @@map("profiles")
+}
+
+model Permission {
+  id         String   @id @default(uuid())
+  name       String
+  descrition String
+  active     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  profiles ProfilePermission[]
+
+  @@map("permission")
+}
+
+model UserProfile {
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+  profile   Profile @relation(fields: [profileId], references: [id])
+  profileId String
+
+  @@id([userId, profileId])
+  @@map("users_profiles")
+}
+
+model ProfilePermission {
+  profile      Profile    @relation(fields: [profileId], references: [id])
+  profileId    String
+  permission   Permission @relation(fields: [permissionId], references: [id])
+  permissionId String
+
+  @@id([profileId, permissionId])
+  @@map("profiles_permission")
+}

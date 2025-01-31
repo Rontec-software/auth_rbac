@@ -1,0 +1,67 @@
+GET http://localhost:3001
+
+###
+POST http://localhost:3001/users/register
+content-type: application/json
+
+{
+  "name": "joao",
+  "email": "joao@teste.com",
+  "password": "123456",
+  "phoneNumber": "51999998866"
+}
+
+###
+POST http://localhost:3001/auth/login
+content-type: application/json
+
+{
+  "email": "administrador@email.com",
+  "password": "123456"
+}
+
+###
+POST http://localhost:3001/auth/recover-password
+content-type: application/json
+
+{
+  "email": "joao@teste.com"
+}
+
+###
+POST http://localhost:3001/auth/reset-password
+content-type: application/json
+
+{
+  "email": "teste2@teste.com",
+  "token": "5b03cbbc-9b7c-4de4-8832-f945a9d9be0e",
+  "password": "654321"
+}
+
+### TOKEN EXPIRADO para negar o acesso
+GET http://localhost:3001/users/profile
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI5ZGRjYWViLTc0NTAtNDM5NC05NWRkLTk2NmRjYzUwY2MwMyIsIm5hbWUiOiJhZG1pbmlzdHJhZG9yIiwiZW1haWwiOiJhZG1pbmlzdHJhZG9yQGVtYWlsLmNvbSIsInBob25lTnVtYmVyIjoiMTE5MTIzNDU2NzgiLCJwcm9maWxlUGljdHVyZSI6bnVsbCwiYWN0aXZlIjp0cnVlLCJpYXQiOjE3MzcyNTgwMTIsImV4cCI6MTczNzI3MjQxMn0.bWhmZFd1R5tjBsFAI21nbep6_tw1o_vXQ8VIzcrhWFI
+
+### TOKEN COM ACESSO
+GET http://localhost:3001/users/profile
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiYmI4MjBjLWQ0ODMtNDlmNS04NmQ5LTNiMmQyNzE4NzFiMyIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJwcm9maWxlUGljdHVyZSI6bnVsbCwiYWN0aXZlIjp0cnVlLCJpYXQiOjE3MzYyNzQ3NzQsImV4cCI6MTczNjI4OTE3NH0.1sM2WB3nLBHzFbRxt8yoNs1pHfbSa2o4w1b6gF5FOoo
+
+### RENAME
+PUT http://localhost:3001/users/rename
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlkNDk5NzUyLWZjOGEtNDdlMi04NTU0LWU0MzkyNjVjNjc1ZiIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJhY3RpdmUiOnRydWUsInByb2ZpbGVQaWN0dXJlIjpudWxsLCJpYXQiOjE3MzczODM4NDEsImV4cCI6MTczNzM5ODI0MX0.gPpzLVawxFIeI3Cbx8ifQ6vJOJElAaBmwhMtPc1poiQ
+
+{
+  "name": "update name",
+}
+
+### UPDATE PASSWORD
+PUT http://localhost:3001/users/password
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlkNDk5NzUyLWZjOGEtNDdlMi04NTU0LWU0MzkyNjVjNjc1ZiIsIm5hbWUiOiJqb2FvIiwiZW1haWwiOiJqb2FvQHRlc3RlLmNvbSIsInBob25lTnVtYmVyIjoiNTE5OTk5OTg4NjYiLCJhY3RpdmUiOnRydWUsInByb2ZpbGVQaWN0dXJlIjpudWxsLCJpYXQiOjE3MzczODM4NDEsImV4cCI6MTczNzM5ODI0MX0.gPpzLVawxFIeI3Cbx8ifQ6vJOJElAaBmwhMtPc1poiQ
+
+{
+  "password": "654321",
+}
