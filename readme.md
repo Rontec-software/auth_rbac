@@ -177,7 +177,7 @@ git commit -m 'Start Frontend (closes #4)'
 
 ## ✒️ Desenvolvedores
 - **Jhonatan Pereira** - [Jhonatan-Pereira](https://github.com/Jhonatan-Pereira)
-- **Marck Vinny** - [MarckVinny](https://github.com/MarckVinny)
+- **Marcos Vinicius** - [MarckVinny](https://github.com/MarckVinny)
 - **Igor Zanella** - [ZanellaIgor](https://github.com/ZanellaIgor)
 - **Cezar Augusto Molinar** - [cezarmolinar](https://github.com/cezarmolinar)
 - **Darlisson Limeira** - [darlissonlimeira](https://github.com/darlissonlimeira)
