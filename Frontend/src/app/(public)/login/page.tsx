@@ -93,7 +93,7 @@ export default function Login() {
             errorMessage={passwordError}
           />
           <div className="flex justify-end items-end text-[12px] p-1 text-gray-400 cursor-pointer">
-            <Link href={'http://localhost:3000/recuperarSenha'}>
+            <Link href={'http://localhost:3000/recuperar-senha'}>
               Esqueceu a senha?
             </Link>
           </div>
