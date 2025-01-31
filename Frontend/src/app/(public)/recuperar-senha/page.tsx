@@ -7,7 +7,7 @@ export default function RecuperarSenha() {
   const [email, setEmail] = useState('');
   const [msgError, setMsgError] = useState('');
   const [msgSuccess, setMsgSuccess] = useState('');
-  const { post } = useApi();
+  const { httpPost } = useApi();
 
   async function handleSubmit() {
     if (!email) {
@@ -15,8 +15,8 @@ export default function RecuperarSenha() {
       return;
     }
 
-    const data = { email };
-    const resp = await post('/auth/recover-password', data);
+    const data = { email }
+    const resp = await httpPost('auth/recover-password', data);
     if (resp.success) {
       setMsgSuccess(
         'E-mail enviado com sucesso. Verifique sua caixa de entrada.'
@@ -26,7 +26,7 @@ export default function RecuperarSenha() {
         'Erro ao enviar e-mail. Favor entrar em contato com o suporte.'
       );
       const errors = resp.errors;
-      console.log(errors);
+      console.error(errors);
     }
   }
 

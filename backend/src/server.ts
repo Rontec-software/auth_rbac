@@ -27,6 +27,9 @@ server.use("/auth", authRoutes);
 server.use("/users", usersRoutes);
 server.use("/permissions", permissionsRoutes);
 server.use("/profiles", profilesRoutes);
+server.use("/health", (req: Request, res: Response) => {
+  res.send("Server is running");
+});
 
 server.use((req: Request, res: Response) => {
   throw new NotFoundError("Endpoint not found");

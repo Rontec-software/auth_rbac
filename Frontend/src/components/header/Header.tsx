@@ -1,21 +1,26 @@
 'use client';
 import { useSession } from '@/hooks/useSession';
 import { IconLogout2, IconSearch, IconUserShield } from '@tabler/icons-react';
-
-import { useApi } from '@/hooks/useApi';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import useApi from '@/hooks/useApi';
 
 interface User {
   name: string;
   email: string;
+  profiles?: {
+    profile: {
+      name: string;
+    }
+  }[];
 }
 
 export const Header = () => {
   const { clearToken } = useSession();
-  const { get } = useApi();
+  const { httpGet } = useApi();
   const [user, setUser] = useState<User>({ name: '', email: '' });
   const router = useRouter();
+  const [perfis, setPerfis] = useState<String>('');
 
   const handlerLogout = () => {
     clearToken();
@@ -23,14 +28,16 @@ export const Header = () => {
   };
 
   const handlerUser = async () => {
-    get<User>('/users/profile')
+    httpGet<User>('users/profile')
       .then((res) => {
         if (res?.json?.name) {
           setUser({ name: res?.json.name, email: res.json.email });
+          const perfisJoin = res?.json?.profiles?.map((p) => p.profile.name).join(', ') ?? ""
+          setPerfis(perfisJoin);
         }
       })
       .catch((error) => {
-        console.log(`Erro ao buscar dados do usuário: ${error}`);
+        console.error(`Erro ao buscar dados do usuário: ${error}`);
       });
   };
 
@@ -58,7 +65,7 @@ export const Header = () => {
         href="/favicon-16x16.png"
       />
       <link rel="manifest" href="/site.webmanifest" />
-      <h1>Administrador</h1>
+      <h1>{perfis}</h1>
       <div className="flex items-center space-x-4 p-4">
         <IconSearch />
         <div className="w-1 h-12 bg-gray-300 mx-1"></div>

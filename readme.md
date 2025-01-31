@@ -1,6 +1,6 @@
 # Auth RBAC
 
-## Rodar o backend com sqlite
+## Rodar backend com sqlite
 ### 1. Acessar pasta do backend.
 ```sh
 cd backend
@@ -34,6 +34,11 @@ npm run npm run seed
 ### 6. Rodar app em ambiente de desenvolvimento.
 ```sh
 npm run dev
+```
+
+### 7. Testar API.
+```sh
+curl --request GET --url http://localhost:3001/health
 ```
 
 
@@ -76,14 +81,14 @@ datasource db {
 npm run migrate-postgres
 ```
 
-#### 8. Inserir dados default.
-```sh
-npm run seed
-```
-
-### 9. Rodar app em ambiente de desenvolvimento.
+### 8. Rodar app em ambiente de desenvolvimento.
 ```sh
 npm run dev
+```
+
+### 9. Testar API.
+```sh
+curl --request GET --url http://localhost:3001/health
 ```
 
 
@@ -95,7 +100,7 @@ cd Frontend
 
 ### 2. Criar arquivo `.env`.
 ```sh
-cp env_modelo .env
+cp .env.example .env
 ```
 
 ### 3. Setar versão do node com NVM (opcional).
@@ -113,12 +118,15 @@ npm install
 npm run dev
 ```
 
+### 6. Acessar a página de login.
+- [Página de login](http://localhost:3000/login)
 
-### Extensão para testar APIs pelo VSCODE
+
+## Extensão para testar APIs pelo VSCODE
 - [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 
 
-### Serviço de email gratuito
+## Serviço de email gratuito
 - [nodemailer](https://mailtrap.io/)
 
 

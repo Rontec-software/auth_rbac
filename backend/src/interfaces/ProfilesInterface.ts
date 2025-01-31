@@ -1,6 +1,8 @@
 export interface ICreateProfile {
   name: string;
   description: string;
+  active: boolean;
+  permissionsIds?: number[];
 }
 
 export interface IUpdateProfile {
@@ -8,4 +10,5 @@ export interface IUpdateProfile {
   name: string;
   description: string;
   active: boolean;
+  permissionsIds?: number[];
 }

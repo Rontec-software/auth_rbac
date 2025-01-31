@@ -12,7 +12,7 @@ class UsersController {
     this.userServices = new UsersServices();
   }
 
-  findByEmail() {}
+  findByEmail() { }
 
   async create(req: Request, resp: Response, next: NextFunction) {
     const { name, email, password, phoneNumber, profileIds, active } = req.body;
@@ -28,7 +28,7 @@ class UsersController {
       });
       return resp.status(201).json(result);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       next(error);
     }
   }
@@ -66,8 +66,8 @@ class UsersController {
     try {
       const result = await this.userServices.getAllUsers({
         name: name as string | undefined,
-        page: Number(page),
-        limit: Number(limit),
+        page: page ? Number(page) : 1,
+        limit: limit ? Number(limit) : 10,
       });
       resp.status(200).json(result);
     } catch (error) {

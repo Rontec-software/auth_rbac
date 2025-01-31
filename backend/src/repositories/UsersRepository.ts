@@ -64,7 +64,7 @@ class UsersRepository {
       });
       return result;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw new Error("Update user failed");
     }
   }
@@ -87,7 +87,7 @@ class UsersRepository {
       }
       return result;
     } catch (error) {
-      console.log("error", error);
+      console.error("error", error);
       throw new Error("Update user failed");
     }
   }
@@ -170,19 +170,30 @@ class UsersRepository {
     take: number;
   }) {
     const where = !!name
-      ? { name: { contains: name, mode: "insensitive" } }
+      ? { name: { contains: name } }
       : {};
-    console.log(where);
     return await prismaDB.user.findMany({
       where,
       skip,
       take,
+      include: {
+        profiles: {
+          select: {
+            profile: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+      }
     });
   }
 
   async countAll(name?: string) {
     const where = !!name
-      ? { name: { contains: name, mode: "insensitive" } }
+      ? { name: { contains: name } }
       : {};
 
     return await prismaDB.user.count({

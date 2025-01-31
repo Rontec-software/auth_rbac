@@ -34,9 +34,7 @@ export const authMiddleware = async (
 
     if (!user) throw new UnauthorizedError("User not found");
 
-    const { password: _, ...loggedUser } = user;
-
-    req.user = loggedUser as ILoggedUser;
+    req.user = user as ILoggedUser;
 
     next();
   } catch (error) {

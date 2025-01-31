@@ -4,7 +4,7 @@ import { DataTable } from '@/components/shared/data-table/DataTable';
 import { IColumn } from '@/components/shared/data-table/DataTable.interface';
 import { InputSearch } from '@/components/shared/input-search/InputSeach';
 import Pagination from '@/components/shared/pagination/pagination';
-import { useApi } from '@/hooks/useApi';
+import useApi from '@/hooks/useApi';
 import { Edit, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -15,10 +15,17 @@ interface IUser {
   name: string;
   email: string;
   active: boolean;
+  profilesGroup?: string;
+  profiles: {
+    profile: {
+      id: string;
+      name: string;
+    }
+  }[];
 }
 
 export default function User() {
-  const { get, del } = useApi();
+  const { httpGet, httpDel } = useApi();
   const router = useRouter();
   const [search, setSearch] = useState<string | null>(null);
   const [pagination, setPagination] = useState({
@@ -46,6 +53,7 @@ export default function User() {
   const columns: IColumn<IUser>[] = [
     { label: 'Nome', key: 'name', align: 'left' },
     { label: 'Email', key: 'email', align: 'left' },
+    { label: 'Permissões', key: 'profilesGroup', align: 'left' },
     {
       label: 'Status',
       key: 'active',
@@ -76,7 +84,7 @@ export default function User() {
   ];
 
   const handleDeleteUser = async (id: number) => {
-    const response = await del(`/users/${id}`);
+    const response = await httpDel(`users/${id}`);
 
     if (response.success) {
       alert('Usuário excluído com sucesso');
@@ -90,24 +98,29 @@ export default function User() {
       queryParams.name = search;
     }
 
-    const response = await get<{
+    const response = await httpGet<{
       users: IUser[];
       total: number;
       page: number;
       totalPages: number;
-    }>('/users', {
+    }>('users', {
       query: queryParams,
     });
 
     if (response.success && response.json) {
-      setData(response.json.users);
+      const list = response?.json?.users ?? []
+      const listProcess = list.map((user) => {
+        const profilesGroup = user.profiles.map((prof) => prof.profile.name).join(', ');
+        return { ...user, profilesGroup };
+      })
+      setData(listProcess);
       setPagination({
         total: response.json.total,
         page: response.json.page,
         totalPages: response.json.totalPages,
       });
     } else {
-      console.log(response);
+      console.error(response);
     }
   };
 

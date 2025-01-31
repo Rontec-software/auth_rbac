@@ -67,9 +67,9 @@ class AuthServices {
     let mailGenerator = new Mailgen({
       theme: "default",
       product: {
-        name: "Global Coders",
-        link: process.env.BASE_URL_FRONTEND ?? "http://localhost:3000",
-      },
+        name: 'Global Coders',
+        link: process.env.BASE_URL_FRONTEND ?? "http://localhost:3000/"
+      }
     });
 
     let bodyEmail = {
@@ -82,10 +82,10 @@ class AuthServices {
         action: {
           instructions: "Clique no botão abaixo para redefinir sua senha:",
           button: {
-            color: "#DC4D2F",
-            text: "Redefinir sua senha",
-            link: `${process.env.BASE_URL_FRONTEND}/redefinir-senha?token=${token}&email=${email}`,
-          },
+            color: '#DC4D2F',
+            text: 'Redefinir sua senha',
+            link: `${process.env.BASE_URL_FRONTEND}redefinir-senha?token=${token}&email=${email}`
+          }
         },
         outro:
           "Se você não solicitou uma redefinição de senha, nenhuma outra ação será necessária de sua parte.",
@@ -116,7 +116,7 @@ class AuthServices {
         text: emailText,
       },
       function (err) {
-        if (err) return console.log(err);
+        if (err) return console.error(err);
         console.log("Message sent successfully.");
       }
     );

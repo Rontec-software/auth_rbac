@@ -1,35 +1,31 @@
-import { prismaDB } from "../lib/prisma";
+import { PrismaClient } from "@prisma/client";
 
 class RbacRepository {
   async verifyUserPermission(userid: string, permissionName: string) {
-    const userProfiles = await prismaDB.userProfile.findMany({
+    const prisma = new PrismaClient();
+
+    const user = await prisma.user.findFirst({
       where: {
-        userId: userid,
+        AND: [
+          { id: userid, active: true },
+          {
+            profiles: {
+              some: {
+                profile: {
+                  permissions: {
+                    some: {
+                      permission: { name: permissionName, active: true },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        ],
       },
     });
 
-    if (!userProfiles) return null;
-
-    const permission = await prismaDB.permission.findFirst({
-      where: {
-        name: permissionName,
-      },
-    });
-
-    if (!permission?.id) return null;
-
-    for (const userProfile of userProfiles) {
-      const profilePermission = await prismaDB.profilePermission.findFirst({
-        where: {
-          profileId: userProfile.profileId,
-          permissionId: permission.id,
-        },
-      });
-
-      if (profilePermission) return true;
-    }
-
-    return null;
+    return !!user;
   }
 }
 

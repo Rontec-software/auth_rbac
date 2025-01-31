@@ -1,4 +1,4 @@
-import ResponseApi from '@/data/model/ResponseApi';
+import ResponseApi from './model/ResponseApi';
 
 export async function apiRequest<TResponse, TBody = undefined>(
   baseUrl: string,
@@ -12,8 +12,8 @@ export async function apiRequest<TResponse, TBody = undefined>(
 ): Promise<ResponseApi<TResponse>> {
   const queryString = options?.query
     ? `?${new URLSearchParams(
-        options.query as Record<string, string>
-      ).toString()}`
+      options.query as Record<string, string>
+    ).toString()}`
     : '';
 
   const fullUrl = `${baseUrl}${path}${queryString}`;
@@ -32,6 +32,6 @@ export async function apiRequest<TResponse, TBody = undefined>(
     json: responseData || null,
     status: response.status,
     success: response.ok,
-    errors: responseData?.message ?? [],
+    errors: responseData?.errors ?? [],
   };
 }

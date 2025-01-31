@@ -1,9 +1,9 @@
-import { UsuarioForm } from '@/components/page/usuario/form/UsuarioForm';
+import { UsuarioForm } from '@/components/usuario/form/UsuarioForm';
 
 export default function EditarUsuario({
   params,
 }: {
   params: { edit: string };
 }) {
-  return <UsuarioForm edit={params.edit} />;
+  return <UsuarioForm edit={params?.edit} />;
 }

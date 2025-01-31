@@ -4,80 +4,158 @@ import { DataTable } from '@/components/shared/data-table/DataTable';
 import { IColumn } from '@/components/shared/data-table/DataTable.interface';
 import { InputSearch } from '@/components/shared/input-search/InputSeach';
 import Pagination from '@/components/shared/pagination/pagination';
-import { FormEvent, useState } from 'react';
+import useApi from '@/hooks/useApi';
+import { Edit, Trash2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
-interface IPermissionProfile {
-    id: number;
-    nome: string;
-    descricao?: string;
-    dataCriacao?: string;
-    ativo: boolean;
-    permissoes?: string[];
+import { FormEvent, useEffect, useState } from 'react';
+
+interface IPermission {
+  id: string;
+  name: string;
+  descrition: string;
+  active: boolean;
+  createdAt: string;
 }
-export default function PermissionsProfile() {
-    const [search, setSearch] = useState<string>('');
-    const handleSearcPermissionProfile = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
 
-        const formData = new FormData(e.currentTarget);
-        const searchPermissionProfile = formData.get('search');
+interface IProfilePermission {
+  profileId: string;
+  permissionId: string;
+  permission: IPermission;
+}
 
-        if (typeof searchPermissionProfile == 'string') {
-            setSearch(searchPermissionProfile);
-        }
-    };
+interface IProfile {
+  id: number;
+  name: string;
+  permissions: IProfilePermission[];
+  permissionsGroup?: string;
+  active: boolean;
+}
 
-    const handleReset = () => {
-        setSearch('');
-        console.log(search);
-    };
+export default function Page() {
+  const { httpGet, httpDel } = useApi();
+  const router = useRouter();
+  const [search, setSearch] = useState<string | null>(null);
+  const [pagination, setPagination] = useState({
+    total: 0,
+    page: 1,
+    totalPages: 1,
+  });
+  const [dataList, setDataList] = useState<IProfile[]>([]);
 
-    const columns: IColumn<IPermissionProfile>[] = [
-        { label: 'Nome', key: 'nome', align: 'left' },
-        { label: 'Descrição', key: 'descricao', align: 'left' },
-        {
-            label: 'Status',
-            key: 'ativo',
-            align: 'center',
-            customRender: (row) => (
-                <Chip
-                    label={row.ativo ? 'Ativo' : 'Inativo'}
-                    color={row.ativo ? 'bg-green-500' : 'bg-gray-500'}
-                />
-            ),
-        },
-    ];
+  const handleSearchProfile = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    const data: IPermissionProfile[] = [
-        {
-            id: 1,
-            nome: 'Pefil 1',
-            descricao: 'Descrição do Perfil 1',
-            ativo: true,
-        },
-        {
-            id: 2,
-            nome: 'Perfil 2',
-            descricao: 'Descrição do Perfil 2',
-            ativo: false,
-        },
-    ];
+    const formData = new FormData(e.currentTarget);
+    const searchProfile = formData.get('search');
 
-    return (
-        <div className="w-full h-full p-4">
-            <div className="flex items-center justify-center rounded-lg w-full pb-4">
-                <InputSearch
-                    label="Pesquisar Perfil"
-                    name="search"
-                    placeholder="Digite o nome do perfil"
-                    handleSearch={handleSearcPermissionProfile}
-                    handleReset={handleReset}
-                />
-            </div>
+    if (typeof searchProfile == 'string') {
+      setSearch(searchProfile);
+    }
+  };
 
-            <DataTable columns={columns} data={data} />
+  const handleReset = () => {
+    setSearch('');
+  };
 
-            <Pagination totalPages={10} onPageChange={(page) => console.log(page)} />
+  const columns: IColumn<IProfile>[] = [
+    { label: 'Nome do perfil', key: 'name', align: 'left' },
+    { label: 'Permissões', key: 'permissionsGroup', align: 'left' },
+    {
+      label: 'Status',
+      key: 'active',
+      align: 'center',
+      customRender: (row) => (
+        <Chip
+          label={row.active ? 'Ativo' : 'Inativo'}
+          color={row.active ? 'bg-green-500' : 'bg-gray-500'}
+        />
+      ),
+    },
+    {
+      label: 'Ações',
+      align: 'center',
+      customRender: (row) => (
+        <div className="flex items-center justify-center space-x-2">
+          <Edit
+            className="text-blue-500 cursor-pointer hover:text-blue-700 "
+            onClick={() => router.push(`/perfil-de-acesso/form/${row.id}`)}
+          />
+          <Trash2
+            className="text-red-500 cursor-pointer hover:text-red-700"
+            onClick={() => handleDeleteProfile(row.id)}
+          />
         </div>
-    );
+      ),
+    },
+  ];
+
+  const handleDeleteProfile = async (id: number) => {
+    const response = await httpDel(`profiles/${id}`);
+
+    if (response.success) {
+      alert('Perfil excluído com sucesso');
+      fetchProfiles();
+    }
+  };
+
+  const fetchProfiles = async (page = 1, limit = 10) => {
+    const queryParams: Record<string, any> = { page, limit };
+    if (search) {
+      queryParams.name = search;
+    }
+
+    const response = await httpGet<{
+      profiles: IProfile[];
+      total?: number;
+      page?: number;
+      totalPages: number;
+    }>('profiles', {
+      query: queryParams,
+    });
+
+    if (response.success) {
+      const list = response?.json?.profiles ?? []
+      const listProcess = list.map((profile) => {
+        const permissionsGroup = profile.permissions.map((perm) => perm.permission.name).join(', ');
+        return { ...profile, permissionsGroup };
+      })
+      setDataList(listProcess);
+      setPagination({
+        total: response?.json?.total ?? 0,
+        page: response?.json?.page ?? 0,
+        totalPages: response?.json?.totalPages ?? 0,
+      });
+    } else {
+      console.error(response);
+    }
+  };
+
+  const handlePageChange = (newPage: number) => {
+    fetchProfiles(newPage);
+  };
+
+  useEffect(() => {
+    fetchProfiles();
+  }, []);
+
+  return (
+    <div className="w-full h-full p-4">
+      <div className="flex items-center justify-center rounded-lg w-full pb-4">
+        <InputSearch
+          label="Pesquisar Perfil"
+          name="search"
+          placeholder="Buscar Perfis"
+          handleSearch={handleSearchProfile}
+          handleReset={handleReset}
+        />
+      </div>
+
+      <DataTable columns={columns} data={dataList} />
+      <Pagination
+        totalPages={pagination.totalPages}
+        onPageChange={handlePageChange}
+      />
+    </div>
+  );
 }

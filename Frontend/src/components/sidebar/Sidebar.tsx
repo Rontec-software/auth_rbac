@@ -32,22 +32,22 @@ export const Sidebar = () => {
         href: '/usuario/listar',
         icon: <List className="w-4 h-4" />,
       },
+      {
+        label: 'Editar',
+        href: '/usuario/editar',
+        icon: <Edit className="w-4 h-4" />,
+      },
     ],
     perfilAcesso: [
       {
         label: 'Adicionar',
-        href: '/perfil-de-acesso/adicionar',
+        href: '/perfil-de-acesso/form',
         icon: <Plus className="w-4 h-4" />,
       },
       {
         label: 'Listar',
         href: '/perfil-de-acesso/listar',
         icon: <List className="w-4 h-4" />,
-      },
-      {
-        label: 'Editar',
-        href: '/perfil-de-acesso/editar',
-        icon: <Edit className="w-4 h-4" />,
       },
     ],
     permissoes: [
@@ -60,11 +60,6 @@ export const Sidebar = () => {
         label: 'Listar',
         href: '/permissao/listar',
         icon: <List className="w-4 h-4" />,
-      },
-      {
-        label: 'Editar',
-        href: '/permissao/editar',
-        icon: <Edit className="w-4 h-4" />,
       },
     ],
     relatorios: [

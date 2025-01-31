@@ -1,34 +1,17 @@
-import ResponseApi from '@/data/model/ResponseApi';
-import { useAuth } from '@/hooks/useAuth';
 import { useSession } from '@/hooks/useSession';
 import { useCallback } from 'react';
+import ResponseApi from './model/ResponseApi';
 import { apiRequest } from './api';
+import { useAuth } from './useAuth';
 
-export function useApi() {
+export default function useApi<T>() {
+
   const baseUrl = process.env.NEXT_PUBLIC_API_URL!;
   const { getToken, clearToken } = useSession();
   const { setIsAuthenticated } = useAuth();
   const token = getToken();
 
-  const get = useCallback(
-    async <TResponse>(
-      path: string,
-      options?: { query?: Record<string, any> }
-    ): Promise<ResponseApi<TResponse>> => {
-      const response = await apiRequest<TResponse>(baseUrl, path, 'GET', {
-        ...options,
-        token,
-      });
-      if (response && response.status === 401) {
-        clearToken();
-        setIsAuthenticated(false);
-      }
-      return response;
-    },
-    [baseUrl, token]
-  );
-
-  const post = useCallback(
+  const httpPost = useCallback(
     async <TResponse, TBody>(
       path: string,
       body: TBody,
@@ -53,7 +36,25 @@ export function useApi() {
     [baseUrl, token]
   );
 
-  const put = useCallback(
+  const httpGet = useCallback(
+    async <TResponse>(
+      path: string,
+      options?: { query?: Record<string, any> }
+    ): Promise<ResponseApi<TResponse>> => {
+      const response = await apiRequest<TResponse>(baseUrl, path, 'GET', {
+        ...options,
+        token,
+      });
+      if (response && response.status === 401) {
+        clearToken();
+        setIsAuthenticated(false);
+      }
+      return response;
+    },
+    [baseUrl, token]
+  );
+
+  const httpPut = useCallback(
     async <TResponse, TBody>(
       path: string,
       body: TBody,
@@ -78,7 +79,7 @@ export function useApi() {
     [baseUrl, token]
   );
 
-  const patch = useCallback(
+  const httpPatch = useCallback(
     async <TResponse, TBody>(
       path: string,
       body: TBody,
@@ -103,7 +104,7 @@ export function useApi() {
     [baseUrl, token]
   );
 
-  const del = useCallback(
+  const httpDel = useCallback(
     async <TResponse>(
       path: string,
       options?: { query?: Record<string, any> }
@@ -121,5 +122,5 @@ export function useApi() {
     [baseUrl, token]
   );
 
-  return { get, post, put, patch, del };
+  return { httpPost, httpGet, httpPut, httpPatch, httpDel };
 }
