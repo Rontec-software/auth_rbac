@@ -3,6 +3,8 @@
 ## Links de apoio.
 - [Especificação do projeto de Autenticação e Autorização.](https://github.com/mentoriasdev/projetos-equipe-2)
 - [Figma](https://www.figma.com/design/SzFJ9f1wqCDXg1jUSeG7wl/S3curity?node-id=0-1&node-type=canvas&t=87Z4tBRKPSSONDrU-0)
+- [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
+- [nodemailer](https://mailtrap.io/)
 
 ## 1A - Rodar backend com sqlite
 ### 1. Acessar pasta do backend.
@@ -125,13 +127,14 @@ npm run dev
 ### 6. Acessar a página de login.
 - [Página de login](http://localhost:3000/login)
 
+## Usuários para teste
+### Administrador
+email: `administrador@email.com`
+senha: `123456`
 
-## Extensão para testar APIs pelo VSCODE
-- [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
-
-
-## Serviço de email gratuito
-- [nodemailer](https://mailtrap.io/)
+### Usuário padrão
+email: `usuariopadrao@email.com`
+senha: `123456`
 
 
 ### Observações
