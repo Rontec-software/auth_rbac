@@ -176,6 +176,18 @@ class UsersRepository {
       where,
       skip,
       take,
+      include: {
+        profiles: {
+          select: {
+            profile: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+      }
     });
   }
 

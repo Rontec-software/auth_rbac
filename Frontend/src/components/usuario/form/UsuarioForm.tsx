@@ -85,9 +85,11 @@ export const UsuarioForm = ({ edit }: { edit?: string }) => {
     } else {
       response = await httpPost<any, ISubmitUsuarioForm>('users/register', data);
     }
-    if ((response?.errors && response?.errors?.length > 0) || !response?.status)
-      return alert(response.errors);
-    alert(`Usuário ${edit ? 'atualizado' : 'criado'} com sucesso`);
+    if (response.success) {
+      alert(`Usuário ${edit ? 'atualizado' : 'criado'} com sucesso`);
+    } else {
+      return alert(response?.json?.message ?? "Não tem permissão para isso");
+    }
     router.push('/usuario/listar');
   };
 

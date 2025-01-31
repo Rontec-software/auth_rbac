@@ -66,8 +66,8 @@ class UsersController {
     try {
       const result = await this.userServices.getAllUsers({
         name: name as string | undefined,
-        page: Number(page),
-        limit: Number(limit),
+        page: page ? Number(page) : 1,
+        limit: limit ? Number(limit) : 10,
       });
       resp.status(200).json(result);
     } catch (error) {

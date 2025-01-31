@@ -15,6 +15,13 @@ interface IUser {
   name: string;
   email: string;
   active: boolean;
+  profilesGroup?: string;
+  profiles: {
+    profile: {
+      id: string;
+      name: string;
+    }
+  }[];
 }
 
 export default function User() {
@@ -46,6 +53,7 @@ export default function User() {
   const columns: IColumn<IUser>[] = [
     { label: 'Nome', key: 'name', align: 'left' },
     { label: 'Email', key: 'email', align: 'left' },
+    { label: 'Permissões', key: 'profilesGroup', align: 'left' },
     {
       label: 'Status',
       key: 'active',
@@ -100,7 +108,12 @@ export default function User() {
     });
 
     if (response.success && response.json) {
-      setData(response.json.users);
+      const list = response?.json?.users ?? []
+      const listProcess = list.map((user) => {
+        const profilesGroup = user.profiles.map((prof) => prof.profile.name).join(', ');
+        return { ...user, profilesGroup };
+      })
+      setData(listProcess);
       setPagination({
         total: response.json.total,
         page: response.json.page,

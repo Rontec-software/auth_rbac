@@ -120,7 +120,6 @@ export default function Page() {
         const permissionsGroup = profile.permissions.map((perm) => perm.permission.name).join(', ');
         return { ...profile, permissionsGroup };
       })
-      console.log(listProcess)
       setDataList(listProcess);
       setPagination({
         total: response?.json?.total ?? 0,

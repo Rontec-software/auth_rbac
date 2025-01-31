@@ -32,6 +32,11 @@ export const Sidebar = () => {
         href: '/usuario/listar',
         icon: <List className="w-4 h-4" />,
       },
+      {
+        label: 'Editar',
+        href: '/usuario/editar',
+        icon: <Edit className="w-4 h-4" />,
+      },
     ],
     perfilAcesso: [
       {

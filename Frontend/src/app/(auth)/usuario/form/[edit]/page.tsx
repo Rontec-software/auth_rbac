@@ -5,5 +5,5 @@ export default function EditarUsuario({
 }: {
   params: { edit: string };
 }) {
-  return <UsuarioForm edit={params.edit} />;
+  return <UsuarioForm edit={params?.edit} />;
 }
