@@ -4,7 +4,7 @@
 - [Especificação do projeto de Autenticação e Autorização.](https://github.com/mentoriasdev/projetos-equipe-2)
 - [Figma](https://www.figma.com/design/SzFJ9f1wqCDXg1jUSeG7wl/S3curity?node-id=0-1&node-type=canvas&t=87Z4tBRKPSSONDrU-0)
 - [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
-- [nodemailer](https://mailtrap.io/)
+- [mailtrap](https://mailtrap.io/)
 
 ## 1A - Rodar backend com sqlite
 ### 1. Acessar pasta do backend.
@@ -32,17 +32,17 @@ npm install
 npm run migrate
 ```
 
-### 6. Inserir dados default.
+### 6. Inserir dados default (OPCIONAL).
 ```sh
-npm run npm run seed
+npm run seed
 ```
 
-### 6. Rodar app em ambiente de desenvolvimento.
+### 7. Rodar app em ambiente de desenvolvimento.
 ```sh
 npm run dev
 ```
 
-### 7. Testar API.
+### 8. Testar API.
 ```sh
 curl --request GET --url http://localhost:3001/health
 ```
