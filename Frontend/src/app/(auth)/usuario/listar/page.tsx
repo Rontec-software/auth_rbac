@@ -53,7 +53,7 @@ export default function User() {
   const columns: IColumn<IUser>[] = [
     { label: 'Nome', key: 'name', align: 'left' },
     { label: 'Email', key: 'email', align: 'left' },
-    { label: 'Permissões', key: 'profilesGroup', align: 'left' },
+    { label: 'Perfis', key: 'profilesGroup', align: 'left' },
     {
       label: 'Status',
       key: 'active',
