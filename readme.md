@@ -1,5 +1,9 @@
 # Auth RBAC
 
+## Links de apoio.
+- [Especificação do projeto de Autenticação e Autorização.](https://github.com/mentoriasdev/projetos-equipe-2)
+- [Figma](https://www.figma.com/design/SzFJ9f1wqCDXg1jUSeG7wl/S3curity?node-id=0-1&node-type=canvas&t=87Z4tBRKPSSONDrU-0)
+
 ## Rodar backend com sqlite
 ### 1. Acessar pasta do backend.
 ```sh
